@@ -17,20 +17,24 @@ Route::get('/', function () {
 });
 
 // 首页路由开始
+
 // 后台首页
 Route::get('admin/index','Admin\IndexController@index');
 // 首页的欢迎页面
 Route::get('admin/welcome','Admin\IndexController@welcome');
+
 // 首页路由结束
 
 
 
 
 // 用户管理路由开始 
-Route::resource('admin/user','Admin\AdminController');
+Route::resource('admin/admin','Admin\AdminController');
 
 
 // 用户管理路由结束 
+
+
 
 
 

@@ -22,7 +22,7 @@
       </div>
       <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加用户','/admin/user/create',600,400)"><i class="layui-icon"></i>添加</button>
+        <button class="layui-btn" onclick="x_admin_show('添加用户','/admin/admin/create',600,400)"><i class="layui-icon"></i>添加</button>
         <!-- <button class="layui-btn" onclick="location.href='/admin/user/create'"><i class="layui-icon"></i>添加</button> -->
         <span class="x-right" style="line-height:40px">共有数据：88 条</span>
       </xblock>
@@ -35,13 +35,6 @@
             <th>ID</th>
             <th>用户名</th>
             <th>性别</th>
-            <th>
-              <img class="thumbnail captcha" src="{{ captcha_src() }}" onclick="this.src='/captcha/flat?'+Math.random()" title="点击图片重新获取验证码">
-            </th>
-  <!--           <th>手机</th>
-            <th>邮箱</th>
-            <th>地址</th>
-            <th>加入时间</th> -->
             <th>状态</th>
             <th>操作</th></tr>
         </thead>

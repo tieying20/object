@@ -33,7 +33,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="/admin/user">
+                        <a _href="/admin/admin">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>管理员列表</cite>
                         </a>

@@ -87,7 +87,7 @@
       
       // 表单验证，要用js，因为下面是ajax传值的
       
-      $.post('/admin/user',{'admin_name':admin_name,'admin_pwd':admin_pwd,'a_repwd':a_repwd,'role':role},function(data){
+      $.post('/admin/admin',{'admin_name':admin_name,'admin_pwd':admin_pwd,'a_repwd':a_repwd,'role':role},function(data){
         // console.log(data);
           if(data ==  1){
             layer.alert("添加失败", {icon: 4},function () {
@@ -99,7 +99,7 @@
                 var index = parent.layer.getFrameIndex(window.name);
                 //关闭当前frame
                 parent.layer.close(index);
-                window.parent.location.href='/admin/user';
+                window.parent.location.href='/admin/admin';
             });
           }
       });
