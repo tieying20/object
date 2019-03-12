@@ -35,6 +35,9 @@
             <th>ID</th>
             <th>用户名</th>
             <th>性别</th>
+            <th>
+              <img class="thumbnail captcha" src="{{ captcha_src() }}" onclick="this.src='/captcha/flat?'+Math.random()" title="点击图片重新获取验证码">
+            </th>
   <!--           <th>手机</th>
             <th>邮箱</th>
             <th>地址</th>
