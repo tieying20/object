@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
 use App\Models\Admin;
+use Hash;
 class AdminController extends Controller
 {
     /**
@@ -51,9 +52,9 @@ class AdminController extends Controller
         // $data = $request->only(['username','pass','role']);
 
         $admin = new Admin;
-        $admin->admin_name = $request->admin_name;
-        $admin->admin_pwd = $request->admin_pwd;
-        $admin->role = $request->role;
+        $admin->admin_name = $request->input('admin_name');
+        $admin->admin_pwd = Hash::make($request->input('admin_pwd'));
+        $admin->role = $request->input('role');
         $res = $admin->save();
 
         if($res){
@@ -90,7 +91,10 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        //
+        // 修改页面
+        $edit_data = Admin::find($id);
+        return view('/Admin/users/member-edit',['edit_data'=>$edit_data]);
+
     }
 
     /**

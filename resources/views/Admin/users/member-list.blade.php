@@ -35,6 +35,8 @@
             <th>ID</th>
             <th>用户名</th>
             <th>角色</th>
+            <th>创建时间</th>
+            <th>修改时间</th>
             <th>状态</th>
             <th>操作</th></tr>
         </thead>
@@ -55,21 +57,36 @@
                 超级管理员
               @endif
             </td>
+            <td>{{ $value['created_at'] }}</td>
+            <td>{{ $value['updated_at'] }}</td>
             <td class="td-status">
-              <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>
+                @if($value['status'] == '0')
+                    <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span>
+                @else
+                    <span class="layui-btn layui-btn-normal layui-btn-mini layui-btn-disabled">已停用</span>
+                @endif
+                
+            </td>
             <td class="td-manage">
-              <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
-                <i class="layui-icon">&#xe601;</i>
-              </a>
-              <a title="编辑"  onclick="x_admin_show('编辑','member-edit.html',600,400)" href="javascript:;">
-                <i class="layui-icon">&#xe642;</i>
-              </a>
-              <a onclick="x_admin_show('修改密码','member-password.html',600,400)" title="修改密码" href="javascript:;">
-                <i class="layui-icon">&#xe631;</i>
-              </a>
-              <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                <i class="layui-icon">&#xe640;</i>
-              </a>
+                @if($value['status'] == '0')
+                    <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
+                        <i class="layui-icon"></i>
+                    </a>
+                @else
+                    <a onclick="member_stop(this,'10001')" href="javascript:;" title="停用">
+                        <i class="layui-icon"></i>
+                    </a>
+                @endif
+                
+                <a title="编辑"  onclick="x_admin_show('编辑','/admin/admin/{{ $value['id'] }}/edit',600,400)" href="javascript:;">
+                    <i class="layui-icon">&#xe642;</i>
+                </a>
+                <a onclick="x_admin_show('修改密码','member-password.html',600,400)" title="修改密码" href="javascript:;">
+                    <i class="layui-icon">&#xe631;</i>
+                </a>
+                <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+                    <i class="layui-icon">&#xe640;</i>
+                </a>
             </td>
           </tr>
           @endforeach
@@ -125,7 +142,7 @@
                 $(obj).find('i').html('&#xe601;');
 
                 $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-                layer.msg('已启用!',{icon: 5,time:1000});
+                layer.msg('已启用!',{icon: 6,time:1000});
               }
               
           });

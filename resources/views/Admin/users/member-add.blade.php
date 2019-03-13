@@ -2,7 +2,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
   <body>
     <div class="x-body layui-anim layui-anim-up">
-        <form class="layui-form" onsubmit="return false">
+        <form class="layui-form">
          {{ csrf_field() }}
           <div class="layui-form-item">
               <label for="L_username" class="layui-form-label">
@@ -74,39 +74,42 @@
                 }
             }
         });
-    });
-
-    $.ajaxSetup({
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    $('.layui-btn').click(function(){
-        // 获取表单信息
-        admin_name = $('#L_username').val();
-        admin_pwd = $('#L_repass').val();
-        a_repwd = $('#L_pass').val();
-        role = $('#role').val();
-        // ajax传值
-        $.post('/admin/admin',{'admin_name':admin_name,'admin_pwd':admin_pwd,'a_repwd':a_repwd,'role':role},function(data){
-        // console.log(data);
-          if(data ==  1){
-            layer.alert("添加失败", {icon: 4},function () {
-              history.go(0);
+        //监听提交
+        form.on('submit(add)', function(data){
+            // console.log(data);
+            //发异步，把数据提交给php
+            $.ajaxSetup({
+                headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
             });
-          }else{
-            layer.alert("添加成功", {icon: 4},function () {
-                // 获得frame索引
-                var index = parent.layer.getFrameIndex(window.name);
-                // 关闭当前frame
-                parent.layer.close(index);
-                window.parent.location.href='/admin/admin';
+            // 获取表单信息
+            admin_name = $('#L_username').val();
+            admin_pwd = $('#L_repass').val();
+            a_repwd = $('#L_pass').val();
+            role = $('#role').val();
+            // ajax传值
+            $.post('/admin/admin',{'admin_name':admin_name,'admin_pwd':admin_pwd,'a_repwd':a_repwd,'role':role},function(data){
+                // console.log(data);
+                if(data ==  1){
+                    layer.alert("添加失败", {icon: 4},function () {
+                      history.go(0);
+                    });
+                }else{
+                    layer.alert("添加成功", {icon: 4},function () {
+                        // 获得frame索引
+                        var index = parent.layer.getFrameIndex(window.name);
+                        // 关闭当前frame
+                        parent.layer.close(index);
+                        window.parent.location.href='/admin/admin';
+                    });
+                }
             });
-          }
+            return false;
         });
-
     });
+
+    
         
 </script>
 
