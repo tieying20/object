@@ -57,8 +57,8 @@ Route::resource('admin/user','Admin\AdminController');
 // 前台首页
 Route::get('home/index','Home\IndexController@index');
 
-// 前台登录页面
-Route::get('home/login','Home\IndexController@login');
+// 前台用户
+Route::resource('user','UsersController');
 
-// 前台注册页面
-Route::get('home/register','Home\IndexController@register');
+// 前台登录页面
+Route::get('home/login','UsersController@login');

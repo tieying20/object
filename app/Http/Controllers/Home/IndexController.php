@@ -13,15 +13,5 @@ class IndexController extends Controller
         return view('Home/index/index');
     }
 
-    // 登录页面
-    public function login()
-    {
-        return view('Home/index/login');
-    }
-
-    // 注册页面
-    public function register()
-    {
-        return view('Home/index/register');
-    }
+    
 }
