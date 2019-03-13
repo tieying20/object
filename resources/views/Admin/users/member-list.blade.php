@@ -34,7 +34,7 @@
             </th>
             <th>ID</th>
             <th>用户名</th>
-            <th>性别</th>
+            <th>角色</th>
             <th>状态</th>
             <th>操作</th></tr>
         </thead>

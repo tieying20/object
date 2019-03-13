@@ -6,11 +6,11 @@
          {{ csrf_field() }}
           <div class="layui-form-item">
               <label for="L_username" class="layui-form-label">
-                  <span class="x-red">*</span>昵称
+                  <span class="x-red">*</span>账号
               </label>
               <div class="layui-input-inline">
                   <input type="text" id="L_username" name="username" required="" lay-verify="nikename"
-                  autocomplete="off" class="layui-input">
+                  autocomplete="off" class="layui-input" placeholder="5-16位,不能含有非法字符">
               </div>
           </div>
           <div class="layui-form-item">
@@ -19,10 +19,7 @@
               </label>
               <div class="layui-input-inline">
                   <input type="password" id="L_pass" name="pass" required="" lay-verify="pass"
-                  autocomplete="off" class="layui-input">
-              </div>
-              <div class="layui-form-mid layui-word-aux">
-                  6到16个字符
+                  autocomplete="off" class="layui-input" placeholder="5-16位,不能含有非法字符">
               </div>
           </div>
           <div class="layui-form-item">
@@ -31,7 +28,7 @@
               </label>
               <div class="layui-input-inline">
                   <input type="password" id="L_repass" name="repass" required="" lay-verify="repass"
-                  autocomplete="off" class="layui-input">
+                  autocomplete="off" class="layui-input" placeholder="重复输入密码">
               </div>
           </div>
           <div class="layui-form-item">
@@ -53,22 +50,31 @@
               </button>
           </div>
       </form>
-      <!-- <form action="" class="admin_add">
-          <div class="layui-form-item">
-              <label for="L_username" class="layui-form-label">
-                  <span class="x-red">*</span>昵称
-              </label>
-              <div class="layui-input-inline">
-                  <input type="text" id="uname" name="username" required="" lay-verify="nikename"
-                  autocomplete="off" class="layui-input">
-              </div>
-          </div>
-
-          <input type="submit" value="提交">
-      </form> -->
     </div>
 <script>
+    // 表单验证，要用js，因为下面是ajax传值的
+    layui.use('form', function(){
+        var form = layui.form;
+        form.verify({
+            nikename: [
+                /\w{5,16}/
+                ,'账号5-16位，由数字字母下划线组成'
+            ]
 
+            //我们既支持上述函数式的方式，也支持下述数组的形式
+            //数组的两个值分别代表：[正则匹配、匹配不符时的提示文字]
+            ,pass: [
+                /\w{6,16}/
+                ,'密码6-16位，由数字字母下划线组成'
+            ]
+
+            ,repass: function(value){
+                if($('#L_pass').val() != $('#L_repass').val()){
+                    return '两次密码不一致';
+                }
+            }
+        });
+    });
 
     $.ajaxSetup({
         headers: {
@@ -77,17 +83,13 @@
     });
 
     $('.layui-btn').click(function(){
-      admin_name = $('#L_username').val();
-      admin_pwd = $('#L_repass').val();
-      a_repwd = $('#L_pass').val();
-      role = $('#role').val();
-      // 表单验证，要用js，因为下面是ajax传值的
-    
-
-      
-      // 表单验证，要用js，因为下面是ajax传值的
-      
-      $.post('/admin/admin',{'admin_name':admin_name,'admin_pwd':admin_pwd,'a_repwd':a_repwd,'role':role},function(data){
+        // 获取表单信息
+        admin_name = $('#L_username').val();
+        admin_pwd = $('#L_repass').val();
+        a_repwd = $('#L_pass').val();
+        role = $('#role').val();
+        // ajax传值
+        $.post('/admin/admin',{'admin_name':admin_name,'admin_pwd':admin_pwd,'a_repwd':a_repwd,'role':role},function(data){
         // console.log(data);
           if(data ==  1){
             layer.alert("添加失败", {icon: 4},function () {
@@ -97,12 +99,12 @@
             layer.alert("添加成功", {icon: 4},function () {
                 // 获得frame索引
                 var index = parent.layer.getFrameIndex(window.name);
-                //关闭当前frame
+                // 关闭当前frame
                 parent.layer.close(index);
                 window.parent.location.href='/admin/admin';
             });
           }
-      });
+        });
 
     });
         
