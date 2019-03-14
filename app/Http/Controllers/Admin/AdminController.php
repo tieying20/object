@@ -14,12 +14,20 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $list = Admin::all();
-        // dump($list);
-        // 用户列表页
-        return view('/Admin/users/member-list',['list'=>$list]);
+        // 管理员列表页
+        $i = 1; // 序号
+        // 搜索的内容
+        $search = $request->input('search',false);
+        // 管理员人数
+        $a_num = Admin::count();
+        // dump($a_num);
+        // 显示条数
+        $count = $request->input('count',false);
+        $list = Admin::where('admin_name','like','%'.$search.'%')->paginate(5);
+        dump($request->currentPage());
+        return view('/Admin/admin/member-list',['list'=>$list,'i'=>$i,'search'=>$search,'count'=>$count,'a_num'=>$a_num]);
 
     }
 
@@ -31,7 +39,7 @@ class AdminController extends Controller
     public function create()
     {
         // 显示添加页面
-        return view('/Admin/users/member-add');
+        return view('/Admin/admin/member-add');
     }
 
     /**
@@ -43,9 +51,6 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         // 执行添加
-        
-        // 开启事务   
-        DB::beginTransaction();
 
         // $res = DB::table('admin')->insert($request->all());
 
@@ -56,17 +61,11 @@ class AdminController extends Controller
         $admin->admin_pwd = Hash::make($request->input('admin_pwd'));
         $admin->role = $request->input('role');
         $res = $admin->save();
-
         if($res){
             // 成功 
-            // 提交事务    
-            DB::commit();
-            //return $request->all();
             return 0;
         }else{
             // 失败
-            // 回滚事务   
-            DB::rollBack();
             return 1;
         }
 
@@ -93,7 +92,7 @@ class AdminController extends Controller
     {
         // 修改页面
         $edit_data = Admin::find($id);
-        return view('/Admin/users/member-edit',['edit_data'=>$edit_data]);
+        return view('/Admin/admin/member-edit',['edit_data'=>$edit_data]);
 
     }
 
@@ -106,7 +105,35 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // 执行修改
+        $admin = Admin::find($id);
+        // 输入的旧密码
+        $old_pwd = $request->input('admin_pwd');
+        if(isset($old_pwd)){
+            // 获取数据库密码
+            $sql_pwd = Admin::select(['admin_pwd'])->find($id)['admin_pwd'];
+            // 旧密码不正确，返回0
+            if(!Hash::check($old_pwd, $sql_pwd)){
+                return 0;
+            }
+            // 获取新密码
+            $new_pwd = Hash::make($request->input('a_repwd'));
+            // 更改密码
+            $admin->admin_pwd = $new_pwd;
+        }
+        
+        // 获取等级
+        $role = $request->input('role');
+        $admin->role = $role;
+        $res = $admin->save();
+        if($res){
+            // 成功 
+            return 1;
+        }else{
+            // 失败
+            return 2;
+        }
+
     }
 
     /**
@@ -117,6 +144,16 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // 删除管理员
+        $id = explode(',', $id);
+        // return $id;
+        $res = Admin::destroy($id);
+        if($res){
+            // 成功 
+            return 1;
+        }else{
+            // 失败
+            return 2;
+        }
     }
 }
