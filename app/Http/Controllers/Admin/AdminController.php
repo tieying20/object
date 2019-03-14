@@ -26,7 +26,6 @@ class AdminController extends Controller
         // 显示条数
         $count = $request->input('count',false);
         $list = Admin::where('admin_name','like','%'.$search.'%')->paginate(5);
-        dump($request->currentPage());
         return view('/Admin/admin/member-list',['list'=>$list,'i'=>$i,'search'=>$search,'count'=>$count,'a_num'=>$a_num]);
 
     }
