@@ -66,3 +66,40 @@ Route::get('home/login','Home\IndexController@login');
 
 // 前台注册页面
 Route::get('home/register','Home\IndexController@register');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 赞助商管理路由开始
+Route::resource('admin/sponsor','Admin\SponsorController');
+
+
+// 赞助商管理路由结束
