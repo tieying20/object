@@ -175,16 +175,31 @@
             <li>
                 <a href="javascript:;">
                     <i class="iconfont">&#xe6b4;</i>
-                    <cite>图标字体</cite>
+                    <cite>轮播图管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i>
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="unicode.html">
+                        <a _href="/admin/slideshow">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>图标对应字体</cite>
+                            <cite>轮播图列表</cite>
                         </a>
                     </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe723;</i>
+                    <cite>前台用户管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="/user">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>用户列表</cite>
+                        </a>
+                    </li >
                 </ul>
             </li>
         </ul>

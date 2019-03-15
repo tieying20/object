@@ -64,7 +64,7 @@
 			    <button type="button" class="layui-btn layui-btn-primary" id="commit">
 					  	<i class="layui-icon">&#xe67c;</i>确认提交
 					 </button>
-		  </div>  
+		  </div>
           <div class="layui-form-item">
               <label for="L_repass" class="layui-form-label">
               </label>
@@ -78,8 +78,7 @@
     	// 创建日历组建
     	layui.use('laydate', function(){
 	        var laydate = layui.laydate;
-	        
-	        //开始时间
+
 	        laydate.render({
 	          elem: '#start' //指定元素
 	        });
@@ -135,13 +134,13 @@
 				,error: function(index, upload)
 				{//请求异常回调
 		      		return layer.msg('上传失败,请重新上传');
-		      		
+
 		      	}
 			});
 		});
-    	
 
-        
+
+
         $('#submit').click(function(){
 
         	//要传的值
@@ -169,7 +168,6 @@
         			});
         		}
         	});
-        	
         });   
 
     </script>
