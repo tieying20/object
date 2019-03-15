@@ -99,6 +99,11 @@ Route::get('home/register','Home\IndexController@register');
 
 
 // 赞助商管理路由开始
+
+//图片上传路由
+Route::post('admin/upimg','Admin\SponsorController@upimg');
+
+
 Route::resource('admin/sponsor','Admin\SponsorController');
 
 // 赞助商管理路由结束

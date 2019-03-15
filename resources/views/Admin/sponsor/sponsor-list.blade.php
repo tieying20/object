@@ -50,7 +50,7 @@
             </td>
             <td>{{ $v['id'] }}</td>
             <td>{{ $v['s_company'] }}</td>
-            <td>{{ $v['img_path'] }}</td>
+            <td align="center"><img src="{{ $v['img_path'] }}" alt="" style="width:80px;height:50px;"></td>
             <td><a href="{{ $v['img_url'] }}" target="_blank">{{ $v['img_url'] }}</a></td>
             <td>{{ $v['start_at'] }}</td>
             <td>{{ $v['stop_at'] }}</td>

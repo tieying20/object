@@ -21,7 +21,7 @@
                   <span class="x-red">*</span>广告链接
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="url" name="url" required="" lay-verify="url" autocomplete="off" class="layui-input" id="url">
+                  <input type="text" id="url" name="url" required="" lay-verify="url" autocomplete="off" class="layui-input">
               </div>
                <div class="layui-form-mid layui-word-aux">
                   <span class="x-red">*</span>格式例如:http://www.laravel.com
@@ -53,6 +53,9 @@
 					 </button>
               	</div>
           </div>
+          <!-- 一同上传的的图片 -->
+          <input type="hidden" id="upimg">
+
 		  <div class="layui-form-item">
 			    <label for="time" class="layui-form-label">
 	                  浏览图
@@ -99,7 +102,7 @@
 
 			upload.render({
 				elem: '#img'
-				,url: '/admin/sponsor'
+				,url: '/admin/upimg'
 				,accept: 'images' //允许上传的文件类型
 				,size: 300 //最大允许上传的文件大小KB
 				,field:'photo'//设定文件域的字段名
@@ -113,17 +116,18 @@
 					obj.preview(function(index, file, result){
 					    $('#demo1').attr('src',result,'style','width:150px;height:150px;');
 					    console.log(file);
-					    console.log(index);
-					    console.log(result);
+					    // console.log(index);
+					    // console.log(result);
 				    });
 				    	    			
-    			}s
+    			}
 				,done: function(res, index, upload)
 				{ //上传后的回调
 					// layer.closeAll('loading'); //关闭loading
 					if(res.code == 0){ //上传成功
-              			console.log(res.path);
+              			console.log(res.file);
               			$('#commit').attr('disabled',true);
+              			$('#upimg').attr('value',res.file);
               			return layer.msg('上传成功');
 					}
 				}
@@ -145,9 +149,11 @@
         	start_at = $('#start').val();
         	stop_at = $('#stop').val();
         	img_url = $('#url').val();
+        	img_path = $('#upimg').val();
+        	// alert(img_path);
 
         	//执行ajax添加
-        	$.post('/admin/sponsor',{'s_company':s_company,'start_at':start_at,'stop_at':stop_at,'img_url':img_url},function(data){
+        	$.post('/admin/sponsor',{'s_company':s_company,'start_at':start_at,'stop_at':stop_at,'img_url':img_url,'img_path':img_path},function(data){
         		// console.log(data);
         		if(data ==  1){
 		            layer.alert("添加失败", {icon: 2},function () {
@@ -164,8 +170,7 @@
         		}
         	});
         	
-        });
-          
+        });   
 
     </script>
 
