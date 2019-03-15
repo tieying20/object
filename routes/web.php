@@ -24,7 +24,7 @@ Route::get('admin/index','Admin\IndexController@index');
 Route::get('admin/welcome','Admin\IndexController@welcome');
 
 
-// 管理员 
+// 管理员
 Route::resource('admin/admin','Admin\AdminController');
 Route::get('admin/admin/setStatus/{id}/{status}','Admin\AdminController@setStatus');
 
@@ -59,26 +59,21 @@ Route::resource('admin/slideshow','Admin\SlideshowController');
 Route::get('home/index','Home\IndexController@index');
 
 // 前台登录页面
-Route::get('home/login','Home\IndexController@login');
+Route::get('home/login','UsersController@login');
+
+// 处理登录
+Route::post('home/dologin','UsersController@dologin');
+
+// 前台用户
+Route::resource('user','UsersController');
+
+// 我的信息
+Route::get('userinfo/message','UserinfoController@message');
+// 个人中心
+Route::resource('userinfo','UserinfoController');
 
 // 前台注册页面
 Route::get('home/register','Home\IndexController@register');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -99,3 +94,5 @@ Route::get('home/register','Home\IndexController@register');
 Route::resource('admin/sponsor','Admin\SponsorController');
 
 // 赞助商管理路由结束
+
+

@@ -8,6 +8,11 @@
   <meta name="description" content="">
   <link rel="stylesheet" href="/home/res/layui/css/layui.css">
   <link rel="stylesheet" href="/home/res/css/global.css">
+  <script src="/home/res/layui/layui.all.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <script type="text/javascript" src="/bootstrap-3.3.7-dist/js/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -38,8 +43,9 @@
         <a href="/home/login/">登录</a>
       </li>
       <li class="layui-nav-item">
-        <a href="/home/register/">注册</a>
+        <a href="/user/create">注册</a>
       </li>
+
       <!-- <li class="layui-nav-item layui-hide-xs">
         <a href="/app/qq/" onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})" title="QQ登入" class="iconfont icon-qq"></a>
       </li>
