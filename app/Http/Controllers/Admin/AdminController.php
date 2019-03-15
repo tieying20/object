@@ -17,16 +17,19 @@ class AdminController extends Controller
     public function index(Request $request)
     {
         // 管理员列表页
-        $i = 1; // 序号
+
         // 搜索的内容
-        $search = $request->input('search',false);
-        // 管理员人数
-        $a_num = Admin::count();
-        // dump($a_num);
+        $search = $request->input('search','');
+
         // 显示条数
-        $count = $request->input('count',false);
-        $list = Admin::where('admin_name','like','%'.$search.'%')->paginate(5);
-        return view('/Admin/admin/member-list',['list'=>$list,'i'=>$i,'search'=>$search,'count'=>$count,'a_num'=>$a_num]);
+        $count = $request->input('count','5');
+        $list = Admin::where('admin_name','like','%'.$search.'%')->paginate($count);
+        // dump($list->currentPage());
+        // 每页首个序号
+        $firstItem = $list->firstItem();
+        // 序号
+        $i = 1;
+        return view('/Admin/admin/member-list',['list'=>$list,'i'=>$i,'search'=>$search,'count'=>$count,'firstItem'=>$firstItem]);
 
     }
 
@@ -61,7 +64,7 @@ class AdminController extends Controller
         $admin->role = $request->input('role');
         $res = $admin->save();
         if($res){
-            // 成功 
+            // 成功
             return 0;
         }else{
             // 失败
@@ -120,13 +123,13 @@ class AdminController extends Controller
             // 更改密码
             $admin->admin_pwd = $new_pwd;
         }
-        
+
         // 获取等级
         $role = $request->input('role');
         $admin->role = $role;
         $res = $admin->save();
         if($res){
-            // 成功 
+            // 成功
             return 1;
         }else{
             // 失败
@@ -148,11 +151,28 @@ class AdminController extends Controller
         // return $id;
         $res = Admin::destroy($id);
         if($res){
-            // 成功 
+            // 成功
             return 1;
         }else{
             // 失败
             return 2;
         }
+    }
+
+    public function setStatus(Request $request, $id, $status){
+        // 获取要修改状态的id
+        $admin = Admin::find($id);
+        $admin->status = $status;
+        $res = $admin->save();
+        // dump($admin);
+        // echo $status;
+        if($res){
+            // 成功
+            return 1;
+        }else{
+            // 失败
+            return 2;
+        }
+
     }
 }

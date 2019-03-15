@@ -23,16 +23,13 @@ Route::get('admin/index','Admin\IndexController@index');
 // 首页的欢迎页面
 Route::get('admin/welcome','Admin\IndexController@welcome');
 
-// 首页路由结束
 
-
-
-
-// 用户管理路由开始 
+// 管理员 
 Route::resource('admin/admin','Admin\AdminController');
+Route::get('admin/admin/setStatus/{id}/{status}','Admin\AdminController@setStatus');
 
-
-// 用户管理路由结束 
+// 轮播图
+Route::resource('admin/slideshow','Admin\SlideshowController');
 
 
 

@@ -66,7 +66,7 @@
     	// 开始时间和结束时间
     	layui.use('laydate', function(){
 	        var laydate = layui.laydate;
-	        
+
 	        //执行一个laydate实例
 	        laydate.render({
 	          elem: '#start' //指定元素
@@ -82,7 +82,7 @@
     	$.ajaxSetup({
            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
         });
-        
+
         $('#submit').click(function(){
 
         	//要传的值
@@ -109,9 +109,9 @@
         			});
         		}
         	});
-        	
+
         });
-          
+
 
     </script>
 

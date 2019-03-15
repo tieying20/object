@@ -18,22 +18,24 @@
           <input class="layui-input" placeholder="截止日" name="end" id="end"> -->
             <div class="layui-input-inline">
                 <select name="count">
+                {{--
                     <option value="5" {{ $count == 5 ? 'selected' : ''}}>显示5条</option>
                     <option value="10" {{ $count == 10 ? 'selected' : ''}}>显示10条</option>
                     <option value="15" {{ $count == 15 ? 'selected' : ''}}>显示15条</option>
                     <option value="20" {{ $count == 20 ? 'selected' : ''}}>显示20条</option>
+                --}}
                 </select>
             </div>
-            <input type="text" name="search" placeholder="请输入关键字" autocomplete="off" class="layui-input" style="width:200px" value="{{ $search }}">
+            <input type="text" name="search" placeholder="请输入关键字" autocomplete="off" class="layui-input" style="width:200px" value="{{-- $search --}}">
             <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
         </form>
       </div>
       <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加用户','/admin/admin/create',600,400)"><i class="layui-icon"></i>添加</button>
+        <button class="layui-btn" onclick="x_admin_show('添加用户','/admin/slideshow/create',600,400)"><i class="layui-icon"></i>添加</button>
         <!-- <button class="layui-btn" onclick="location.href='/admin/user/create'"><i class="layui-icon"></i>添加</button> -->
         <span class="x-right" style="line-height:40px">
-            共有数据：{{ $list->total() }}条
+            共有数据：{{-- @if($search) {{ $search }} @else {{ $count ? $count : $a_num}} @endif --}}条
         </span>
       </xblock>
       <table class="layui-table">
@@ -43,42 +45,30 @@
               <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
             </th>
             <th>序号</th>
-            <th>用户名</th>
-            <th>角色</th>
-            <th>创建时间</th>
-            <th>修改时间</th>
-            <th>状态</th>
+            <th>公司名称</th>
+            <th>图片缩略图</th>
+            <th>图片跳转链接</th>
+            <th>开始时间</th>
+            <th>结束时间</th>
             <th>操作</th></tr>
         </thead>
         <tbody>
 
         <!-- 单条会员列表开始 -->
-        @if(!empty($list[0]))
+        <!-- 这里要判断随意一个键是否为空 -->
+        @if(!empty($list['0']))
         @foreach($list as $key => $value)
             <tr>
                 <td>
                   <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='{{ $value['id'] }}'><i class="layui-icon">&#xe605;</i></div>
                 </td>
-                <td>{{ $firstItem++ }}</td>
+                <td>{{ $i++ }}</td>
                 <td>{{ $value['admin_name'] }}</td>
-                <td>
-                  @if($value['role'] == '0')
-                    普通管理员
-                  @else
-                    超级管理员
-                  @endif
-                </td>
+                <td>----</td>
                 <td>{{ $value['created_at'] }}</td>
                 <td>{{ $value['updated_at'] }}</td>
-                <td class="td-status">
-                    @if($value['status'] == '0')
-                        <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span>
-                    @else
-                        <span class="layui-btn layui-btn-normal layui-btn-mini layui-btn-disabled">已停用</span>
-                    @endif
-
-                </td>
-                <td class="td-manage">
+                <td class="td-status">---</td>
+                <td class="td-manage">{{--
                     @if($value['status'] == '0')
                         <a onclick="member_stop(this,'{{ $value['id'] }}')" href="javascript:;"  title="已启用">
                             <i class="layui-icon"></i>
@@ -87,7 +77,7 @@
                         <a onclick="member_stop(this,'{{ $value['id'] }}')" href="javascript:;" title="已停用">
                             <i class="layui-icon"></i>
                         </a>
-                    @endif
+                    @endif --}}
 
                     <a title="编辑"  onclick="x_admin_show('编辑','/admin/admin/{{ $value['id'] }}/edit',600,400)" href="javascript:;">
                         <i class="layui-icon">&#xe642;</i>
@@ -114,7 +104,7 @@
       <!-- 分页开始 -->
 
       <div class="page">
-        {{ $list->links() }}
+        {{-- $list->links() --}}
       </div>
       <!-- 分页结束 -->
 
