@@ -14,8 +14,8 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <form id="form_file" enctype="multipart/form-data">
-                    {{ csrf_field() }}
+               <!--  <form id="form_file" enctype="multipart/form-data">
+                    {{ csrf_field() }} -->
                     <label class="layui-form-label">
                         <span class="x-red">*</span>轮播图片
                     </label>
@@ -23,13 +23,13 @@
                         <a class="layui-btn layui-btn-normal">点击上传</a>
                     </label>
                     <input type="file" name="uploadFile" id="file_img" style="display: none" onchange="fileChange()">
-                </form>
+                <!-- </form> -->
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">
                 </label>
                 <label for="file_img">
-                    <img src="/admin/images/58932450111159197.jpg" style="width:100px; border: 2px solid #ccc">
+                    <img src="" style="width:100px; border: 2px solid #ccc" id="show_img">
                 </label>
             </div>
           <div class="layui-form-item">
@@ -37,7 +37,7 @@
                   <span class="x-red">*</span>跳转链接
               </label>
               <div class="layui-input-inline">
-                  <input type="password" id="L_repass" name="repass" required="" lay-verify="url"
+                  <input type="text" id="L_repass" name="img_url" required="" lay-verify="url"
                   autocomplete="off" class="layui-input" placeholder="跳转链接">
               </div>
           </div>
@@ -84,8 +84,9 @@
             async:true,
             processData: false, // 不限定数据类型，上传要加
             contentType: false, // 不转换数据类型，上传要加
-            success: function(data){
-                console.log(data);
+            success: function(path){
+                img_path = '/upload/' + path.slice(0,path.length-1);
+                $('#show_img').attr('src',img_path);
             }
         });
     };
@@ -126,27 +127,33 @@
 
         //监听提交
         form.on('submit(add)', function(data){
+            console.log(data.field);
+            var data = data.field;
+            $.ajax({
+                url: '/admin/slideshow',
+                type: 'post',
+                data: data,
+                async:true,
 
-            // 获取表单信息
-            // alert($('#start').val());
-            // alert($('#stop').val());
-            // ajax传值
-            // $.post('/admin/admin',{'admin_name':admin_name,'admin_pwd':admin_pwd,'a_repwd':a_repwd,'role':role},function(data){
-            //     // console.log(data);
-            //     if(data ==  1){
-            //         layer.alert("添加失败", {icon: 4},function () {
-            //           history.go(0);
-            //         });
-            //     }else{
-            //         layer.alert("添加成功", {icon: 4},function () {
-            //             // 获得frame索引
-            //             var index = parent.layer.getFrameIndex(window.name);
-            //             // 关闭当前frame
-            //             parent.layer.close(index);
-            //             window.parent.location.href='/admin/admin';
-            //         });
-            //     }
-            // });
+                success: function(res){
+                    // 1 成功
+                    // 2 失败
+                    if(res ==  1){
+                        layer.alert("添加成功", {icon: 4},function () {
+                            // 获得frame索引
+                            var index = parent.layer.getFrameIndex(window.name);
+                            // 关闭当前frame
+                            parent.layer.close(index);
+                            window.parent.location.href='/admin/admin';
+                        });
+                    }else{
+                        layer.alert("添加失败", {icon: 4},function () {
+                            history.go(0);
+                        });
+                    }
+                }
+        });
+
             return false;
         });
     });

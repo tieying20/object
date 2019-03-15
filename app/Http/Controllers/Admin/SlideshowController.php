@@ -39,15 +39,31 @@ class SlideshowController extends Controller
      */
     public function store(Request $request)
     {
+        // 图片上传部分
         // 判断有没有上传图片
         if($request->hasFile('uploadFile')){
             // 获取图片对象
             $file_img = $request->file('uploadFile');
             // 保存图片并返回图片名
-            $file_name = $profile->store('images');
-            return $file_name;
+            $file_name = $file_img->store('slide_img');
+            echo $file_name;
+        }
+
+        // 其余内容处理
+        dump($request->all());
+        $slideshow = new Slideshow;
+        $slideshow->s_company = $request->input('s_company','');
+        $slideshow->img_path = $request->input('s_company','');
+        $slideshow->img_url = $request->input('uploadFile','');
+        $slideshow->start_at = time($request->input('start_at',''));
+        $slideshow->stop_at = time($request->input('stop_at',''));
+        $res = $slideshow->save();
+        // 成功返回1
+        // 失败返回2
+        if($res){
+            return 1;
         }else{
-            return 'error';
+            return 2;
         }
 
     }
