@@ -57,8 +57,18 @@ Route::resource('admin/user','Admin\AdminController');
 // 前台首页
 Route::get('home/index','Home\IndexController@index');
 
+// 前台登录页面
+Route::get('home/login','UsersController@login');
+
+// 处理登录
+Route::post('home/dologin','UsersController@dologin');
+
 // 前台用户
 Route::resource('user','UsersController');
 
-// 前台登录页面
-Route::get('home/login','UsersController@login');
+// 我的信息
+Route::get('userinfo/message','UserinfoController@message');
+// 个人中心
+Route::resource('userinfo','UserinfoController');
+
+

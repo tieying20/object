@@ -1,4 +1,4 @@
-@include('Home/index/header');
+@include('Home/header')
 
 <div class="fly-panel fly-column">
   <div class="layui-container">

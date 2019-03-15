@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserStoreRequest;
 use App\Models\User;
+use App\Models\Userinfo;
 use DB;
 use Hash;
 
@@ -33,7 +34,7 @@ class UsersController extends Controller
     public function create()
     {
         // 注册页面
-        return view('Home/index/create');
+        return view('Home/create');
     }
 
     /**
@@ -57,15 +58,22 @@ class UsersController extends Controller
         $user->pwd = Hash::make($request->input('pwd',''));
         $user->phone = $request->input('phone','');
         $res = $user->save();
-        
-        if($res){
+
+        //接受的id 
+        $id = $user->id;
+        // 用户详情表
+        $userinfo = new Userinfo;
+        $userinfo->uid = $id;
+        $res2 = $userinfo->save();
+
+        if($res && $res2){
             // 提交事务
             DB::commit();
             echo '<script>alert("注册成功");location="/home/index"</script>';
         }else{
             // 回滚事务
             DB::rollBack();
-            return redirect('/user/create/')->with('error','注册失败');
+            return back('/user/create/')->with('error','注册失败');
         }
     }
 
@@ -117,7 +125,28 @@ class UsersController extends Controller
     // 登录页面
     public function login()
     {
-        return view('Home/index/login');
+        return view('Home/login');
     }
 
+    // 处理登录
+    public function dologin(Request $request)
+    {
+        // 获取登录的值
+        // dump($request->all());
+        $home_phone = $request->input('phone','');
+        $home_pwd = $request->input('pwd','');
+
+        $user = User::where('phone',$home_phone)->first();
+        $pwd = $user->pwd;
+        // dump($pwd);
+        
+        if(!Hash::check($home_pwd,$pwd)){
+            echo '密码不正确！';
+            // return back('/home/login/')->with('error','手机号或密码不正确！');
+            // echo '<script>alert("登录失败");location="/home/index"</script>';
+            exit;
+        }
+        // dump($pwd);
+        echo '<script>alert("登录成功");location="/home/index"</script>';
+    }
 }

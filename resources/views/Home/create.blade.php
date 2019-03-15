@@ -1,4 +1,4 @@
-@include('Home/index/header')
+@include('Home/header')
 
 <!-- 显示错误 信息 开始 -->
 @if (count($errors) > 0)
@@ -22,12 +22,12 @@
       <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
         <div class="layui-tab-item layui-show">
           <div class="layui-form layui-form-pane">
-            <form method="post" action="/home/user">
+            <form method="post" action="/user">
               {{ csrf_field() }}
               <div class="layui-form-item">
                 <label for="L_email" class="layui-form-label">昵称</label>
                 <div class="layui-input-inline">
-                  <input type="text" id="L_name" name="u_name" required lay-verify="email" autocomplete="off" class="layui-input" value="{{ old('u_name') }}">
+                  <input type="text" id="L_name" name="u_name" required lay-verify="u_name" autocomplete="off" class="layui-input" value="{{ old('u_name') }}">
                 </div>
               </div>
               <div class="layui-form-item">
