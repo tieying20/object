@@ -47,12 +47,21 @@
               <label for="url" class="layui-form-label">
                   <span class="x-red">*</span>广告展示
               </label>
-              <div class="layui-input-inline">
-                 <button type="button" class="layui-btn layui-btn-primary" id="img">
-				  <i class="layui-icon">&#xe67c;</i>上传图片
-				</button>
-              </div>
+                 <div class="layui-input-inline">
+	                 <button type="button" class="layui-btn layui-btn-primary" id="img">
+					 	选择文件
+					 </button>
+              	</div>
           </div>
+		  <div class="layui-form-item">
+			    <label for="time" class="layui-form-label">
+	                  浏览图
+	            </label>
+			    <img class="layui-upload" id="demo1" style="width:190px;height:150px; ">
+			    <button type="button" class="layui-btn layui-btn-primary" id="commit">
+					  	<i class="layui-icon">&#xe67c;</i>确认提交
+					 </button>
+		  </div>  
           <div class="layui-form-item">
               <label for="L_repass" class="layui-form-label">
               </label>
@@ -63,31 +72,76 @@
       </form>
     </div>
     <script>
-    	// 开始时间和结束时间
+    	// 创建日历组建
     	layui.use('laydate', function(){
 	        var laydate = layui.laydate;
 	        
-	        //执行一个laydate实例
+	        //开始时间
 	        laydate.render({
 	          elem: '#start' //指定元素
 	        });
 
-	        //执行一个laydate实例
+	        //到期时间
 	        laydate.render({
 	          elem: '#stop' //指定元素
 	        });
       	});
 
-    	//
+
     	$.ajaxSetup({
            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
         });
+
+
+    	//创建一个上传组件
+    	layui.use('upload', function(){
+	    	var upload = layui.upload;
+
+			upload.render({
+				elem: '#img'
+				,url: '/admin/sponsor'
+				,accept: 'images' //允许上传的文件类型
+				,size: 300 //最大允许上传的文件大小KB
+				,field:'photo'//设定文件域的字段名
+				,auto: false //选择文件后不自动上传
+  				,bindAction: '#commit' //指向添加
+  				,headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            	}
+				,choose: function(obj)
+				{//在文件被选择后触发,预览图片
+					obj.preview(function(index, file, result){
+					    $('#demo1').attr('src',result,'style','width:150px;height:150px;');
+					    console.log(file);
+					    console.log(index);
+					    console.log(result);
+				    });
+				    	    			
+    			}s
+				,done: function(res, index, upload)
+				{ //上传后的回调
+					// layer.closeAll('loading'); //关闭loading
+					if(res.code == 0){ //上传成功
+              			console.log(res.path);
+              			$('#commit').attr('disabled',true);
+              			return layer.msg('上传成功');
+					}
+				}
+				//,……
+				,error: function(index, upload)
+				{//请求异常回调
+		      		return layer.msg('上传失败,请重新上传');
+		      		
+		      	}
+			});
+		});
+    	
+
         
         $('#submit').click(function(){
 
         	//要传的值
         	s_company = $('#username').val();
-        	// img_path = $('#img').val();
         	start_at = $('#start').val();
         	stop_at = $('#stop').val();
         	img_url = $('#url').val();
