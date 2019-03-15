@@ -98,5 +98,4 @@ Route::get('home/register','Home\IndexController@register');
 // 赞助商管理路由开始
 Route::resource('admin/sponsor','Admin\SponsorController');
 
-
 // 赞助商管理路由结束
