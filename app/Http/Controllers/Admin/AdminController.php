@@ -148,7 +148,6 @@ class AdminController extends Controller
     {
         // 删除管理员
         $id = explode(',', $id);
-        // return $id;
         $res = Admin::destroy($id);
         if($res){
             // 成功

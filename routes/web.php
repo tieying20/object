@@ -93,11 +93,19 @@ Route::get('home/register','Home\IndexController@register');
 // 赞助商管理路由开始
 
 //图片上传路由
-Route::post('admin/upimg','Admin\SponsorController@upimg');
-
+Route::post('admin/upimg','Admin\SponsorController@Upimg');
+//投放状态
+Route::get('admin/sponsor/status/{id}/{status}','Admin\SponsorController@Status');
 
 Route::resource('admin/sponsor','Admin\SponsorController');
 
 // 赞助商管理路由结束
+
+//友情链接路由开始
+//投放状态
+Route::get('admin/link/status/{id}/{status}','Admin\linkController@Status');
+
+Route::resource('admin/link','Admin\linkController');
+//友情链接路由结束
 
 
