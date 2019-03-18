@@ -30,7 +30,7 @@ Route::get('admin/admin/setStatus/{id}/{status}','Admin\AdminController@setStatu
 
 // 轮播图
 Route::resource('admin/slideshow','Admin\SlideshowController');
-
+Route::post('admin/file_img','Admin\SlideshowController@file_img');
 
 
 

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use DB;
 use App\Models\Admin;
 use Hash;
 class AdminController extends Controller
@@ -27,9 +26,7 @@ class AdminController extends Controller
         // dump($list->currentPage());
         // 每页首个序号
         $firstItem = $list->firstItem();
-        // 序号
-        $i = 1;
-        return view('/Admin/admin/member-list',['list'=>$list,'i'=>$i,'search'=>$search,'count'=>$count,'firstItem'=>$firstItem]);
+        return view('/Admin/admin/member-list',['list'=>$list,'search'=>$search,'count'=>$count,'firstItem'=>$firstItem]);
 
     }
 
@@ -53,11 +50,6 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         // 执行添加
-
-        // $res = DB::table('admin')->insert($request->all());
-
-        // $data = $request->only(['username','pass','role']);
-
         $admin = new Admin;
         $admin->admin_name = $request->input('admin_name');
         $admin->admin_pwd = Hash::make($request->input('admin_pwd'));

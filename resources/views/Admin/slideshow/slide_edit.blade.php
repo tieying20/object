@@ -5,71 +5,124 @@
          {{ csrf_field() }}
          {{ method_field('PUT') }}
           <div class="layui-form-item">
-              <label for="L_username" class="layui-form-label">
-                  账号
-              </label>
-              <div class="layui-input-inline">
-                  <input type="text" id="L_username" name="username" required="" lay-verify="nikename"
-                  autocomplete="off" class="layui-input" placeholder="5-16位,不能含有非法字符" value="{{ $edit_data['admin_name'] }}" disabled="disabled">
-              </div>
-          </div>
-          <div class="layui-form-item">
-              <label for="L_pass" class="layui-form-label">
-                  <!-- <span class="x-red">*</span> -->旧密码
-              </label>
-              <div class="layui-input-inline">
-                  <input type="password" id="L_pass" name="pass" required="" lay-verify="pass"
-                  autocomplete="off" class="layui-input" placeholder="旧密码">
-              </div>
-              <div class="layui-form-mid layui-word-aux">
-                  <span class="x-red">*</span>需要更改密码时填写
-              </div>
-          </div>
+                <label for="s_company" class="layui-form-label">
+                    <span class="x-red">*</span>公司名称
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="s_company" name="s_company" required="" lay-verify="required" autocomplete="off" class="layui-input" value="{{ $data['s_company'] }}">
+                </div>
+            </div>
+            <div class="layui-form-item">
+               <!--  <form id="form_file" enctype="multipart/form-data">
+                    {{ csrf_field() }} -->
+                    <label class="layui-form-label">
+                        <span class="x-red">*</span>轮播图片
+                    </label>
+                    <label for="file_img">
+                        <a class="layui-btn layui-btn-normal">点击修改</a>
+                    </label>
+            <script>
+                /* 修改图片的操作 */
+                function fileChange(){
+                        old_img = $('#show_img').attr('src');
+                        console.log(old_img);
+                        var pic = $('#file_img')[0].files[0];
+                        var fd = new FormData();
+                        fd.append('uploadFile', pic);
+                        fd.append('oldfile', old_img);
+                        $.ajaxSetup({
+                            headers: {
+                              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        $.ajax({
+                            url: '/admin/file_img',
+                            type: 'post',
+                            data: fd,
+                            async:true,
+                            processData: false, // 不限定数据类型，上传要加
+                            contentType: false, // 不转换数据类型，上传要加
+                            success: function(path){
+                                // alert(path);
+                                img_path = '/upload/' + path;
+                                $('#show_img').attr('src',img_path);
+                            }
+                        });
+                    }
+            </script>
+                    <input type="file" name="uploadFile" id="file_img" style="display: none" onchange="fileChange();">
+                <!-- </form> -->
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                </label>
+                <label for="file_img">
+                    <img src="{{ $data['img_path'] }}" style="width:100px; border: 2px solid #ccc" id="show_img">
+                </label>
+            </div>
           <div class="layui-form-item">
               <label for="L_repass" class="layui-form-label">
-                  <!-- <span class="x-red">*</span> -->新密码
+                  <span class="x-red">*</span>跳转链接
               </label>
               <div class="layui-input-inline">
-                  <input type="password" id="L_repass" name="repass" required="" lay-verify="repass"
-                  autocomplete="off" class="layui-input" placeholder="5-16位,不能含有非法字符">
-              </div>
-              <div class="layui-form-mid layui-word-aux">
-                  <span class="x-red">*</span>需要更改密码时填写
+                  <input type="text" id="L_repass" name="img_url" required="" lay-verify="url"
+                  autocomplete="off" class="layui-input" placeholder="跳转链接" value="{{ $data['img_url'] }}">
               </div>
           </div>
           <div class="layui-form-item">
-              <label for="role" class="layui-form-label">
-                  <span class="x-red">*</span>管理员角色
+              <label for="start" class="layui-form-label">
+                  <span class="x-red">*</span>开始时间
               </label>
               <div class="layui-input-inline">
-                  <select name="role" id="role">
-                    <option value="0" {{ $edit_data['role'] == '0' ? 'selected' : '' }}>普通管理员</option>
-                    <option value="1" {{ $edit_data['role'] == '1' ? 'selected' : '' }}>超级管理员</option>
-                  </select>
-              </div>
+                    <input type="text" class="layui-input" name="start_at" id="start" value="" autocomplete="off" lay-verify="required">
+                </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="stop" class="layui-form-label">
+                  <span class="x-red">*</span>结束时间
+              </label>
+              <div class="layui-input-inline">
+                    <input type="text" class="layui-input" name="stop_at" id="stop" value="" autocomplete="off" lay-verify="required">
+                </div>
           </div>
           <div class="layui-form-item">
               <label for="" class="layui-form-label">
               </label>
               <button  class="layui-btn" lay-filter="add" lay-submit="">
-                  增加
+                  提交
               </button>
           </div>
       </form>
     </div>
 <script>
+
     // 表单验证，要用js，因为下面是ajax传值的
-    layui.use('form', function(){
+    layui.use(['form','laydate'], function(){
         var form = layui.form;
-        // form.verify({
-        //     repass: [
-        //         /\w{6,16}/
-        //         ,'密码6-16位，由数字字母下划线组成'
-        //     ]
-        // });
+
+        //日期
+        var laydate = layui.laydate;
+        laydate.render({
+            elem: '#start',
+            type: 'datetime',
+            value: '{{ $data['start_at'] }}', //必须遵循format参数设定的格式
+            done: function(date){
+                // console.log(date); //得到初始的日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
+                $('#start').val(date);
+              }
+        });
+        laydate.render({
+            elem: '#stop',
+            type: 'datetime',
+            value: '{{ $data['stop_at'] }}', //必须遵循format参数设定的格式
+            done: function(date){
+                // console.log(date); //得到初始的日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
+                $('#stop').val(date);
+              }
+        });
+
         //监听提交
         form.on('submit(add)', function(res){
-            // console.log(data);
             //发异步，把数据提交给php
             $.ajaxSetup({
                 headers: {
@@ -77,37 +130,40 @@
                 }
             });
             // 获取表单信息
-            admin_name = $('#L_username').val();
-            admin_pwd = $('#L_pass').val();
-            a_repwd = $('#L_repass').val();
-            role = $('#role').val();
+            res.field.img_path = $('#show_img').attr('src');
+            console.log(res.field);
 
             // ajax传值
-            $.ajax({url:'/admin/admin/{{ $edit_data['id'] }}',data:{admin_pwd:admin_pwd,a_repwd:a_repwd,role:role},type:'PUT',async:true,success:function(result){
-                console.log(result);
-                // 0 旧密码不对
-                // 1 修改成功
-                // 2 修改失败
-                if(result ==  0){
-                    layer.alert("旧密码不对", {icon: 4});
-                }else if(result == 1){
-                    layer.alert("修改成功", {icon: 4},function () {
-                        // 获得frame索引
-                        var index = parent.layer.getFrameIndex(window.name);
-                        // 关闭当前frame
-                        parent.layer.close(index);
-                        window.parent.location.href='/admin/admin';
-                    });
-                }else{
-                    layer.alert("修改失败", {icon: 4});
+            $.ajax({
+                url:'/admin/slideshow/{{ $data['id'] }}',
+                data:res.field,
+                type:'PUT',
+                async:true,
+                success:function(result){
+                    console.log(result);
+                    // 1 成功
+                    // 2 失败
+                    if(result ==  1){
+                        layer.alert("编辑成功", {icon: 4},function () {
+                            // 获得frame索引
+                            var index = parent.layer.getFrameIndex(window.name);
+                            // 关闭当前frame
+                            parent.layer.close(index);
+                            window.parent.location.href='/admin/slideshow';
+                        });
+                    }else{
+                        layer.alert("编辑失败", {icon: 4},function () {
+                            history.go(0);
+                        });
+                    }
                 }
-            }});
+            });
             return false;
         });
     });
 
-    
-        
+
+
 </script>
 
   </body>

@@ -9,7 +9,7 @@
                     <span class="x-red">*</span>公司名称
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="s_company" name="s_company" required="" lay-verify="s_company"
+                    <input type="text" id="s_company" name="s_company" required="" lay-verify="required"
                   autocomplete="off" class="layui-input" placeholder="">
                 </div>
             </div>
@@ -46,7 +46,7 @@
                   <span class="x-red">*</span>开始时间
               </label>
               <div class="layui-input-inline">
-                    <input type="text" class="layui-input" name="start_at" id="start" value="">
+                    <input type="text" class="layui-input" name="start_at" id="start" value="" autocomplete="off" lay-verify="required">
                 </div>
           </div>
           <div class="layui-form-item">
@@ -54,7 +54,7 @@
                   <span class="x-red">*</span>结束时间
               </label>
               <div class="layui-input-inline">
-                    <input type="text" class="layui-input" name="stop_at" id="stop" value="">
+                    <input type="text" class="layui-input" name="stop_at" id="stop" value="" autocomplete="off" lay-verify="required">
                 </div>
           </div>
           <div class="layui-form-item">
@@ -78,19 +78,18 @@
         var fd = new FormData();
         fd.append('uploadFile', pic);
         $.ajax({
-            url: '/admin/slideshow',
+            url: '/admin/file_img',
             type: 'post',
             data: fd,
             async:true,
             processData: false, // 不限定数据类型，上传要加
             contentType: false, // 不转换数据类型，上传要加
             success: function(path){
-                img_path = '/upload/' + path.slice(0,path.length-1);
+                img_path = '/upload/' + path;
                 $('#show_img').attr('src',img_path);
             }
         });
     };
-
 
     layui.use(['form','laydate'], function(){
         var form = layui.form;
@@ -100,7 +99,7 @@
             elem: '#start',
             type: 'datetime',
             done: function(date){
-                console.log(date); //得到初始的日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
+                // console.log(date); //得到初始的日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
                 $('#start').val(date);
               }
         });
@@ -108,33 +107,22 @@
             elem: '#stop',
             type: 'datetime',
             done: function(date){
-                console.log(date); //得到初始的日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
+                // console.log(date); //得到初始的日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
                 $('#stop').val(date);
               }
         });
-        // 表单验证
-        form.verify({
-            nikename: [
-                /\w{5,16}/
-                ,'账号5-16位，由数字字母下划线组成'
-            ]
-            ,repass: function(value){
-                if($('#L_pass').val() != $('#L_repass').val()){
-                    return '两次密码不一致';
-                }
-            }
-        });
+
 
         //监听提交
         form.on('submit(add)', function(data){
-            console.log(data.field);
+            // console.log(data.field);
             var data = data.field;
+            data['img_path'] = $('#show_img').attr('src');
             $.ajax({
                 url: '/admin/slideshow',
                 type: 'post',
                 data: data,
                 async:true,
-
                 success: function(res){
                     // 1 成功
                     // 2 失败
@@ -144,7 +132,7 @@
                             var index = parent.layer.getFrameIndex(window.name);
                             // 关闭当前frame
                             parent.layer.close(index);
-                            window.parent.location.href='/admin/admin';
+                            window.parent.location.href='/admin/slideshow';
                         });
                     }else{
                         layer.alert("添加失败", {icon: 4},function () {
