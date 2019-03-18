@@ -53,8 +53,8 @@ class SlideshowController extends Controller
         $slideshow->s_company = $request->input('s_company');
         $slideshow->img_path = $request->input('img_path');
         $slideshow->img_url = $request->input('img_url');
-        $slideshow->start_at = $request->input('start_at');
-        $slideshow->stop_at = $request->input('stop_at');
+        $slideshow->start_at = strtotime($request->input('start_at'));
+        $slideshow->stop_at = strtotime($request->input('stop_at'));
         $res = $slideshow->save();
         // 成功返回1
         // 失败返回2
@@ -101,12 +101,14 @@ class SlideshowController extends Controller
     {
         // 执行编辑操作
         // dump($request->all());
+        // dump(strtotime($request->input('start_at')));
+        // dump(strtotime($request->input('stop_at')));
         $slideshow = Slideshow::find($id);
         $slideshow->s_company = $request->input('s_company');
         $slideshow->img_path = $request->input('img_path');
         $slideshow->img_url = $request->input('img_url');
-        $slideshow->start_at = $request->input('start_at');
-        $slideshow->stop_at = $request->input('stop_at');
+        $slideshow->start_at = strtotime($request->input('start_at'));
+        $slideshow->stop_at = strtotime($request->input('stop_at'));
         $res = $slideshow->save();
         // 成功返回1
         // 失败返回2

@@ -1,7 +1,9 @@
 @include('Home/header')
 
 <!-- 显示错误 信息 开始 -->
-
+<link rel="stylesheet" type="text/css" href="/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+<script type="text/javascript" src="/bootstrap-3.3.7-dist/js/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 @if (count($errors) > 0)
     <div class="alert alert-danger">
         <ul>
@@ -46,7 +48,7 @@
                 <div class="layui-form-mid">
                   <!-- <span style="color: #c00;">{{-- d.vercode --}}</span> -->
                 <!-- </div> -->
-              <!-- </div> --> 
+              <!-- </div> -->
               <div class="layui-form-item">
                 <button class="layui-btn" lay-filter="*" lay-submit>立即登录</button>
                 <span style="padding-left:20px;">

@@ -1,5 +1,7 @@
 @include('Home/header')
-
+<link rel="stylesheet" type="text/css" href="/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+<script type="text/javascript" src="/bootstrap-3.3.7-dist/js/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <!-- 显示错误 信息 开始 -->
 @if (count($errors) > 0)
     <div class="alert alert-danger">
@@ -11,6 +13,7 @@
     </div>
 @endif
 <!-- 显示错误 信息 结束 -->
+
 
 <div class="layui-container fly-marginTop">
   <div class="fly-panel fly-panel-user" pad20>

@@ -105,7 +105,7 @@
         laydate.render({
             elem: '#start',
             type: 'datetime',
-            value: '{{ $data['start_at'] }}', //必须遵循format参数设定的格式
+            value: '{{ date('Y-m-d H:i:s',$data['start_at']) }}', //必须遵循format参数设定的格式
             done: function(date){
                 // console.log(date); //得到初始的日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
                 $('#start').val(date);
@@ -114,14 +114,14 @@
         laydate.render({
             elem: '#stop',
             type: 'datetime',
-            value: '{{ $data['stop_at'] }}', //必须遵循format参数设定的格式
+            value: '{{ date('Y-m-d H:i:s',$data['stop_at']) }}', //必须遵循format参数设定的格式
             done: function(date){
                 // console.log(date); //得到初始的日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
                 $('#stop').val(date);
               }
         });
 
-        //监听提交
+        //监听提交  修改
         form.on('submit(add)', function(res){
             //发异步，把数据提交给php
             $.ajaxSetup({
@@ -132,7 +132,7 @@
             // 获取表单信息
             res.field.img_path = $('#show_img').attr('src');
             console.log(res.field);
-
+            // 修改
             // ajax传值
             $.ajax({
                 url:'/admin/slideshow/{{ $data['id'] }}',

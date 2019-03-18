@@ -70,8 +70,8 @@
                 <td>
                     <a href="{{ $value['img_url'] }}" target="_blank">{{ $value['img_url'] }}</a>
                 </td>
-                <td>{{ $value['start_at'] }}</td>
-                <td class="td-status">{{ $value['stop_at'] }}</td>
+                <td>{{ date('Y-m-d H:i:s',$value['start_at']) }}</td>
+                <td class="td-status">{{ date('Y-m-d H:i:s',$value['stop_at']) }}</td>
                 <td class="td-manage">
                     <a title="编辑"  onclick="x_admin_show('编辑','/admin/slideshow/{{ $value['id'] }}/edit',600,400)" href="javascript:;">
                         <i class="layui-icon">&#xe642;</i>
