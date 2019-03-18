@@ -68,7 +68,8 @@ Route::post('home/dologin','UsersController@dologin');
 Route::resource('user','UsersController');
 
 // 我的信息
-Route::get('userinfo/message','UserinfoController@message');
+Route::get('userinfo/message/{id}','UserinfoController@message');
+
 // 个人中心
 Route::resource('userinfo','UserinfoController');
 

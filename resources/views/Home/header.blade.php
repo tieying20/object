@@ -37,7 +37,7 @@
       
       <!-- 未登入的状态 -->
       <li class="layui-nav-item">
-        <a class="iconfont icon-touxiang layui-hide-xs" href="user/login.html"></a>
+        <a class="iconfont icon-touxiang layui-hide-xs" href="/userinfo/show"></a>
       </li>
       <li class="layui-nav-item">
         <a href="/home/login/">登录</a>
