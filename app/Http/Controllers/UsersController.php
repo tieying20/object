@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserinfoStoreRequest;
 use App\Models\User;
 use App\Models\Userinfo;
 use DB;
 use Hash;
+use Auth;
 
 class UsersController extends Controller
 {
@@ -69,6 +71,7 @@ class UsersController extends Controller
         if($res && $res2){
             // 提交事务
             DB::commit();
+            // return redirect('/home/index');
             echo '<script>alert("注册成功");location="/home/index"</script>';
         }else{
             // 回滚事务
@@ -138,15 +141,21 @@ class UsersController extends Controller
 
         $user = User::where('phone',$home_phone)->first();
         $pwd = $user->pwd;
+        // $phone = $user->phone;
         // dump($pwd);
         
         if(!Hash::check($home_pwd,$pwd)){
-            echo '密码不正确！';
-            // return back('/home/login/')->with('error','手机号或密码不正确！');
+            $i = '密码不正确！';
+            // echo $i;
+            // return back('/home/login')->with('message', '用户名或密码错误');
+            return redirect('/home/login/');
             // echo '<script>alert("登录失败");location="/home/index"</script>';
-            exit;
+            // exit;
         }
         // dump($pwd);
         echo '<script>alert("登录成功");location="/home/index"</script>';
+
+            
+            
     }
 }

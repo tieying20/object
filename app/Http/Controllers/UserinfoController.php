@@ -69,7 +69,11 @@ class UserinfoController extends Controller
      */
     public function edit($id)
     {
-        //
+        // 后台显示前台用户详情
+        $user = User::find($id);
+        // dump($user);
+        dump($user->userinfo);
+        return view('Admin/users/userinfo',['user'=>$user]);
     }
 
     /**
@@ -95,11 +99,12 @@ class UserinfoController extends Controller
         //
     }
 
-    public function message()
+    public function message($id)
     {
         // 我的信息
         // $user = User::find(16);
 
         return view('/Home/my_message');
     }
+
 }

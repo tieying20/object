@@ -12,7 +12,7 @@
           用户中心
         </a>
       </li>
-      <li class="layui-nav-item layui-this">
+      <li class="layui-nav-item">
         <a href="/userinfo/show">
           <i class="layui-icon"></i>
           基本设置
