@@ -11,13 +11,13 @@ use Hash;
 class UserinfoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * 用户详细主页
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $user = User::find(16);
+        $user = User::find($id);
         // dump($user);
         // dump($user->userinfo);
         
@@ -26,14 +26,16 @@ class UserinfoController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * 用户中心
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
         // 用户中心
-        return view('/Home/user_center');
+        $user = User::find($id);
+
+        return view('/Home/user_center',['user'=>$user]);
     }
 
     /**
@@ -56,13 +58,13 @@ class UserinfoController extends Controller
     public function show($id)
     {
         // 基本设置
-        $user = User::find(16);
+        $user = User::find($id);
 
         return view('/Home/user_set',['user'=>$user]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * 后台显示前台用户详情
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -72,7 +74,7 @@ class UserinfoController extends Controller
         // 后台显示前台用户详情
         $user = User::find($id);
         // dump($user);
-        dump($user->userinfo);
+        // dump($user->userinfo);
         return view('Admin/users/userinfo',['user'=>$user]);
     }
 
@@ -102,9 +104,9 @@ class UserinfoController extends Controller
     public function message($id)
     {
         // 我的信息
-        // $user = User::find(16);
+        $user = User::find($id);
 
-        return view('/Home/my_message');
+        return view('/Home/my_message',['user'=>$user]);
     }
 
 }

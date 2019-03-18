@@ -1,7 +1,7 @@
 @include('Home/header');
 
 <div class="fly-home fly-panel" style="background-image: url();">
-  <img src="/uploads/new_img.jpg" alt="贤心">
+  <img src="{{ $user->userinfo->head_img }}" alt="贤心">
   <i class="iconfont icon-renzheng" title="Fly社区认证"></i>
   <h1>
     {{ $user->u_name }}

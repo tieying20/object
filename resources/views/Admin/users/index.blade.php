@@ -1,22 +1,24 @@
 @include('Admin/layout/header')
   
   <body class="layui-anim layui-anim-up">
-    <div class="x-nav">
+    <!-- <div class="x-nav">
       <span class="layui-breadcrumb">
         <a href="">首页</a>
         <a href="">演示</a>
         <a>
-          <cite>导航元素</cite></a>
+          <cite>导航元素</cite>
+        </a>
       </span>
       <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>
-    </div>
+    </div> -->
     <div class="x-body">
       <div class="layui-row">
-        <form class="layui-form layui-col-md12 x-so">
-          <input class="layui-input" placeholder="开始日" name="start" id="start">
-          <input class="layui-input" placeholder="截止日" name="end" id="end">
-          <input type="text" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
+        <form class="layui-form layui-col-md12 x-so" action="/user" method="get">
+        {{ csrf_field() }}
+          <!-- <input class="layui-input" placeholder="开始日" name="start" id="start"> -->
+          <!-- <input class="layui-input" placeholder="截止日" name="end" id="end"> -->
+          <input type="text" name="search"  placeholder="请输入手机号" autocomplete="off" class="layui-input" value="{{ $search }}">
           <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
         </form>
       </div>
@@ -24,7 +26,7 @@
         <!-- <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
         <button class="layui-btn" onclick="x_admin_show('添加用户','/admin/user/create',600,400)"><i class="layui-icon"></i>添加</button> -->
         <!-- <button class="layui-btn" onclick="location.href='/admin/user/create'"><i class="layui-icon"></i>添加</button> -->
-        <span class="x-right" style="line-height:40px">共有数据：88 条</span>
+        <span class="x-right" style="line-height:40px">共有数据：{{ $user->total() }}条</span>
       </xblock>
       <table class="layui-table">
         <thead>
@@ -32,7 +34,7 @@
             <th>
               <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
             </th>
-            <th>ID</th>
+            <th>编号</th>
             <th>昵称</th>
             <th>手机号</th>
             <!-- <th>手机</th>
@@ -45,12 +47,12 @@
         <tbody>
 
         <!-- 单条前台用户列表开始 -->
-        @foreach($users as $key => $val)
+        @foreach($user as $key => $val)
           <tr>
             <td>
               <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
             </td>
-            <td>{{ $val['id'] }}</td>
+            <td>{{ $i++ }}</td>
             <td>{{ $val['u_name'] }}</td>
             <td>{{ $val['phone'] }}</td>
             <td>{{ $val['created_at'] }}</td>
@@ -69,7 +71,7 @@
               <a onclick="member_stop(this,'10001')" href="javascript:;"  title="冻结">
                 <i class="layui-icon">&#xe601;</i>
               </a>
-              <a title="详情"  onclick="x_admin_show('用户详情','/userinfo/{{ $val['id'] }}/edit',600,400)" href="javascript:;">
+              <a title="详情"  onclick="x_admin_show('用户详情','/userinfo/{{ $val['id'] }}/edit',1000,400)" href="javascript:;">
                 <i class="layui-icon">&#xe642;</i>
               </a>
               <!-- <a onclick="x_admin_show('修改密码','member-password.html',600,400)" title="修改密码" href="javascript:;">
@@ -88,14 +90,7 @@
 
       <!-- 分页开始 -->
       <div class="page">
-        <div>
-          <a class="prev" href="">&lt;&lt;</a>
-          <span class="current">1</span>
-          <a class="num" href="">2</a>
-          <a class="num" href="">3</a>
-          <a class="num" href="">489</a>
-          <a class="next" href="">&gt;&gt;</a>
-        </div>
+        {{ $user->links() }}
       </div>
       <!-- 分页结束 -->
 

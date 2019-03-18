@@ -14,18 +14,26 @@ use Auth;
 class UsersController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * 用户列表
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
+        // $users = User::all();
         // dump($users);
-        // 用户列表
-        return view('Admin/users/index',['users'=>$users]);
         
-        
+        // 搜索的内容
+        $search = $request->input('search','');
+
+        // 显示条数
+        $count = $request->input('count','10');
+
+        $user = User::where('phone','like','%'.$search.'%')->paginate($count);
+        // 序号
+        $i = 1;
+
+        return view('Admin/users/index',['user'=>$user,'search'=>$search,'i'=>$i,'count'=>$count]);
     }
 
     /**
@@ -40,7 +48,7 @@ class UsersController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * 处理注册
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -48,7 +56,6 @@ class UsersController extends Controller
     public function store(UserStoreRequest $request)
     {
           
-        // 处理注册
         // dd($request->all());
 
         // 开启事务   
