@@ -1,5 +1,5 @@
 @include('Admin/layout/header')
- <meta name="csrf-token" content="{{ csrf_token() }}">
+<meta name="csrf-token" content="{{ csrf_token() }}">
  <body>
     <div class="x-body">
         <form class="layui-form" onsubmit="return false">
@@ -10,7 +10,7 @@
               </label>
               <div class="layui-input-inline">
                   <input type="text" id="username" name="username" required="" lay-verify="required"
-                  autocomplete="off" class="layui-input">
+                  autocomplete="off" class="layui-input" value="{{ $v['s_company'] }}">
               </div>
               <div class="layui-form-mid layui-word-aux">
                   <span class="x-red">*</span>填写赞助商名字
@@ -21,7 +21,7 @@
                   <span class="x-red">*</span>广告链接
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="url" name="url" required="" lay-verify="url" autocomplete="off" class="layui-input">
+                  <input type="text" id="url" name="url" required="" lay-verify="url" autocomplete="off" class="layui-input" value="{{ $v['img_url'] }}">
               </div>
                <div class="layui-form-mid layui-word-aux">
                   <span class="x-red">*</span>格式例如:http://www.laravel.com
@@ -32,7 +32,7 @@
 	                  <span class="x-red">*</span>开始时间
 	            </label>
 	          	<div class="layui-input-inline">
-	                  <input class="layui-input" type="text" name="start" id="start" required="">
+	                  <input class="layui-input" type="text" name="start" id="start" value="{{ $v['start_at'] }}">
 	            </div>
       	  </div>
       	  <div class="layui-form-item">
@@ -40,7 +40,7 @@
 	                  <span class="x-red">*</span>到期时间
 	            </label>
 	          	<div class="layui-input-inline">
-	                  <input class="layui-input" type="text" name="stop" id="stop" required="">
+	                  <input class="layui-input" type="text" name="stop" id="stop" value="{{ $v['stop_at'] }}">
 	            </div>
       	  </div>
       	  <div class="layui-form-item">
@@ -54,13 +54,13 @@
               	</div>
           </div>
           <!-- 一同上传的的图片 -->
-          <input type="hidden" id="upimg" required="未上传图片">
+          <input type="hidden" id="upimg" name="upimg">
 
 		  <div class="layui-form-item">
 			    <label for="time" class="layui-form-label">
 	                  浏览图
 	            </label>
-			    <img class="layui-upload" id="demo1" style="width:190px;height:150px; ">
+			    <img class="layui-upload" id="demo1" style="width:190px;height:150px;" src="/upload/{{ $v['img_path'] }}">
 			    <button type="button" class="layui-btn layui-btn-primary" id="commit">
 					  	<i class="layui-icon">&#xe67c;</i>确认提交
 					 </button>
@@ -68,12 +68,15 @@
           <div class="layui-form-item">
               <label for="L_repass" class="layui-form-label">
               </label>
-              <button  class="layui-btn" lay-submit="" lay-filter="add" id="submit">
-                  添加
+              <button  class="layui-btn" lay-submit="" lay-filter="edit" onclick="member_edit({{ $v['id'] }})">
+                  修改
               </button>
           </div>
       </form>
     </div>
+    <script>
+
+    </script>
     <script>
     	// 创建日历组建
     	layui.use('laydate', function(){
@@ -140,34 +143,47 @@
 		});
 
 
-        $('#submit').click(function(){
+    	//数据修改
+        function member_edit(id){
 
         	//要传的值
-        	s_company = $('#username').val();
-        	start_at = $('#start').val();
-        	stop_at = $('#stop').val();
-        	img_url = $('#url').val();
-        	img_path = $('#upimg').val();
+        	var s_company = $('#username').val();
+        	var start_at = $('#start').val();
+        	var stop_at = $('#stop').val();
+        	var img_url = $('#url').val();
+        	var img_path = $('#upimg').val();
         	// alert(img_path);
-
-        	//执行ajax添加
-        	$.post('/admin/sponsor',{'s_company':s_company,'start_at':start_at,'stop_at':stop_at,'img_url':img_url,'img_path':img_path},function(data){
-        		// console.log(data);
-        		if(data ==  1){
-		            layer.alert("添加失败", {icon: 2},function () {
-              			history.go(0);
-		            });
-        		}else{
-        			layer.alert("添加成功", {icon: 1},function () {
-	                // 获得frame索引
-	                var index = parent.layer.getFrameIndex(window.name);
-	                //关闭当前frame
-	                parent.layer.close(index);
-	                window.parent.location.href='/admin/sponsor';
-        			});
-        		}
+        	var data = {
+        		's_company' : s_company,
+        		'start_at' : start_at,
+        		'stop_at' : stop_at,
+    				'img_url' : img_url,
+    				'img_path' : img_path
+        	}
+        	//执行ajax修改
+        	$.ajax({
+        		type : "PUT",
+        		url : '/admin/sponsor/'+id,
+        		data : data ,
+        		async :true,
+        		success : function (data){
+        			// console.log(data);
+	        		if(data ==  1){
+	        			layer.alert("修改成功", {icon: 1},function () {
+		                // 获得frame索引
+		                var index = parent.layer.getFrameIndex(window.name);
+		                //关闭当前frame
+		                parent.layer.close(index);
+		                window.parent.location.href='/admin/sponsor';
+	        			});
+	        		}else{
+	        			layer.alert("修改失败", {icon: 2},function () {
+	              			history.go(0);
+			            });
+	        		}
+	        	}
         	});
-        });   
+        }   
 
     </script>
 

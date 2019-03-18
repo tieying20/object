@@ -150,9 +150,9 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="echarts1.html">
+                        <a _href="/admin/link">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>拆线图</cite>
+                            <cite>链接列表</cite>
                         </a>
                     </li>
                 </ul>
