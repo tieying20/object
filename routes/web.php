@@ -105,10 +105,19 @@ Route::resource('admin/link','Admin\linkController');
 
 // 判断用户登录中间件组
 Route::group(['middleware'=>['login']],function(){
-	// 个人中心
-	Route::resource('userinfo','UserinfoController');
+	// 我的主页
+	Route::get('userinfo/index','UserinfoController@index');
+
+	// 用户中心
+	Route::get('userinfo/center','UserinfoController@center');
+
+	// 基本设置
+	Route::get('userinfo/set','UserinfoController@set');
+
 	// 我的信息
-	Route::get('userinfo/message/{id}','UserinfoController@message');
+	Route::get('userinfo/message','UserinfoController@message');
 
-
+	// 邮箱验证
+	Route::get('userinfo/email','UserinfoController@email');
 });
+

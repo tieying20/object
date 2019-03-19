@@ -1,5 +1,5 @@
 @include('Admin/layout/header')
-  
+
   <body class="layui-anim layui-anim-up">
     <!-- <div class="x-nav">
       <span class="layui-breadcrumb">
@@ -71,7 +71,7 @@
               <a onclick="member_stop(this,'10001')" href="javascript:;"  title="冻结">
                 <i class="layui-icon">&#xe601;</i>
               </a>
-              <a title="详情"  onclick="x_admin_show('用户详情','/userinfo/{{ $val['id'] }}/edit',1000,400)" href="javascript:;">
+              <a title="详情"  onclick="x_admin_show('用户详情','/user/{{ $val['id'] }}/edit',1000,400)" href="javascript:;">
                 <i class="layui-icon">&#xe642;</i>
               </a>
               <!-- <a onclick="x_admin_show('修改密码','member-password.html',600,400)" title="修改密码" href="javascript:;">
@@ -98,7 +98,7 @@
     <script>
       layui.use('laydate', function(){
         var laydate = layui.laydate;
-        
+
         //执行一个laydate实例
         laydate.render({
           elem: '#start' //指定元素
@@ -130,7 +130,7 @@
                 $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
                 layer.msg('已启用!',{icon: 5,time:1000});
               }
-              
+
           });
       }
 
@@ -148,7 +148,7 @@
       // function delAll (argument) {
 
       //   var data = tableCheck.getData();
-  
+
       //   layer.confirm('确认要删除吗？'+data,function(index){
       //       //捉到所有被选中的，发异步进行删除
       //       layer.msg('删除成功', {icon: 1});
