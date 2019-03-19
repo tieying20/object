@@ -13,7 +13,7 @@
     </div>
     <div class="x-body">
       <div class="layui-row">
-        <form class="layui-form layui-col-md12 x-so" action="" ="/admin/sponsor" method="get">
+        <form class="layui-form layui-col-md12 x-so" action="/admin/sponsor" method="get">
             {{ csrf_field() }}
             <div class="layui-input-inline">
                 <select name="count">
