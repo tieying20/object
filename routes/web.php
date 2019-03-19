@@ -76,9 +76,8 @@ Route::resource('userinfo','UserinfoController');
 // 前台注册页面
 Route::get('home/register','Home\IndexController@register');
 
-
-
-
+// 栏目管理
+Route::resource('admin/programa','Admin\ProgramaController');
 
 
 

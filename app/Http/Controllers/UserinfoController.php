@@ -66,7 +66,7 @@ class UserinfoController extends Controller
     /**
      * 后台显示前台用户详情
      *
-     * @param  int  $id
+     * @param  int  $id 
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
