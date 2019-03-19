@@ -32,8 +32,23 @@
   <div class="layui-row layui-col-space15">
     <div class="layui-col-md8">
         <!-- 轮播图开始 -->
-        @section('slideshow')
-        @show()
+        <div class="middle_right">
+            <div id="lunbobox">
+            <div id="toleft">&lt;</div>
+            <div class="lunbo">
+                @foreach($slide_list as $k=>$v)
+                <a href="{{ $v['img_url'] }}" target="_block"><img src="{{ $v['img_path'] }}"></a>
+                @endforeach
+            </div>
+            <div id="toright">&gt;</div>
+            <ul>
+                @foreach($slide_list as $k=>$v)
+                <li></li>
+                @endforeach
+            </ul>
+            <span></span>
+            </div>
+        </div>
         <!-- 轮播图结束 -->
       <div class="fly-panel">
         <div class="fly-panel-title fly-filter">
@@ -148,7 +163,24 @@
           -->
         </div>
       </div>
-
+<div class="fly-panel">
+        <div class="fly-panel-title">
+          赞助商广告
+          <span class="fly-mid"></span>
+          <a href="#" class="fly-link fly-joinad">我要加入</a>
+        </div>
+        <div class="fly-panel-main" style="padding: 5px 10px 5px 0px ;">
+          @if(!empty($sponsor['0']))
+            @foreach($sponsor as $k => $v)
+              @if($v['status'] == 0)
+                <a href="{{ $v['img_url'] }}" target="_blank" rel="nofollow" class="fly-zanzhu fly-zanzhu-img" time-limit="2019-04-15 0:0:0" style="background: none;"> <img src="/upload/{{ $v['img_path'] }}" alt="CODING" style="width:340px;height:60.33px;"> </a>
+              @endif
+            @endforeach
+          @else
+            <a href="#" class="fly-zanzhu" time-limit="2017.09.25-2099.01.01" style="background-color: #5FB878;">欢迎赞助商加盟入驻</a>
+          @endif
+        </div>
+      </div>
       <div class="fly-panel fly-rank fly-rank-reply" id="LAY_replyRank">
         <h3 class="fly-panel-title">回贴周榜</h3>
         <dl>
@@ -173,26 +205,18 @@
         -->
       </dl>
 
-      <div class="fly-panel">
-        <div class="fly-panel-title">
-          赞助商广告
-          <span class="fly-mid"></span>
-          <a href="#" class="fly-link fly-joinad">我要加入</a>
-        </div>
-        <div class="fly-panel-main" style="padding: 5px 5px 5px 0px ;">
-          @section('sponsor')
-
-          @show
-        </div>
-      </div>
+      
 
       <div class="fly-panel fly-link">
         <h3 class="fly-panel-title">友情链接</h3>
         <dl class="fly-panel-main">
-          @section('link')
-
-          @show
-
+          @foreach($link as $k => $v)
+    @if($v['status'] == 0)
+      <dd><a href="{{ $v['b_url'] }}" target="_blank">{{ $v['b_company'] }}</a><dd>
+    @endif
+  @endforeach
+  <dd><a href="javascript:;" onclick="layer.alert('发送邮件至：www@163.com<br> 邮件标题为：申请有个社区友链', {title:'申请友链'});" class="fly-link">申请友链</a></dd>
+          
         </dl>
       </div>
 
