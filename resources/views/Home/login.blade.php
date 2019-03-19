@@ -1,4 +1,4 @@
-@include('Home/header')
+@include('Home/layout/header')
 
 <!-- 显示错误 信息 开始 -->
 <link rel="stylesheet" type="text/css" href="/bootstrap-3.3.7-dist/css/bootstrap.min.css">
