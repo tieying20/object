@@ -68,9 +68,8 @@ Route::resource('user','UsersController');
 // 退出登录
 Route::get('home/loginout','UsersController@loginout');
 
-
-
-
+// 栏目管理
+Route::resource('admin/programa','Admin\ProgramaController');
 
 
 
