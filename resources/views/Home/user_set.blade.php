@@ -1,4 +1,4 @@
-@include('/Home/header')
+@include('Home/layout/header')
 @include('/Home/user_nav')
     <span class="layui-nav-bar" style="top: 77.5px; height: 0px; opacity: 0;"></span></ul>
 
@@ -6,13 +6,13 @@
       <i class="layui-icon"></i>
     </div>
     <div class="site-mobile-shade"></div>
-    
+
     <div class="site-tree-mobile layui-hide">
       <i class="layui-icon"></i>
     </div>
     <div class="site-mobile-shade"></div>
-    
-    
+
+
     <div class="fly-panel fly-panel-user" pad20="">
       <div class="layui-tab layui-tab-brief" lay-filter="user">
         <ul class="layui-tab-title" id="LAY_mine">
@@ -86,7 +86,7 @@
 
               <!-- 修改密码开始 -->
               <div class="layui-form layui-form-pane layui-tab-item">
-                
+
                   <div class="layui-form-item">
                     <label for="L_nowpass" class="layui-form-label">当前密码</label>
                     <div class="layui-input-inline">
@@ -109,7 +109,7 @@
                   <div class="layui-form-item">
                     <button class="layui-btn" key="set-mine" lay-filter="*" lay-submit="">确认修改</button>
                   </div>
-                
+
               </div>
               <!-- 修改密码结束 -->
 
@@ -120,7 +120,7 @@
                     <i class="iconfont icon-qq"></i>
                     <span>已成功绑定，您可以使用QQ帐号直接登录Fly社区，当然，您也可以</span>
                     <a href="javascript:;" class="acc-unbind" type="qq_id">解除绑定</a>
-                    
+
                     <!-- <a href="" onclick="layer.msg('正在绑定微博QQ', {icon:16, shade: 0.1, time:0})" class="acc-bind" type="qq_id">立即绑定</a>
                     <span>，即可使用QQ帐号登录Fly社区</span> -->
                   </li>
@@ -128,7 +128,7 @@
                     <i class="iconfont icon-weibo"></i>
                     <!-- <span>已成功绑定，您可以使用微博直接登录Fly社区，当然，您也可以</span>
                     <a href="javascript:;" class="acc-unbind" type="weibo_id">解除绑定</a> -->
-                    
+
                     <a href="" class="acc-weibo" type="weibo_id" onclick="layer.msg('正在绑定微博', {icon:16, shade: 0.1, time:0})">立即绑定</a>
                     <span>，即可使用微博帐号登录Fly社区</span>
                   </li>

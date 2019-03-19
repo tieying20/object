@@ -1,4 +1,4 @@
-@include('Home/header');
+@include('/Home/layout/header')
 
 <div class="fly-home fly-panel" style="background-image: url();">
   <img src="{{ $user->userinfo->head_img }}" alt="贤心">

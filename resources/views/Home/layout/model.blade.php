@@ -32,23 +32,8 @@
   <div class="layui-row layui-col-space15">
     <div class="layui-col-md8">
         <!-- 轮播图开始 -->
-        <div class="middle_right">
-            <div id="lunbobox">
-            <div id="toleft">&lt;</div>
-            <div class="lunbo">
-                @foreach($slide_list as $k=>$v)
-                <a href="{{ $v['img_url'] }}" target="_block"><img src="{{ $v['img_path'] }}"></a>
-                @endforeach
-            </div>
-            <div id="toright">&gt;</div>
-            <ul>
-                @foreach($slide_list as $k=>$v)
-                <li></li>
-                @endforeach
-            </ul>
-            <span></span>
-            </div>
-        </div>
+        @section('slideshow')
+        @show()
         <!-- 轮播图结束 -->
       <div class="fly-panel">
         <div class="fly-panel-title fly-filter">
@@ -196,7 +181,7 @@
         </div>
         <div class="fly-panel-main" style="padding: 5px 5px 5px 0px ;">
           @section('sponsor')
-          
+
           @show
         </div>
       </div>
@@ -205,9 +190,9 @@
         <h3 class="fly-panel-title">友情链接</h3>
         <dl class="fly-panel-main">
           @section('link')
-          
+
           @show
-          
+
         </dl>
       </div>
 
