@@ -14,7 +14,7 @@ use Auth;
 class UsersController extends Controller
 {
     /**
-     * 用户列表
+     * 后台用户列表
      *
      * @return \Illuminate\Http\Response
      */
@@ -98,14 +98,16 @@ class UsersController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
+     * 后台显示前台用户详情
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        // dump($user);
+        // dump($user->userinfo);
+        return view('Admin/users/userinfo',['user'=>$user]);
     }
 
     /**
@@ -145,8 +147,12 @@ class UsersController extends Controller
         $home_pwd = $request->input('pwd','');
 
         $user = User::where('phone',$home_phone)->first();
-        $sql_pwd = $user->pwd;
+        // 判断账号是否存在
+        if(!$user){
+            return back()->with('error','账号不存在');
+        }
 
+        $sql_pwd = $user->pwd;
         if(!Hash::check($home_pwd,$sql_pwd)){
             $request->flash();
             return back()->with('error','密码不正确');
