@@ -12,7 +12,7 @@
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>
     </div>
     <div class="x-body">
-      <form class="layui-form layui-col-md12 x-so" action="" ="/admin/link" method="get">
+      <form class="layui-form layui-col-md12 x-so" action="/admin/link" method="get">
             {{ csrf_field() }}
             <div class="layui-input-inline">
                 <select name="count">
@@ -78,7 +78,7 @@
                     <i class="layui-icon"></i>
                 </a>
             @endif
-              <a title="编辑"  onclick="x_admin_show('编辑','/admin/link/{{ $v['id'] }}/edit')" href="javascript:;">
+              <a title="编辑"  onclick="x_admin_show('编辑','/admin/link/{{ $v['id'] }}/edit',600,250)" href="javascript:;">
                 <i class="layui-icon">&#xe642;</i>
               </a>
               <a title="删除" href="javascript:;" onclick="member_del(this,{{ $v['id'] }})">
