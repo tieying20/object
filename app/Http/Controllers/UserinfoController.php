@@ -20,7 +20,7 @@ class UserinfoController extends Controller
         $user = User::find($id);
         // dump($user);
         // dump($user->userinfo);
-        
+
         // 用户详细主页
         return view('/Home/userinfo',['user'=>$user]);
     }
@@ -55,11 +55,10 @@ class UserinfoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         // 基本设置
         $user = User::find($id);
-
         return view('/Home/user_set',['user'=>$user]);
     }
 

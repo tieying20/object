@@ -24,8 +24,8 @@ class UserinfoStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'pwd' => 'required',
             'phone' => 'required|regex:/^1{1}[3-9]{1}[\d]{9}$/',
+            'pwd' => 'required',
         ];
     }
 
@@ -33,10 +33,10 @@ class UserinfoStoreRequest extends FormRequest
     public function messages()
     {
         return [
-            'pwd.required'=>'密码null',
-            // 'pwd.confirmed'=>'密码不正确',
             'phone.required'=>'手机号不能为空',
             'phone.regex'=>'请输入正确的11位手机号',
+            'pwd.required'=>'密码null',
+            // 'pwd.confirmed'=>'密码不正确',
         ];
     }
 }

@@ -53,7 +53,7 @@
         </ul>
       </div>
     </div>
-    
+
     <div class="layui-col-md6 fly-home-da">
       <div class="fly-panel">
         <h3 class="fly-panel-title">贤心 最近的回答</h3>
@@ -66,7 +66,7 @@
           <div class="home-dacontent">
             尝试给layer.photos加上这个属性试试：
 <pre>
-full: true         
+full: true
 </pre>
             文档没有提及
           </div>
@@ -80,7 +80,7 @@ full: true
             Fly社区采用的是NodeJS。分享出来的只是前端模版
           </div>
         </li>
-        
+
           <!-- <div class="fly-none" style="min-height: 50px; padding:30px 0; height:auto;"><span>没有回答任何问题</span></div> -->
         </ul>
       </div>
@@ -97,7 +97,6 @@ full: true
   </p>
 </div>
 
-<script src="../../res/layui/layui.js"></script>
 <script>
 layui.cache.page = 'user';
 layui.cache.user = {

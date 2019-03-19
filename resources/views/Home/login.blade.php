@@ -13,6 +13,16 @@
         </ul>
     </div>
 @endif
+@if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 
 <!-- 显示错误 信息 结束 -->
 
@@ -21,17 +31,21 @@
     <div class="layui-tab layui-tab-brief" lay-filter="user">
       <ul class="layui-tab-title">
         <li class="layui-this">登入</li>
-        <li><a href="/user/create/">注册</a></li>
+        <li><a href="/user/create">注册</a></li>
       </ul>
       <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
         <div class="layui-tab-item layui-show">
           <div class="layui-form layui-form-pane">
             <form method="post" action="/home/dologin">
             {{ csrf_field() }}
+
+              <div class="layui-form-item">
+              <span></span>
+              </div>
               <div class="layui-form-item">
                 <label for="L_email" class="layui-form-label">手机号</label>
                 <div class="layui-input-inline">
-                  <input type="text" id="L_phone" name="phone" required lay-verify="required" autocomplete="off" class="layui-input">
+                  <input type="text" id="L_phone" name="phone" required lay-verify="required"  class="layui-input" value="{{ old('phone') }}">
                 </div>
               </div>
               <div class="layui-form-item">

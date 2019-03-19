@@ -22,7 +22,7 @@ class UsersController extends Controller
     {
         // $users = User::all();
         // dump($users);
-        
+
         // 搜索的内容
         $search = $request->input('search','');
 
@@ -55,11 +55,11 @@ class UsersController extends Controller
      */
     public function store(UserStoreRequest $request)
     {
-          
+
         // dd($request->all());
 
-        // 开启事务   
-        DB::beginTransaction();  
+        // 开启事务
+        DB::beginTransaction();
 
         // 将数据压入到数据库
         $user = new User;
@@ -68,7 +68,7 @@ class UsersController extends Controller
         $user->phone = $request->input('phone','');
         $res = $user->save();
 
-        //接受的id 
+        //接收的id
         $id = $user->id;
         // 用户详情表
         $userinfo = new Userinfo;
@@ -78,12 +78,11 @@ class UsersController extends Controller
         if($res && $res2){
             // 提交事务
             DB::commit();
-            // return redirect('/home/index');
-            echo '<script>alert("注册成功");location="/home/index"</script>';
+            return redirect('home/login')->with('success','注册成功请登录账号！');
         }else{
             // 回滚事务
             DB::rollBack();
-            return back('/user/create/')->with('error','注册失败');
+            return back()->with('error','注册失败，请联系管理员！');
         }
     }
 
@@ -139,30 +138,33 @@ class UsersController extends Controller
     }
 
     // 处理登录
-    public function dologin(Request $request)
+    public function dologin(UserinfoStoreRequest $request)
     {
         // 获取登录的值
-        // dump($request->all());
         $home_phone = $request->input('phone','');
         $home_pwd = $request->input('pwd','');
 
         $user = User::where('phone',$home_phone)->first();
-        $pwd = $user->pwd;
-        // $phone = $user->phone;
-        // dump($pwd);
-        
-        if(!Hash::check($home_pwd,$pwd)){
-            $i = '密码不正确！';
-            // echo $i;
-            // return back('/home/login')->with('message', '用户名或密码错误');
-            return redirect('/home/login/');
-            // echo '<script>alert("登录失败");location="/home/index"</script>';
-            // exit;
-        }
-        // dump($pwd);
-        echo '<script>alert("登录成功");location="/home/index"</script>';
+        $sql_pwd = $user->pwd;
 
-            
-            
+        if(!Hash::check($home_pwd,$sql_pwd)){
+            $request->flash();
+            return back()->with('error','密码不正确');
+        }
+
+        // 登录信息压入session
+        session([
+            'user'=>['phone'=>$user->phone,'id'=>$user->id,'u_name'=>$user->u_name,'head_img'=>$user->userinfo->head_img]
+            ]);
+        return redirect('/');
+    }
+
+    // 退出登录
+    public function loginout(Request $request){
+        if(!$request->session()->forget('user')){
+            return redirect('/');
+        }else{
+            dump('退出失败');
+        }
     }
 }

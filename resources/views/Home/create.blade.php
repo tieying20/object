@@ -13,7 +13,11 @@
     </div>
 @endif
 <!-- 显示错误 信息 结束 -->
-
+@if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
 
 <div class="layui-container fly-marginTop">
   <div class="fly-panel fly-panel-user" pad20>

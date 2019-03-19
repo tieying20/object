@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    dump('兄弟们，开干吧！');
-    return view('welcome');
-});
 
 // 首页路由开始
 
@@ -57,24 +53,20 @@ Route::post('admin/file_img','Admin\SlideshowController@file_img');
 
 // 前台首页
 Route::get('home/index','Home\IndexController@index');
+Route::get('/','Home\IndexController@index');
 
 // 前台登录页面
 Route::get('home/login','UsersController@login');
 
 // 处理登录
 Route::post('home/dologin','UsersController@dologin');
+Route::post('home/dologin','UsersController@dologin');
 
 // 前台用户
 Route::resource('user','UsersController');
 
-// 我的信息
-Route::get('userinfo/message/{id}','UserinfoController@message');
-
-// 个人中心
-Route::resource('userinfo','UserinfoController');
-
-// 前台注册页面
-Route::get('home/register','Home\IndexController@register');
+// 退出登录
+Route::get('home/loginout','UsersController@loginout');
 
 
 
@@ -110,3 +102,13 @@ Route::resource('admin/link','Admin\linkController');
 //友情链接路由结束
 
 
+
+// 判断用户登录中间件组
+Route::group(['middleware'=>['login']],function(){
+	// 个人中心
+	Route::resource('userinfo','UserinfoController');
+	// 我的信息
+	Route::get('userinfo/message/{id}','UserinfoController@message');
+
+
+});
