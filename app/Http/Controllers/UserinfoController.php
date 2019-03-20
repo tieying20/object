@@ -67,6 +67,10 @@ class UserinfoController extends Controller
     }
 
     /**
+     *
+     */
+
+    /**
      *  我的信息
      */
     public function message()

@@ -24,7 +24,7 @@
         <div class="layui-tab-content" style="padding: 20px 0;">
             <!-- 我的资料开始 -->
             <div class="layui-form layui-form-pane layui-tab-item layui-show">
-                <form method="post">
+                <form method="post" action="">
                     <div class="layui-form-item">
                         <label for="L_email" class="layui-form-label">
                             邮箱
@@ -56,9 +56,7 @@
                                 <option value="0">女</option>
                                 <option value="2">保密</option>
                             </select>
-
                         </div>
-
                     </div>
                     <div class="layui-form-item">
                         <label for="L_city" class="layui-form-label">
