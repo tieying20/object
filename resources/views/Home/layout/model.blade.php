@@ -53,7 +53,7 @@
       <div class="fly-panel">
         <div class="fly-panel-title fly-filter">
           <a>置顶</a>
-          <a href="#signin" class="layui-hide-sm layui-show-xs-block fly-right" id="LAY_goSignin" style="color: #FF5722;">去签到</a>
+          <a href="#signin" class="layui-hide-sm layui-show-xs-block fly-right" id="LAY_goSignin" style="color: #FF5722;">11去签到</a>
         </div>
         <ul class="fly-list">
           <li>
@@ -159,7 +159,7 @@
           <!-- 已签到状态 -->
           <!--
           <button class="layui-btn layui-btn-disabled">今日已签到</button>
-          <span>获得了<cite>20</cite>飞吻</span>
+          <span>获得了<cite>5</cite>飞吻</span>
           -->
         </div>
       </div>
