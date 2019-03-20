@@ -19,7 +19,7 @@
           @endforeach
       </ul>
       <span></span>
-      </div>x
+      </div>
   </div>
 @endsection
 <!-- 轮播图结束 -->
