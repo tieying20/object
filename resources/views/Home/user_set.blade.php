@@ -20,15 +20,15 @@
           <li lay-id="pass" class="">密码</li>
           <li lay-id="bind" class="">帐号绑定</li>
         </ul>
-        @if (session('status'))
-          <blockquote class="layui-elem-quote " style="margin-top: 10px;">
-            <div id="test2">{{ session('status') }}</div>
-          </blockquote>
-        @endif
+
         <div class="layui-tab-content" style="padding: 20px 0;">
             <!-- 我的资料开始 -->
             <div class="layui-form layui-form-pane layui-tab-item layui-show">
-
+              @if (session('status'))
+                <blockquote class="layui-elem-quote " style="margin-top: 10px;">
+                  <div id="test2">{{ session('status') }}</div>
+                </blockquote>
+              @endif
                 <form method="post" action="/userinfo/myinfo">
                     {{ csrf_field() }}
                     <div class="layui-form-item">
@@ -42,7 +42,7 @@
                             验证邮箱
                         </span>
                     </div>
-                    <div class="layui-form-item" id="show_yzm" style="display: ">
+                    <div class="layui-form-item" id="show_yzm" style="display: none">
                         <label for="L_yzm" class="layui-form-label">
                             验证码
                         </label>
