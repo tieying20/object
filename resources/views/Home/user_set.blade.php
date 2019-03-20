@@ -30,45 +30,35 @@
                             邮箱
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" id="L_email" name="email" required="" lay-verify="email"
-                            autocomplete="off" value="{{ $user->userinfo->email }}" class="layui-input">
+                            <input type="text" id="L_email" name="email" required="" lay-verify="" value="{{ $user->userinfo->email }}" class="layui-input">
                         </div>
-                        <div class="layui-form-mid layui-word-aux">
-                            <a href="javascript:;" style="font-size: 14px; color: #4f99cf;" onclick="send()">
-                                验证邮箱
-                            </a>
-                        </div>
+                        <button class="layui-btn layui-btn-normal" onclick="send()" id="yzm">
+                            验证邮箱
+                        </button>
                     </div>
                     <div class="layui-form-item">
                         <label for="L_username" class="layui-form-label">
                             昵称
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" id="L_username" name="u_name" required="" lay-verify="required"
+                            <input type="text" id="L_username" name="u_name" required="" lay-verify=""
                             autocomplete="off" value="{{ $user->u_name }}" class="layui-input">
                         </div>
-                        <div class="layui-inline">
-                            <div class="layui-input-inline">
-                                <input type="radio" name="sex" value="0" checked="" title="男" id="">
-                                <div class="layui-unselect layui-form-radio layui-form-radioed">
-                                    <i class="layui-anim layui-icon">
-                                        
-                                    </i>
-                                    <span>
-                                        男
-                                    </span>
-                                </div>
-                                <input type="radio" name="sex" value="1" title="女">
-                                <div class="layui-unselect layui-form-radio">
-                                    <i class="layui-anim layui-icon">
-                                        
-                                    </i>
-                                    <span>
-                                        女
-                                    </span>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="L_sex" class="layui-form-label">
+                            性别
+                        </label>
+                        <div class="layui-input-inline">
+                            <select name="sex">
+                                <option value="" selected="">请选择性别</option>
+                                <option value="1">男</option>
+                                <option value="0">女</option>
+                                <option value="2">保密</option>
+                            </select>
+
                         </div>
+
                     </div>
                     <div class="layui-form-item">
                         <label for="L_city" class="layui-form-label">
@@ -84,10 +74,7 @@
                             签名
                         </label>
                         <div class="layui-input-block">
-                            <textarea id="L_sign" name="describe" autocomplete="off" class="layui-textarea"
-                            style="height: 80px;">
-                                {{ $user->userinfo->describe }}
-                            </textarea>
+                            <textarea id="L_sign" name="describe" autocomplete="off" class="layui-textarea" style="height: 80px;">{{ $user->userinfo->describe }}</textarea>
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -171,10 +158,27 @@
     </div>
 <script>
     function send(){
-        $email = $('#L_email').val();
-        alert($email);
+        // 保存当前对象
+        email = $('#L_email').val();
+        $.get('/userinfo/email',{email:email},function(res){
+            if(res == '1'){
+                $('#yzm').attr('disabled','false');
+                $('#yzm').css('cursor','not-allowed');
+                i = 60;
+                timer = setInterval(function(){
+                    i--;
+                    $('#yzm').html('发送成功('+i+'秒后重新发送)');
+                    if(i <= 0){
+                        $('#yzm').attr('disabled','true');
+                        $('#yzm').css('cursor','pointer');
+                        $('#yzm').html('验证邮箱');
+                        clearInterval(timer);
+                    }
+                },1000);
+            }
+        });
+        return false;
     }
 </script>
-
 </body>
 </html>

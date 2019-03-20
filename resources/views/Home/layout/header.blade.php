@@ -9,7 +9,25 @@
   <link rel="stylesheet" href="/home/res/layui/css/layui.css">
   <link rel="stylesheet" href="/home/res/css/global.css">
   <script src="/home/res/layui/layui.all.js"></script>
-    <script src="/home/res/layui/layui.js"></script>
+  <script src="/home/res/layui/layui.js"></script>
+  <script type="text/javascript" src="/bootstrap-3.3.7-dist/js/jquery-3.3.1.min.js"></script>
+  <script>
+layui.cache.page = '';
+layui.cache.user = {
+  username: '游客'
+  ,uid: -1
+  ,avatar: '../res/images/avatar/00.jpg'
+  ,experience: 83
+  ,sex: '男'
+};
+layui.config({
+  version: "3.0.0"
+  ,base: '/home/res/mods/' //这里实际使用时，建议改成绝对路径
+}).extend({
+  fly: 'index'
+}).use('fly');
+</script>
+
 <style>
   .middle_right{
     padding: 15px 15px;

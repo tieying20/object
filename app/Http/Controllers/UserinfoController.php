@@ -7,6 +7,7 @@ use App\Models\Userinfo;
 use App\Models\User;
 use DB;
 use Hash;
+use Mail;
 
 class UserinfoController extends Controller
 {
@@ -53,8 +54,16 @@ class UserinfoController extends Controller
     /**
      * 邮箱验证
      */
-    public function email(){
-        dump('email');
+    public function email(Request $request){
+        // 获取要发送的邮箱
+        $email =$request->input('email');
+        // 验证码
+        $yzm = mt_rand(1000,9999);
+        Mail::send('email.user_mail', ['email' => $email,'yzm' => $yzm], function ($m) use ($email,$yzm) {
+            $res = $m->to($email)->subject('【有个社区】提醒信息！');
+            session('yzm'.$email,$yzm);
+            echo '1';
+        });
     }
 
     /**
