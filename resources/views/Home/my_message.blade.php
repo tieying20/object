@@ -1,4 +1,4 @@
-@include('/Home/header')
+@include('Home/layout/header')
 @include('/Home/user_nav')
 
 

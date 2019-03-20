@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    dump('兄弟们，开干吧！');
-    return view('welcome');
-});
 
 // 首页路由开始
 
@@ -57,29 +53,23 @@ Route::post('admin/file_img','Admin\SlideshowController@file_img');
 
 // 前台首页
 Route::get('home/index','Home\IndexController@index');
+Route::get('/','Home\IndexController@index');
 
 // 前台登录页面
 Route::get('home/login','UsersController@login');
 
 // 处理登录
 Route::post('home/dologin','UsersController@dologin');
+Route::post('home/dologin','UsersController@dologin');
 
 // 前台用户
 Route::resource('user','UsersController');
 
-// 我的信息
-Route::get('userinfo/message/{id}','UserinfoController@message');
-
-// 个人中心
-Route::resource('userinfo','UserinfoController');
-
-// 前台注册页面
-Route::get('home/register','Home\IndexController@register');
+// 退出登录
+Route::get('home/loginout','UsersController@loginout');
 
 // 栏目管理
-Route::resource('admin/programa','Admin\ProgramaController');
-
-
+Route::resource('admin/post_column','Admin\Post_columnController');
 
 
 
@@ -108,4 +98,23 @@ Route::get('admin/link/status/{id}/{status}','Admin\linkController@Status');
 Route::resource('admin/link','Admin\linkController');
 //友情链接路由结束
 
+
+
+// 判断用户登录中间件组
+Route::group(['middleware'=>['login']],function(){
+	// 我的主页
+	Route::get('userinfo/index','UserinfoController@index');
+
+	// 用户中心
+	Route::get('userinfo/center','UserinfoController@center');
+
+	// 基本设置
+	Route::get('userinfo/set','UserinfoController@set');
+
+	// 我的信息
+	Route::get('userinfo/message','UserinfoController@message');
+
+	// 邮箱验证
+	Route::get('userinfo/email','UserinfoController@email');
+});
 

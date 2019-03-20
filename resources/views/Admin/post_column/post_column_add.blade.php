@@ -10,8 +10,17 @@
                     <span class="x-red">*</span>栏目名称
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="p_name" name="p_name" required="" lay-verify="required"
+                    <input type="text" id="post_name" name="post_name" required="" lay-verify="required"
                   autocomplete="off" class="layui-input" placeholder="">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="s_company" class="layui-form-label">
+                    <span class="x-red">*</span>栏目顺序
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="order" name="order" required="" lay-verify="required"
+                  autocomplete="off" class="layui-input" placeholder="数字大的排在前面">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -32,15 +41,16 @@
       $('#submit').click(function(){
 
         //要传的值
-        p_name = $('#p_name').val();
+        post_name = $('#post_name').val();
+        order = $('#order').val();
         // console.log(p_name);
         //执行ajax添加
         // $.post('/admin/programa',{'p_name':p_name},function(res){
         //     console.log(res);
         // })
         $.ajax({
-          url : '/admin/programa',
-          data : {p_name:p_name} ,
+          url : '/admin/post_column',
+          data : {post_name:post_name,order:order} ,
           async : true,
           type: 'post',
           success : function(data){
@@ -53,7 +63,7 @@
                         var index = parent.layer.getFrameIndex(window.name);
                         // 关闭当前frame
                         parent.layer.close(index);
-                        window.parent.location.href='/admin/programa';
+                        window.parent.location.href='/admin/post_column';
                     });
                 }else{
                     layer.alert("添加失败", {icon: 4},function () {

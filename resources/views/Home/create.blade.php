@@ -1,4 +1,4 @@
-@include('Home/header')
+@include('Home/layout/header')
 <link rel="stylesheet" type="text/css" href="/bootstrap-3.3.7-dist/css/bootstrap.min.css">
 <script type="text/javascript" src="/bootstrap-3.3.7-dist/js/jquery-3.3.1.min.js"></script>
   <script type="text/javascript" src="/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
@@ -13,7 +13,11 @@
     </div>
 @endif
 <!-- 显示错误 信息 结束 -->
-
+@if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
 
 <div class="layui-container fly-marginTop">
   <div class="fly-panel fly-panel-user" pad20>

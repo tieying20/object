@@ -1,7 +1,7 @@
-@include('/Home/header')
+@include('Home/layout/header')
 @include('/Home/user_nav')
 
-  
+
   <div class="fly-panel fly-panel-user" pad20>
     <div class="layui-tab layui-tab-brief" lay-filter="user" id="LAY_uc">
       <div class="fly-msg">
