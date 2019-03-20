@@ -50,7 +50,12 @@
     </div>
 
 @endsection
+@section('signin_script')
+  $('#LAY_signin').click(function(){
+    alert(0);
+  });
 
+@endsection
 
 
 <!-- 签到模块结束 -->

@@ -180,14 +180,9 @@
             @if($v['status'] == 0)
               <dd><a href="{{ $v['b_url'] }}" target="_blank">{{ $v['b_company'] }}</a><dd>
             @endif
-          @endforeach
+          @endforeach   
           <dd><a href="javascript:;" onclick="layer.alert('发送邮件至：www@163.com<br> 邮件标题为：申请有个社区友链', {title:'申请友链'});" class="fly-link">申请友链</a></dd>
-    @if($v['status'] == 0)
-      <dd><a href="{{ $v['b_url'] }}" target="_blank">{{ $v['b_company'] }}</a><dd>
-    @endif
-  @endforeach
-  <dd><a href="javascript:;" onclick="layer.alert('发送邮件至：www@163.com<br> 邮件标题为：申请有个社区友链', {title:'申请友链'});" class="fly-link">申请友链</a></dd>
-        </dl>
+              </dl>
       </div>
 
     </div>
@@ -204,6 +199,11 @@
 </div>
 
 <script>
+//签到模式
+@section('signin_script')
+
+@show
+
 ///轮播
 $(function() {
     //$("#toright").hide();
