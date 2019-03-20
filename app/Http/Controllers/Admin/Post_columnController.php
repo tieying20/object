@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Programa;
+use App\Models\Post_column;
 
-class ProgramaController extends Controller
+class Post_columnController extends Controller
 {
     /**
      * 显示栏目
@@ -16,7 +16,10 @@ class ProgramaController extends Controller
     public function index()
     {
         // dump(11);
-        return view('Admin/programa/programa_list');
+        $post_column = Post_column::all();
+        // dump($programa);
+
+        return view('Admin/post_column/post_column_list',['post_column'=>$post_column]);
     }
 
     /**
@@ -26,7 +29,7 @@ class ProgramaController extends Controller
      */
     public function create()
     {
-        return view('Admin/programa/programa_add');
+        return view('Admin/post_column/post_column_add');
     }
 
     /**
@@ -38,10 +41,11 @@ class ProgramaController extends Controller
     public function store(Request $request)
     {
         // dd($request->input('p_name'));
-        $programa = new Programa;
-        $programa->p_name = $request->input('p_name');
-        if(!$programa->p_name == ''){
-            $res = $programa->save();
+        $post_column = new Post_column;
+        $post_column->post_name = $request->input('post_name');
+        $post_column->order = $request->input('order');
+        if(!$post_column->post_name == ''){
+            $res = $post_column->save();
             // dump($res);
             if($res){
                 // 成功

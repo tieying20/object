@@ -210,7 +210,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="/admin/programa">
+                        <a _href="/admin/post_column">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>栏目列表</cite>
                         </a>

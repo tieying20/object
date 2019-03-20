@@ -52,6 +52,7 @@ class UserinfoController extends Controller
         return view('/Home/user_set',['user'=>$user]);
     }
 
+
     /**
      * 邮箱验证
      */

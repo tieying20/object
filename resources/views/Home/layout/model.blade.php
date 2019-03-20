@@ -5,12 +5,14 @@
   <div class="layui-container">
     <ul class="layui-clear">
       <li class="layui-hide-xs layui-this"><a href="#">首页</a></li>
-      <li><a href="jie/index.html">提问</a></li>
-      <li><a href="jie/index.html">分享<span class="layui-badge-dot"></span></a></li>
+      @foreach($post_column as $key => $val)
+      <li><a href="jie/index.html">{{ $val->post_name }}</a></li>
+      <!-- <li><a href="jie/index.html">分享<span class="layui-badge-dot"></span></a></li>
       <li><a href="jie/index.html">讨论</a></li>
       <li><a href="jie/index.html">建议</a></li>
       <li><a href="jie/index.html">公告</a></li>
-      <li><a href="jie/index.html">动态</a></li>
+      <li><a href="jie/index.html">动态</a></li> -->
+      @endforeach
       <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="fly-mid"></span></li>
 
       <!-- 用户登入后显示 -->

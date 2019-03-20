@@ -69,9 +69,7 @@ Route::resource('user','UsersController');
 Route::get('home/loginout','UsersController@loginout');
 
 // 栏目管理
-Route::resource('admin/programa','Admin\ProgramaController');
-
-
+Route::resource('admin/post_column','Admin\Post_columnController');
 
 
 

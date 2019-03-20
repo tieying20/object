@@ -24,7 +24,7 @@
         </form> -->
       <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加栏目','/admin/programa/create',600,250)"><i class="layui-icon"></i>添加</button>
+        <button class="layui-btn" onclick="x_admin_show('添加栏目','/admin/post_column/create',600,250)"><i class="layui-icon"></i>添加</button>
 <!--         <span class="x-right" style="line-height:40px">
             共有数据：条
         </span> -->
@@ -33,22 +33,27 @@
         <thead>
           <tr>
             <th>
-              <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
+              <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i>x</div>
             </th>
             <th>ID</th>
+            <th>栏目顺序</th>
             <th>栏目名称</th>
             <th>加入时间</th>
             <th>修改时间</th>
             <th>操作</th></tr>
         </thead>
         <tbody>
-        <!-- @if(!empty($list['0'])) -->
-        <!-- @foreach($list as $k => $v)  -->
+        
+        @foreach($post_column as $key => $val)
           <tr>
             <td>
-              <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='{{ $v['id'] }}'><i class="layui-icon">&#xe605;</i></div>
+              <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='{{ $val->id }}'><i class="layui-icon">&#xe605;</i></div>
             </td>
-            <td></td>
+            <td>{{ $val->id }}</td>
+            <td>{{ $val->order }}</td>
+            <td>{{ $val->post_name }}</td>
+            <td>{{ $val->created_at }}</td>
+            <td>{{ $val->updated_at }}</td>
             <form onsubmit="return false">
             {{ csrf_field() }}
             {{ method_field('DELETE') }}
@@ -62,12 +67,8 @@
             </td>
             </form>
           </tr>
-        <!-- @endforeach -->
-        @else
-            <tr>
-                <td colspan="10">暂无数据</td>
-            </tr>
-        @endif
+        @endforeach
+        
         </tbody>
       </table>
 
@@ -93,7 +94,7 @@
                 layer.confirm('确认要停用吗？',function(index){
                     //发异步把用户状态进行更改
                     $.ajax({
-                        url : '/admin/link/status/' + id + '/1',
+                        url : '/admin/programa/status/' + id + '/1',
                         type : 'get',
                         async: true,
                         success:function(result){
@@ -116,7 +117,7 @@
             layer.confirm('确认要启用吗？',function(index){
                 //发异步把用户状态进行更改
                 $.ajax({
-                    url : '/admin/link/status/' + id + '/0',
+                    url : '/admin/programa/status/' + id + '/0',
                     type : 'get',
                     async: true,
                     success:function(result){
@@ -146,7 +147,7 @@
             // layer.alert(id);
           layer.confirm('确认要删除吗？',function(index){
               //     //发异步删除数据
-              $.post('/admin/link/'+id,{
+              $.post('/admin/programa/'+id,{
                 "_token": "{{ csrf_token() }}",
                 "_method": "delete"
                 },function(data){
@@ -176,7 +177,7 @@
                 }
             });
             $.ajax({
-              url:'/admin/link/'+data,
+              url:'/admin/programa/'+data,
               type:'DELETE',
               async:true,
               success:function(result){

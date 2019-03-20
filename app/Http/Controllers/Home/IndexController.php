@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Slideshow;
 use App\Models\blogrolls;
 use App\Models\sponsors;
+use App\Models\Post_column;
+
 class IndexController extends Controller
 {
     // 前台首页
@@ -23,9 +25,10 @@ class IndexController extends Controller
         $sponsor = sponsors::all();
         //友情链接模块
         $link = blogrolls::all();
+        // 栏目
+        $post_column = post_column::all();
 
-        return view('Home/index',['slide_list'=>$slide_list,'slide_num'=>$slide_num,'sponsor'=>$sponsor,'link'=>$link]);
+        return view('Home/index',['slide_list'=>$slide_list,'slide_num'=>$slide_num,'sponsor'=>$sponsor,'link'=>$link,'post_column'=>$post_column]);
     }
-
 
 }
