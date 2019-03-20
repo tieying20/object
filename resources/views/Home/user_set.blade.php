@@ -12,7 +12,6 @@
     </div>
     <div class="site-mobile-shade"></div>
 
-
     <div class="fly-panel fly-panel-user" pad20="">
       <div class="layui-tab layui-tab-brief" lay-filter="user">
         <ul class="layui-tab-title" id="LAY_mine">
@@ -21,20 +20,35 @@
           <li lay-id="pass" class="">密码</li>
           <li lay-id="bind" class="">帐号绑定</li>
         </ul>
+        @if (session('status'))
+          <blockquote class="layui-elem-quote " style="margin-top: 10px;">
+            <div id="test2">{{ session('status') }}</div>
+          </blockquote>
+        @endif
         <div class="layui-tab-content" style="padding: 20px 0;">
             <!-- 我的资料开始 -->
             <div class="layui-form layui-form-pane layui-tab-item layui-show">
-                <form method="post" action="">
+
+                <form method="post" action="/userinfo/myinfo">
+                    {{ csrf_field() }}
                     <div class="layui-form-item">
                         <label for="L_email" class="layui-form-label">
                             邮箱
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" id="L_email" name="email" required="" lay-verify="" value="{{ $user->userinfo->email }}" class="layui-input">
+                            <input type="text" id="L_email" name="email" lay-verify="required" value="{{ $user->userinfo->email }}" class="layui-input">
                         </div>
-                        <button class="layui-btn layui-btn-normal" onclick="send()" id="yzm">
+                        <span class="layui-btn layui-btn-normal" onclick="send()" id="yzm">
                             验证邮箱
-                        </button>
+                        </span>
+                    </div>
+                    <div class="layui-form-item" id="show_yzm" style="display: ">
+                        <label for="L_yzm" class="layui-form-label">
+                            验证码
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="L_yzm" name="yzm" lay-verify="" value="" class="layui-input">
+                        </div>
                     </div>
                     <div class="layui-form-item">
                         <label for="L_username" class="layui-form-label">
@@ -76,7 +90,7 @@
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <button class="layui-btn" key="set-mine" lay-filter="*" lay-submit="">
+                        <button class="layui-btn" key="set-mine" lay-submit="">
                             确认修改
                         </button>
                     </div>
@@ -162,6 +176,8 @@
             if(res == '1'){
                 $('#yzm').attr('disabled','false');
                 $('#yzm').css('cursor','not-allowed');
+                // 显示验证码输入框
+                $('#show_yzm').css('display','');
                 i = 60;
                 timer = setInterval(function(){
                     i--;

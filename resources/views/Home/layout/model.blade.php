@@ -171,7 +171,7 @@
         -->
       </dl>
 
-      
+
 
       <div class="fly-panel fly-link">
         <h3 class="fly-panel-title">友情链接</h3>
@@ -182,7 +182,11 @@
             @endif
           @endforeach
           <dd><a href="javascript:;" onclick="layer.alert('发送邮件至：www@163.com<br> 邮件标题为：申请有个社区友链', {title:'申请友链'});" class="fly-link">申请友链</a></dd>
-                  
+    @if($v['status'] == 0)
+      <dd><a href="{{ $v['b_url'] }}" target="_blank">{{ $v['b_company'] }}</a><dd>
+    @endif
+  @endforeach
+  <dd><a href="javascript:;" onclick="layer.alert('发送邮件至：www@163.com<br> 邮件标题为：申请有个社区友链', {title:'申请友链'});" class="fly-link">申请友链</a></dd>
         </dl>
       </div>
 
@@ -333,5 +337,8 @@ $("#lunbobox ul li,.lunbo a img,#toright,#toleft ").hover(
     })
 </script>
 
+<!-- <script src="/home/res/layui/layui.js"></script> -->
+
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_30088308'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "w.cnzz.com/c.php%3Fid%3D30088308' type='text/javascript'%3E%3C/script%3E"));</script>
 </body>
 </html>
