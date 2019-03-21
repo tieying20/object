@@ -8,6 +8,9 @@ use App\Models\Slideshow;
 use App\Models\blogrolls;
 use App\Models\sponsors;
 use App\Models\Post_column;
+use App\Models\User;
+use App\Models\Userinfo;
+use Illuminate\View\View; // composer函数参数里使用了View类
 
 class IndexController extends Controller
 {
@@ -25,10 +28,19 @@ class IndexController extends Controller
         $sponsor = sponsors::all();
         //友情链接模块
         $link = blogrolls::all();
+
         // 栏目
         $post_column = post_column::all();
 
         return view('Home/index',['slide_list'=>$slide_list,'slide_num'=>$slide_num,'sponsor'=>$sponsor,'link'=>$link,'post_column'=>$post_column]);
+
+    }
+
+
+    public function getData(View $view){
+        $user = User::select('id','u_name','phone')->find(session('user')['id']);
+        $head_img = $user->Userinfo->head_img;
+        $view->with('user',$user)->with('head_img',$head_img);
     }
 
 }
