@@ -23,7 +23,7 @@ class IndexController extends Controller
         $sponsor = sponsors::all();
         //友情链接模块
         $link = blogrolls::all();
-
+        // dump(session('user'));
         return view('Home/index',['slide_list'=>$slide_list,'slide_num'=>$slide_num,'sponsor'=>$sponsor,'link'=>$link]);
     }
 

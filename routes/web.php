@@ -123,3 +123,25 @@ Route::group(['middleware'=>['login']],function(){
 
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//签到路由开始
+Route::resource('home/signin','Home\SigninController');
+
+
+
+//签到路由结束

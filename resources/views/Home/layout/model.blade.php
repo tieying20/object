@@ -1,6 +1,5 @@
 @include('Home/layout/header')
 <script type="text/javascript" src="/bootstrap-3.3.7-dist/js/jquery-3.3.1.min.js"></script>
-
 <div class="fly-panel fly-column">
   <div class="layui-container">
     <ul class="layui-clear">
@@ -199,9 +198,11 @@
 </div>
 
 <script>
+$.ajaxSetup({
+           headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+        });
 //签到模式
 @section('signin_script')
-
 @show
 
 ///轮播
