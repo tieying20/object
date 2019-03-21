@@ -234,8 +234,8 @@
             data: fd,
             processData: false, // 不限定数据类型，上传要加
             contentType: false, // 不转换数据类型，上传要加
-            success : function(res){
-                $('#old_img').attr('src','/upload/' + res);
+            success : function(path){
+                $('#old_img').attr('src',path);
             }
         });
     }

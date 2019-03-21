@@ -15,4 +15,9 @@ class User extends Model
         return $this->hasOne('App\Models\Userinfo', 'uid');
     }
 
+ // 配置 一对一 签到模型
+ 	public function sign_info()
+ 	{
+ 		return $this->hasOne('App\Models\sign_infos','uid');
+ 	}
 }

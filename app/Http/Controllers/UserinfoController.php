@@ -24,7 +24,6 @@ class UserinfoController extends Controller
         $user = User::find(session('user')['id']);
         // 用户详情表
         $userinfo = $user->userinfo;
-
         // 用户详细主页
         return view('/Home/userinfo',['user'=>$user,'userinfo'=>$userinfo]);
     }
@@ -126,8 +125,13 @@ class UserinfoController extends Controller
         }
         // 接收文件对象
         $file = $request->file('file');
-        // 保存图片并返回保存路径
-        $img_path = $file->store('user_img');
+
+        $img_path = $file->store('user_img');// 保存图片并返回保存路径
+        $img_path = '/upload/'.$img_path; // 拼接成完整的路径
+        $user = User::find(session('user')['id']); // 下面把路径存入数据库
+        $user->userinfo->head_img = $img_path;
+        $user->userinfo->save();
+        // 返回完整的路径
         return $img_path;
     }
 

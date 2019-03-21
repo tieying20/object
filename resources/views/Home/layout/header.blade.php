@@ -117,6 +117,7 @@ layui.config({
     <ul class="layui-nav fly-nav layui-hide-xs">
       <li class="layui-nav-item layui-this">
         <a href="/"><i class="iconfont icon-jiaoliu"></i>交流</a>
+
       </li>
 
     </ul>
@@ -128,8 +129,8 @@ layui.config({
       @if(Session::get('user'))
         <li class="layui-nav-item">
             <a id="user_show" class="fly-nav-avatar" href="/userinfo/center">
-                <cite class="layui-hide-xs">{{ Session::get('user')['u_name'] }}</cite>
-                <img src="{{ Session::get('user')['head_img'] }}">
+                <cite class="layui-hide-xs">{{ $user['u_name'] }}</cite>
+                <img src="{{ $head_img }}">
             </a>
             <dl id="list_show" class="layui-nav-child">
                 <dd><a href="/userinfo/set"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
