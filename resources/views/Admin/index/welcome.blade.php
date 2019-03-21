@@ -12,8 +12,9 @@
     </head>
     <body>
     <div class="x-body layui-anim layui-anim-up">
-        <blockquote class="layui-elem-quote">欢迎管理员：
-            <span class="x-red">admin</span>！当前时间:2019-03-12 20:50:53</blockquote>
+        <blockquote class="layui-elem-quote">当前时间:
+            <span id="time">admin</span>
+        </blockquote>
         <fieldset class="layui-elem-field">
             <legend>数据统计</legend>
             <div class="layui-field-box">
@@ -73,7 +74,7 @@
                 </div>
             </div>
         </fieldset>
-        <fieldset class="layui-elem-field">
+        <!-- <fieldset class="layui-elem-field">
             <legend>系统通知</legend>
             <div class="layui-field-box">
                 <table class="layui-table" lay-skin="line">
@@ -91,7 +92,7 @@
                     </tbody>
                 </table>
             </div>
-        </fieldset>
+        </fieldset> -->
         <fieldset class="layui-elem-field">
             <legend>系统信息</legend>
             <div class="layui-field-box">
@@ -151,8 +152,20 @@
                 </table>
             </div>
         </fieldset>
-        <blockquote class="layui-elem-quote layui-quote-nm">感谢layui,百度Echarts,jquery,本系统由Laravel提供技术支持。</blockquote>
     </div>
     
     </body>
+    <script>
+//找对象
+    var time = document.getElementById('time');
+    //console.log(div);
+//改属性:
+    setInterval(function(){
+        date = new Date();
+        //获取本地时间
+        locatime = date.toLocaleString();
+        time.innerHTML = locatime;
+
+    },1000)
+</script>
 </html>

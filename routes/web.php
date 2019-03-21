@@ -15,7 +15,7 @@
 // 首页路由开始
 
 // 后台首页
-Route::get('admin/index','Admin\IndexController@index');
+// Route::get('admin/index','Admin\IndexController@index');
 // 首页的欢迎页面
 Route::get('admin/welcome','Admin\IndexController@welcome');
 
@@ -42,11 +42,17 @@ Route::post('admin/file_img','Admin\SlideshowController@file_img');
 
 
 
+// 后台用户登录中间件
+Route::group(['middleware'=>'admin_login'],function(){
+	Route::get('admin/index','Admin\IndexController@index');
+});
 
-
-
-
-
+// 后台登录
+Route::get('admin/login','Admin\IndexController@login');
+// 处理后台登录
+Route::post('admin/dologin','Admin\IndexController@dologin');
+// 后台退出登录
+Route::get('admin/loginout','Admin\IndexController@loginout');
 
 
 
