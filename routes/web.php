@@ -112,6 +112,10 @@ Route::group(['middleware'=>['login']],function(){
 	Route::get('userinfo/set','UserinfoController@set');
 	// 基本设置->我的资料
 	Route::post('userinfo/myinfo','UserinfoController@myInfo');
+	// 基本设置->头像更换
+	Route::post('userinfo/upfile','UserinfoController@upFile');
+	// 基本设置->修改密码
+	Route::post('userinfo/resetpwd','UserinfoController@resetPwd');
 
 	// 我的信息
 	Route::get('userinfo/message','UserinfoController@message');

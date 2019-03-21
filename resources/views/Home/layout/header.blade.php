@@ -11,6 +11,7 @@
   <script src="/home/res/layui/layui.all.js"></script>
   <script src="/home/res/layui/layui.js"></script>
   <script type="text/javascript" src="/bootstrap-3.3.7-dist/js/jquery-3.3.1.min.js"></script>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <script>
 layui.cache.page = '';
 layui.cache.user = {
@@ -117,12 +118,7 @@ layui.config({
       <li class="layui-nav-item layui-this">
         <a href="/"><i class="iconfont icon-jiaoliu"></i>交流</a>
       </li>
-      <!-- <li class="layui-nav-item">
-        <a href="case/case.html"><i class="iconfont icon-iconmingxinganli"></i>案例</a>
-      </li>
-      <li class="layui-nav-item">
-        <a href="http://www.layui.com/" target="_blank"><i class="iconfont icon-ui"></i>框架</a>
-      </li> -->
+
     </ul>
 <script>
     // var user_show = document.
@@ -146,7 +142,7 @@ layui.config({
       @else
       <!-- 未登入的状态 -->
       <li class="layui-nav-item">
-        <a class="iconfont icon-touxiang layui-hide-xs" href="/userinfo/1"></a>
+        <a class="iconfont icon-touxiang layui-hide-xs" href="/home/login/"></a>
       </li>
       <li class="layui-nav-item">
         <a href="/home/login/">登录</a>
