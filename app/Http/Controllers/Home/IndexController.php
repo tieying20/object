@@ -10,7 +10,6 @@ use App\Models\sponsors;
 use App\Models\Post_column;
 use App\Models\User;
 use App\Models\Userinfo;
-use Illuminate\View\View; // composer函数参数里使用了View类
 
 class IndexController extends Controller
 {
@@ -37,10 +36,6 @@ class IndexController extends Controller
     }
 
 
-    public function getData(View $view){
-        $user = User::select('id','u_name','phone')->find(session('user')['id']);
-        $head_img = $user->Userinfo->head_img;
-        $view->with('user',$user)->with('head_img',$head_img);
-    }
+   
 
 }

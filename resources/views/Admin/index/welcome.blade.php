@@ -106,13 +106,13 @@
                             <td>x.xuebingsi.com</td></tr>
                         <tr>
                             <th>操作系统</th>
-                            <td>WIN 10</td></tr>
+                            <td>{{ PHP_OS }}</td></tr>
                         <tr>
                             <th>运行环境</th>
                             <td>Apache/2.4.23 (Win32) OpenSSL/1.0.2j mod_fcgid/2.3.9</td></tr>
                         <tr>
                             <th>PHP版本</th>
-                            <td>7.0</td></tr>
+                            <td>{{ PHP_VERSION }}</td></tr>
                         <tr>
                             <th>PHP运行方式</th>
                             <td>cgi-fcgi</td></tr>

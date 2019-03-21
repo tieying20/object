@@ -23,7 +23,9 @@ class IndexController extends Controller
 
     // 首页的欢迎页面
     public function welcome()
-    {
+    {   
+         
+        // dump($_ENV);
         return view('Admin/index/welcome');
     }
 
