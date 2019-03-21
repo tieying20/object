@@ -129,8 +129,8 @@ layui.config({
       @if(Session::get('user'))
         <li class="layui-nav-item">
             <a id="user_show" class="fly-nav-avatar" href="/userinfo/center">
-                <cite class="layui-hide-xs">{{ $user['u_name'] }}</cite>
-                <img src="{{ $head_img }}">
+                <cite class="layui-hide-xs">{{ Session::get('user')['u_name'] }}</cite>
+                <img src="{{ Session::get('head_img') }}" id="head_head_img">
             </a>
             <dl id="list_show" class="layui-nav-child">
                 <dd><a href="/userinfo/set"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>

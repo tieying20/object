@@ -131,6 +131,8 @@ class UserinfoController extends Controller
         $user = User::find(session('user')['id']); // 下面把路径存入数据库
         $user->userinfo->head_img = $img_path;
         $user->userinfo->save();
+        // 更改头像的session
+        session(['head_img' => $img_path]);
         // 返回完整的路径
         return $img_path;
     }

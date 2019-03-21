@@ -160,7 +160,8 @@ class UsersController extends Controller
 
         // 登录信息压入session
         session([
-            'user'=>['phone'=>$user->phone,'id'=>$user->id,'u_name'=>$user->u_name,'head_img'=>$user->userinfo->head_img]
+            'user' => ['phone'=>$user->phone,'id'=>$user->id,'u_name'=>$user->u_name],
+            'head_img' => $user->userinfo->head_img,
             ]);
         return redirect('/');
     }

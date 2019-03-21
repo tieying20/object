@@ -13,8 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // 给前台head模板传值
-        view()->composer('*','App\Http\Controllers\Home\IndexController@getData');
+
     }
 
     /**

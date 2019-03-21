@@ -236,6 +236,7 @@
             contentType: false, // 不转换数据类型，上传要加
             success : function(path){
                 $('#old_img').attr('src',path);
+                $('#head_head_img').attr('src',path);
             }
         });
     }
