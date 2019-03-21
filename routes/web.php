@@ -116,11 +116,18 @@ Route::group(['middleware'=>['login']],function(){
 
 	// 基本设置
 	Route::get('userinfo/set','UserinfoController@set');
+	// 基本设置->我的资料
+	Route::post('userinfo/myinfo','UserinfoController@myInfo');
+	// 基本设置->头像更换
+	Route::post('userinfo/upfile','UserinfoController@upFile');
+	// 基本设置->修改密码
+	Route::post('userinfo/resetpwd','UserinfoController@resetPwd');
 
 	// 我的信息
 	Route::get('userinfo/message','UserinfoController@message');
 
 	// 邮箱验证
 	Route::get('userinfo/email','UserinfoController@email');
+
 });
 

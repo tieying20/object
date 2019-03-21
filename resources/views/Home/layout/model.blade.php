@@ -33,10 +33,9 @@
 <div class="layui-container">
   <div class="layui-row layui-col-space15">
     <div class="layui-col-md8">
-        <!-- 轮播图开始 -->
         @section('slideshow')
-        @show()
-        <!-- 轮播图结束 -->
+
+        @show
       <div class="fly-panel">
         <div class="fly-panel-title fly-filter">
           <a>置顶</a>
@@ -129,28 +128,27 @@
       </div>
     </div>
     <div class="layui-col-md4">
-
-      <div class="fly-panel fly-signin">
+      <!-- 签到模块 -->
+      @section('signin')
+      @show
+      <div class="fly-panel">
         <div class="fly-panel-title">
-          签到
-          <i class="fly-mid"></i>
-          <a href="javascript:;" class="fly-link" id="LAY_signinHelp">说明</a>
-          <i class="fly-mid"></i>
-          <a href="javascript:;" class="fly-link" id="LAY_signinTop">活跃榜<span class="layui-badge-dot"></span></a>
-          <span class="fly-signin-days">已连续签到<cite>16</cite>天</span>
+          赞助商广告
+          <span class="fly-mid"></span>
+          <a href="#" class="fly-link fly-joinad">我要加入</a>
         </div>
-        <div class="fly-panel-main fly-signin-main">
-          <button class="layui-btn layui-btn-danger" id="LAY_signin">今日签到</button>
-          <span>可获得<cite>5</cite>飞吻</span>
-
-          <!-- 已签到状态 -->
-          <!--
-          <button class="layui-btn layui-btn-disabled">今日已签到</button>
-          <span>获得了<cite>20</cite>飞吻</span>
-          -->
+        <div class="fly-panel-main" style="padding: 5px 10px 5px 0px ;">
+          @if(!empty($sponsor['0']))
+            @foreach($sponsor as $k => $v)
+              @if($v['status'] == 0)
+                <a href="{{ $v['img_url'] }}" target="_blank" rel="nofollow" class="fly-zanzhu fly-zanzhu-img" time-limit="2019-04-15 0:0:0" style="background: none;"> <img src="/upload/{{ $v['img_path'] }}" alt="CODING" style="width:340px;height:60.33px;"> </a>
+              @endif
+            @endforeach
+          @else
+            <a href="#" class="fly-zanzhu" time-limit="2017.09.25-2099.01.01" style="background-color: #5FB878;">欢迎赞助商加盟入驻</a>
+          @endif
         </div>
       </div>
-
       <div class="fly-panel fly-rank fly-rank-reply" id="LAY_replyRank">
         <h3 class="fly-panel-title">回贴周榜</h3>
         <dl>
@@ -175,27 +173,18 @@
         -->
       </dl>
 
-      <div class="fly-panel">
-        <div class="fly-panel-title">
-          赞助商广告
-          <span class="fly-mid"></span>
-          <a href="#" class="fly-link fly-joinad">我要加入</a>
-        </div>
-        <div class="fly-panel-main" style="padding: 5px 5px 5px 0px ;">
-          @section('sponsor')
 
-          @show
-        </div>
-      </div>
 
       <div class="fly-panel fly-link">
         <h3 class="fly-panel-title">友情链接</h3>
         <dl class="fly-panel-main">
-          @section('link')
-
-          @show
-
-        </dl>
+          @foreach($link as $k => $v)
+            @if($v['status'] == 0)
+              <dd><a href="{{ $v['b_url'] }}" target="_blank">{{ $v['b_company'] }}</a><dd>
+            @endif
+          @endforeach   
+          <dd><a href="javascript:;" onclick="layer.alert('发送邮件至：www@163.com<br> 邮件标题为：申请有个社区友链', {title:'申请友链'});" class="fly-link">申请友链</a></dd>
+              </dl>
       </div>
 
     </div>
@@ -203,15 +192,20 @@
 </div>
 
 <div class="fly-footer">
-  <p><a href="http://fly.layui.com/" target="_blank">Fly社区</a> 2017 &copy; <a href="http://www.layui.com/" target="_blank">layui.com 出品</a></p>
+  <p><a href="http://fly.layui.com/" target="_blank">有个社区</a> 2019 &copy; <a href="http://www.layui.com/" target="_blank">layui.com 出品</a></p>
   <p>
     <a href="http://fly.layui.com/jie/3147/" target="_blank">付费计划</a>
-    <a href="http://www.layui.com/template/fly/" target="_blank">获取Fly社区模版</a>
+    <a href="http://www.layui.com/template/fly/" target="_blank">获取有个社区模版</a>
     <a href="http://fly.layui.com/jie/2461/" target="_blank">微信公众号</a>
   </p>
 </div>
 
 <script>
+//签到模式
+@section('signin_script')
+
+@show
+
 ///轮播
 $(function() {
     //$("#toright").hide();
@@ -346,24 +340,7 @@ $("#lunbobox ul li,.lunbo a img,#toright,#toleft ").hover(
 </script>
 
 <!-- <script src="/home/res/layui/layui.js"></script> -->
-<script>
-layui.cache.page = '';
-layui.cache.user = {
-  username: '游客'
-  ,uid: -1
-  ,avatar: '../res/images/avatar/00.jpg'
-  ,experience: 83
-  ,sex: '男'
-};
-layui.config({
-  version: "3.0.0"
-  ,base: '/home/res/mods/' //这里实际使用时，建议改成绝对路径
-}).extend({
-  fly: 'index'
-}).use('fly');
-</script>
 
 <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_30088308'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "w.cnzz.com/c.php%3Fid%3D30088308' type='text/javascript'%3E%3C/script%3E"));</script>
-
 </body>
 </html>

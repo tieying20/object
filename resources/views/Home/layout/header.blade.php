@@ -9,7 +9,26 @@
   <link rel="stylesheet" href="/home/res/layui/css/layui.css">
   <link rel="stylesheet" href="/home/res/css/global.css">
   <script src="/home/res/layui/layui.all.js"></script>
-    <script src="/home/res/layui/layui.js"></script>
+  <script src="/home/res/layui/layui.js"></script>
+  <script type="text/javascript" src="/bootstrap-3.3.7-dist/js/jquery-3.3.1.min.js"></script>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <script>
+layui.cache.page = '';
+layui.cache.user = {
+  username: '游客'
+  ,uid: -1
+  ,avatar: '../res/images/avatar/00.jpg'
+  ,experience: 83
+  ,sex: '男'
+};
+layui.config({
+  version: "3.0.0"
+  ,base: '/home/res/mods/' //这里实际使用时，建议改成绝对路径
+}).extend({
+  fly: 'index'
+}).use('fly');
+</script>
+
 <style>
   .middle_right{
     padding: 15px 15px;
@@ -99,12 +118,7 @@
       <li class="layui-nav-item layui-this">
         <a href="/"><i class="iconfont icon-jiaoliu"></i>交流</a>
       </li>
-      <!-- <li class="layui-nav-item">
-        <a href="case/case.html"><i class="iconfont icon-iconmingxinganli"></i>案例</a>
-      </li>
-      <li class="layui-nav-item">
-        <a href="http://www.layui.com/" target="_blank"><i class="iconfont icon-ui"></i>框架</a>
-      </li> -->
+
     </ul>
 <script>
     // var user_show = document.
@@ -128,7 +142,7 @@
       @else
       <!-- 未登入的状态 -->
       <li class="layui-nav-item">
-        <a class="iconfont icon-touxiang layui-hide-xs" href="/userinfo/1"></a>
+        <a class="iconfont icon-touxiang layui-hide-xs" href="/home/login/"></a>
       </li>
       <li class="layui-nav-item">
         <a href="/home/login/">登录</a>
