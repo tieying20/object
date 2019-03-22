@@ -9,11 +9,12 @@
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="/admin/css/font.css">
         <link rel="stylesheet" href="/admin/css/xadmin.css">
+
     </head>
     <body>
     <div class="x-body layui-anim layui-anim-up">
         <blockquote class="layui-elem-quote">当前时间:
-            <span id="time">admin</span>
+            <span id="time"></span>
         </blockquote>
         <fieldset class="layui-elem-field">
             <legend>数据统计</legend>
@@ -143,7 +144,7 @@
                         <tr>
                             <th>版权所有</th>
                             <td>作战小组(二期)
-                            
+
                         </tr>
                         <tr>
                             <th>开发者</th>
@@ -153,7 +154,7 @@
             </div>
         </fieldset>
     </div>
-    
+
     </body>
     <script>
 //找对象
@@ -165,7 +166,6 @@
         //获取本地时间
         locatime = date.toLocaleString();
         time.innerHTML = locatime;
-
     },1000)
 </script>
 </html>
