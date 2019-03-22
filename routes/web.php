@@ -20,6 +20,9 @@ Route::post('admin/dologin','Admin\IndexController@dologin');
 Route::get('home/index','Home\IndexController@index');
 Route::get('/','Home\IndexController@index');
 
+// 其余栏目页面
+Route::get('home/columnpost','Home\IndexController@columnPost');
+
 // 前台登录页面
 Route::get('home/login','UsersController@login');
 
@@ -55,6 +58,12 @@ Route::group(['middleware'=>['login']],function(){
 
 	// 邮箱验证
 	Route::get('userinfo/email','UserinfoController@email');
+
+	// 发帖页面
+	Route::get('postlist/add','PostlistController@add');
+	// 处理添加贴子
+	Route::post('postlist/doadd','PostlistController@doadd');
+
 
 });
 

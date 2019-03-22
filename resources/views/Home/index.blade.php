@@ -4,7 +4,8 @@
 
 <!-- 轮播图开始 -->
 @section('slideshow')
-  <div class="middle_right">
+    <link rel="stylesheet" href="/css/slideshow.css">
+    <div class="middle_right">
       <div id="lunbobox">
       <div id="toleft">&lt;</div>
       <div class="lunbo">
@@ -20,10 +21,143 @@
       </ul>
       <span></span>
       </div>
-  </div>
+    </div>
+<!-- 轮播图js -->
+    <script>
+        ///轮播
+        $(function() {
+          //$("#toright").hide();
+          //$("#toleft").hide();
+          $('#toright').hover(function() {
+              $("#toleft").hide()
+          }, function() {
+              $("#toleft").show()
+          })
+          $('#toleft').hover(function() {
+              $("#toright").hide()
+          }, function() {
+              $("#toright").show()
+          })
+        })
+
+        var t;
+        var index = 0;
+        /////自动播放
+        t = setInterval(play, 3000)
+
+        function play() {
+          index++;
+          if (index > {{ $slide_num }}) {
+              index = 0
+          }
+          // console.log(index)
+          $("#lunbobox ul li").eq(index).css({
+              "background": "#999",
+              "border": "1px solid #ffffff"
+          }).siblings().css({
+              "background": "#cccccc",
+              "border": ""
+          })
+
+          $(".lunbo a ").eq(index).fadeIn(1000).siblings().fadeOut(1000);
+        };
+
+        ///点击鼠标 图片切换
+        $("#lunbobox ul li").click(function() {
+
+          //添加 移除样式
+          //$(this).addClass("lito").siblings().removeClass("lito"); //给当前鼠标移动到的li增加样式 且其余兄弟元素移除样式   可以在样式中 用hover 来对li 实现
+          $(this).css({
+              "background": "#999",
+              "border": "1px solid #ffffff"
+          }).siblings().css({
+              "background": "#cccccc"
+          })
+          var index = $(this).index(); //获取索引 图片索引与按钮的索引是一一对应的
+          // console.log(index);
+
+          $(".lunbo a ").eq(index).fadeIn(1000).siblings().fadeOut(1000); // siblings  找到 兄弟节点(不包括自己）
+        });
+
+        /////////////上一张、下一张切换
+        $("#toleft").click(function() {
+          index--;
+          if (index <= 0) //判断index<0的情况为：开始点击#toright  index=0时  再点击 #toleft 为负数了 会出错
+          {
+              index = {{ $slide_num }}
+          }
+          console.log(index);
+          $("#lunbobox ul li").eq(index).css({
+              "background": "#999",
+              "border": "1px solid #ffffff"
+          }).siblings().css({
+              "background": "#cccccc"
+          })
+
+          $(".lunbo a ").eq(index).fadeIn(1000).siblings().fadeOut(1000); // siblings  找到 兄弟节点(不包括自己）必须要写
+        }); // $("#imgbox a ")获取到的是一个数组集合 。所以可以用index来控制切换
+
+        $("#toright").click(function() {
+          index++;
+          if (index > {{ $slide_num-1 }}) {
+              index = 0
+          }
+          console.log(index);
+          $(this).css({
+              "opacity": "0.5"
+          })
+          $("#lunbobox ul li").eq(index).css({
+              "background": "#999",
+              "border": "1px solid #ffffff"
+          }).siblings().css({
+              "background": "#cccccc"
+          })
+          $(".lunbo a ").eq(index).fadeIn(1000).siblings().fadeOut(1000); // siblings  找到 兄弟节点(不包括自己）
+        });
+        $("#toleft,#toright").hover(function() {
+              $(this).css({
+                  "color": "black"
+              })
+          },
+          function() {
+              $(this).css({
+                  "opacity": "0.4",
+                  "color": ""
+              })
+          })
+        ///
+
+        ///////鼠标移进  移出
+        $("#lunbobox ul li,.lunbo a img,#toright,#toleft ").hover(
+          ////////鼠标移进
+          function() {
+              $('#toright,#toleft').show()
+              clearInterval(t);
+
+          },
+          ///////鼠标移开
+          function() {
+              //$('#toright,#toleft').hide()
+              //alert('aaa')
+              t = setInterval(play, 3000)
+
+              function play() {
+                  index++;
+                  if (index > {{ $slide_num }}) {
+                      index = 0
+                  }
+                  $("#lunbobox ul li").eq(index).css({
+                      "background": "#999",
+                      "border": "1px solid #ffffff"
+                  }).siblings().css({
+                      "background": "#cccccc"
+                  })
+                  $(".lunbo a ").eq(index).fadeIn(1000).siblings().fadeOut(1000);
+              }
+          })
+    </script>
 @endsection
 <!-- 轮播图结束 -->
-
 
 <!-- 签到模块开始 -->
 @section('signin')
@@ -72,7 +206,7 @@
         distd();
         getdate(date);
       }
-    }); 
+    });
   });
 
   // 1、获取签到日期。 初始化当前年月，获取签到列表
@@ -126,35 +260,98 @@ function  getSign(){
 $('#signin').click(function(){
   var curdate = new Date();
   var date ={ 'year':curdate.getFullYear(), 'month':curdate.getMonth()+1 }
-  
+
 
 
 
 })
 
-
-
-
-
-
-
-
-
-
-
-
-
 @endsection
 <!-- 签到模块结束 -->
 
+<!-- 贴子部分开始 -->
+@section('postlist')
+<div class="fly-panel">
+            <div class="fly-panel-title fly-filter">
+              <a>置顶</a>
+            </div>
+            <ul class="fly-list">
+                <li>
+                    <a href="user/home.html" class="fly-avatar">
+                        <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="贤心"></a>
+                    <h2>
+                        <a class="layui-badge">动态</a>
+                        <a href="jie/detail.html">基于 layui 的极简社区页面模版</a></h2>
+                    <div class="fly-list-info">
+                        <a href="user/home.html" link>
+                            <cite>贤心</cite>
+                            <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
+                            <i class="layui-badge fly-badge-vip">VIP3</i></a>
+                        <span>刚刚</span>
+                        <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻">
+                            <i class="iconfont icon-kiss"></i>60</span>
+                        <span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>
+                        <span class="fly-list-nums">
+                            <i class="iconfont icon-pinglun1" title="回答"></i>66</span>
+                    </div>
+                    <div class="fly-list-badge">
+                        <!-- <span class="layui-badge layui-bg-black">置顶</span>
+                        <span class="layui-badge layui-bg-red">精帖</span>
+                        -->
+                    </div>
+                </li>
+            </ul>
+      </div>
+      <div class="fly-panel" style="margin-bottom: 0;">
+            <div class="fly-panel-title fly-filter">
+              <a href="" class="layui-this">综合</a>
+              <span class="fly-mid"></span>
+              <!-- <a href="">未结</a>
+              <span class="fly-mid"></span>
+              <a href="">已结</a>
+              <span class="fly-mid"></span> -->
+              <a href="">精华</a>
+              <span class="fly-filter-right layui-hide-xs">
+                <a href="" class="layui-this">按最新</a>
+                <span class="fly-mid"></span>
+                <a href="">按热议</a>
+              </span>
+            </div>
 
-
-
-
-
-
-
-
+            <ul class="fly-list">
+            @foreach($postlist as $k=>$v)
+                <li>
+                    <a href="user/home.html" class="fly-avatar">
+                        <img src="{{ $v->user->userinfo->head_img }}" alt="{{ $v->user->name }}"></a>
+                    <h2>
+                        <a class="layui-badge">{{ $v->postColumn->post_name }}</a>
+                        <a href="jie/detail.html">{{ $v->post_title }}</a></h2>
+                    <div class="fly-list-info">
+                        <a href="user/home.html" link>
+                            <cite>{{ $v->user->u_name }}</cite>
+                            <!--<i class="iconfont icon-renzheng" title="认证信息：XXX"></i>-->
+                            <i class="layui-badge fly-badge-vip">VIP3</i></a>
+                        <span>刚刚</span>
+                        <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻">
+                            <i class="iconfont icon-kiss"></i>60</span>
+                        <span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>
+                        <span class="fly-list-nums">
+                            <i class="iconfont icon-pinglun1" title="回答"></i>66</span>
+                    </div>
+                    <div class="fly-list-badge">
+                        <span class="layui-badge layui-bg-red">精帖</span>
+                    </div>
+                </li>
+            @endforeach
+            </ul>
+            <div style="text-align: center">
+                <div class="laypage-main">
+                    {{ $postlist->links() }}
+                </div>
+            </div>
+      </div>
+@endsection
+<!-- 贴子部分开始 -->
 
 
 

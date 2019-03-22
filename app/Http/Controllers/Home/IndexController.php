@@ -4,16 +4,20 @@ namespace App\Http\Controllers\Home;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Slideshow;
-use App\Models\blogrolls;
-use App\Models\sponsors;
-use App\Models\Post_column;
-use App\Models\User;
-use App\Models\Userinfo;
+use App\Models\Slideshow; // 轮播图模型
+use App\Models\blogrolls; // 友情链接模型
+use App\Models\sponsors; // 赞助商模型
+use App\Models\Post_column; // 贴子栏目模型
+use App\Models\User; // 用户模型
+use App\Models\Userinfo; // 用户详情模型
+use App\Models\Postlist; // 贴子模型
 
 class IndexController extends Controller
 {
-    // 前台首页
+    /**
+     * 首页
+     * @return 引入模板
+     */
     public function index()
     {
     	// 轮播图模块
@@ -31,8 +35,29 @@ class IndexController extends Controller
         // 栏目
         $post_column = post_column::all();
 
-        return view('Home/index',['slide_list'=>$slide_list,'slide_num'=>$slide_num,'sponsor'=>$sponsor,'link'=>$link,'post_column'=>$post_column]);
+        // 获取贴子
+        $postlist = Postlist::paginate(1);
 
+        // 获取用户
+        // $user = User::select('uname','phone')->find($postlist->uid);
+        // $user = array_push($user, $user->userinfo->head_img);
+        return view('Home/index',['slide_list'=>$slide_list,'slide_num'=>$slide_num,'sponsor'=>$sponsor,'link'=>$link,'post_column'=>$post_column,'postlist'=>$postlist]);
+
+    }
+
+    /**
+     * 各个栏目的页面
+     * @return 引入模板
+     */
+    public function columnPost(){
+        // 栏目
+        $post_column = post_column::all();
+        //赞助商模块
+        $sponsor = sponsors::all();
+        //友情链接模块
+        $link = blogrolls::all();
+
+        return view('Home/Postlist/column',['post_column'=>$post_column,'link'=>$link,'sponsor'=>$sponsor]);
     }
 
 
