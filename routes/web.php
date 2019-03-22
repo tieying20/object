@@ -105,8 +105,10 @@ Route::group(['middleware'=>'admin_login'],function(){
 
 
 //签到路由开始
-Route::resource('home/signin','Home\SigninController');
 
-
+//查询我的签到
+Route::get('home/signin/has','Home\SigninController@sign');
+//点击签到
+Route::post('home/signin','Home\SigninController@sign');
 
 //签到路由结束

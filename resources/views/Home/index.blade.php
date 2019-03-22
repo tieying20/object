@@ -36,16 +36,14 @@
         <a href="javascript:;" class="fly-link" id="LAY_signinTop">活跃榜<span class="layui-badge-dot"></span></a>
         <span class="fly-signin-days">已连续签到<cite> </cite>天</span>
       </div>
-      <div class="fly-panel-main fly-signin-main" style="height:340px;">
-      <div id="date" style="margin-top:-21px;margin-bottom:10px; "></div>
+      <div class="fly-panel-main fly-signin-main" style="height:370px;">
+        @if(!session()->has('signin'))
         <button class="layui-btn layui-btn-danger" id="signin">今日签到</button>
-        <span>可获得<cite>5</cite>飞吻</span>
-        <!-- 已签到状态 -->
-        <!--
+        @else
         <button class="layui-btn layui-btn-disabled">今日已签到</button>
-
         <span>获得了<cite>5</cite>飞吻</span>
-        -->
+        @endif
+        <div id="date" style="margin-top:10px;"></div>
       </div>
     </div>
 @endsection
@@ -89,8 +87,8 @@
 
   // 获取签到日期，循环添加签到
 function getdate(cdate=''){
-  $.post({
-      url :'/home/signin',
+  $.get({
+      url :'/home/signin/has',
       cdate : cdate,
       success : function(result){
         console.log(result);
@@ -118,19 +116,37 @@ function getdate(cdate=''){
 }
 
 // 处理是否签到过
+
 function  getSign(){
   $('#signin').removeClass('signbtn');
   $('#singin').class('layui-btn layui-btn-disabled');
 }
 
-$('#signin').click(function(){
-  var curdate = new Date();
-  var date ={ 'year':curdate.getFullYear(), 'month':curdate.getMonth()+1 }
-  
+//签到
+  $('#signin').click(function(){
+    @if(session()->has('user'))
+      var curdate = new Date();
+      var date ={ 'year':curdate.getFullYear(), 'month':curdate.getMonth()+1,'day':curdate.getDate()}
+      console.log(date);
+      $.post({
+        url :'/home/signin',
+        data :date,
+        success:function(data){
+          console.log(data);
+          // if(result) {
+          //   //签到成功
+          //   getSing();
+          //   getsmiledate(date);
+          // }
+        }
+      })
+    @else
+    layer.msg('请先登入',function(){
 
+    })
+    @endif
+  })
 
-
-})
 
 
 

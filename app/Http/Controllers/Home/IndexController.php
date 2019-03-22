@@ -30,6 +30,10 @@ class IndexController extends Controller
 
         // 栏目
         $post_column = post_column::all();
+        //判断用户是否登录
+        dump($session = session('user'));
+        //判断用户是否签到
+        dump($signin = session()->has('signin'));
 
         return view('Home/index',['slide_list'=>$slide_list,'slide_num'=>$slide_num,'sponsor'=>$sponsor,'link'=>$link,'post_column'=>$post_column]);
 
