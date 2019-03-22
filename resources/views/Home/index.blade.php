@@ -4,7 +4,7 @@
 
 <!-- 轮播图开始 -->
 @section('slideshow')
-    <link rel="stylesheet" href="/css/slideshow.css">
+    <link rel="stylesheet" href="/css/Mycss.css">
     <div class="middle_right">
       <div id="lunbobox">
       <div id="toleft">&lt;</div>
@@ -59,7 +59,7 @@
               "border": ""
           })
 
-          $(".lunbo a ").eq(index).fadeIn(1000).siblings().fadeOut(1000);
+          $(".lunbo a ").eq(index).fadeIn(500).siblings().fadeOut(500);
         };
 
         ///点击鼠标 图片切换
@@ -76,15 +76,15 @@
           var index = $(this).index(); //获取索引 图片索引与按钮的索引是一一对应的
           // console.log(index);
 
-          $(".lunbo a ").eq(index).fadeIn(1000).siblings().fadeOut(1000); // siblings  找到 兄弟节点(不包括自己）
+          $(".lunbo a ").eq(index).fadeIn(500).siblings().fadeOut(500); // siblings  找到 兄弟节点(不包括自己）
         });
 
         /////////////上一张、下一张切换
         $("#toleft").click(function() {
           index--;
-          if (index <= 0) //判断index<0的情况为：开始点击#toright  index=0时  再点击 #toleft 为负数了 会出错
+          if (index < 0) //判断index<0的情况为：开始点击#toright  index=0时  再点击 #toleft 为负数了 会出错
           {
-              index = {{ $slide_num }}
+              index = {{ $slide_num-1 }};
           }
           console.log(index);
           $("#lunbobox ul li").eq(index).css({
@@ -94,7 +94,7 @@
               "background": "#cccccc"
           })
 
-          $(".lunbo a ").eq(index).fadeIn(1000).siblings().fadeOut(1000); // siblings  找到 兄弟节点(不包括自己）必须要写
+          $(".lunbo a ").eq(index).fadeIn(500).siblings().fadeOut(500); // siblings  找到 兄弟节点(不包括自己）必须要写
         }); // $("#imgbox a ")获取到的是一个数组集合 。所以可以用index来控制切换
 
         $("#toright").click(function() {
@@ -112,7 +112,7 @@
           }).siblings().css({
               "background": "#cccccc"
           })
-          $(".lunbo a ").eq(index).fadeIn(1000).siblings().fadeOut(1000); // siblings  找到 兄弟节点(不包括自己）
+          $(".lunbo a ").eq(index).fadeIn(500).siblings().fadeOut(500); // siblings  找到 兄弟节点(不包括自己）
         });
         $("#toleft,#toright").hover(function() {
               $(this).css({
@@ -152,7 +152,7 @@
                   }).siblings().css({
                       "background": "#cccccc"
                   })
-                  $(".lunbo a ").eq(index).fadeIn(1000).siblings().fadeOut(1000);
+                  $(".lunbo a ").eq(index).fadeIn(500).siblings().fadeOut(500);
               }
           })
     </script>
@@ -376,9 +376,12 @@ $('#signin').click(function(){
                 </li>
             @endforeach
             </ul>
+            <div class="page">
+                {{ $postlist->links() }}
+            </div>
             <div style="text-align: center">
+
                 <div class="laypage-main">
-                    {{ $postlist->links() }}
                 </div>
             </div>
       </div>

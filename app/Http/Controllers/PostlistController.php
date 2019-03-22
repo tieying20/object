@@ -35,4 +35,8 @@ class PostlistController extends Controller
     		return back()->with('error','发帖失败，这是BUG！');
     	}
     }
+
+    public function show($cid){
+        return view('Home.PostList.show');
+    }
 }

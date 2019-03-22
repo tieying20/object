@@ -35,12 +35,10 @@ class IndexController extends Controller
         // 栏目
         $post_column = post_column::all();
 
-
         // 获取贴子
-        $postlist = Postlist::paginate(1);
+        $postlist = Postlist::paginate(15);
 
         return view('Home/index',['slide_list'=>$slide_list,'slide_num'=>$slide_num,'sponsor'=>$sponsor,'link'=>$link,'post_column'=>$post_column,'postlist'=>$postlist]);
-
     }
 
     /**
@@ -54,7 +52,6 @@ class IndexController extends Controller
         $sponsor = sponsors::all();
         //友情链接模块
         $link = blogrolls::all();
-
         return view('Home/Postlist/column',['post_column'=>$post_column,'link'=>$link,'sponsor'=>$sponsor]);
     }
 

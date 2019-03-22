@@ -36,6 +36,9 @@ Route::resource('user','UsersController');
 // 前台退出登录
 Route::get('home/loginout','UsersController@loginout');
 
+// 贴子详情
+Route::get('postlist/show/{cid}','PostlistController@show');
+
 // 判断用户登录中间件组
 Route::group(['middleware'=>['login']],function(){
 	// 我的主页
@@ -100,7 +103,7 @@ Route::group(['middleware'=>'admin_login'],function(){
 	Route::get('admin/link/status/{id}/{status}','Admin\linkController@Status');
 	Route::resource('admin/link','Admin\linkController');
 	//友情链接路由结束
-	
+
 	// 修改 前台用户状态
 	Route::get('userinfo/setStatus/{id}','UserinfoController@setStatus');
 

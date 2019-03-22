@@ -503,6 +503,37 @@ body .fly-user-main{position: relative; min-height: 600px;}
 .fly-list-one .fly-none{min-height: 70px;}
 
 
+/*导航*/
+.page {
+    margin-top: 20px;
+    text-align: center;
+}
+.page .pagination li {
+    display: inline-block;
+    margin-right: 5px;
+    text-align: center;
+}
+.page span {
+    display: inline-block;
+    padding: 10px;
+    min-width: 15px;
+    border: 1px solid #E2E2E2;
+}
+.page .pagination li.active span {
+    background: #009688 url() 0 0 no-repeat;
+    color: #fff;
+    border: 1px solid #009688;
+}
+.page a {
+    display: inline-block;
+    background: #fff url() 0 0 no-repeat;
+    color: #888;
+    padding: 10px;
+    min-width: 15px;
+    border: 1px solid #E2E2E2;
+}
+
+
 @media screen and (max-width: 768px) {
 	.fly-main{width: 100%;}
 
