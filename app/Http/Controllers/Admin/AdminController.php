@@ -149,7 +149,7 @@ class AdminController extends Controller
             return 2;
         }
     }
-
+ 
     public function setStatus(Request $request, $id, $status){
         // 获取要修改状态的id
         $admin = Admin::find($id);

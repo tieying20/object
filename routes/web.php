@@ -91,11 +91,15 @@ Route::group(['middleware'=>'admin_login'],function(){
 	Route::get('admin/link/status/{id}/{status}','Admin\linkController@Status');
 	Route::resource('admin/link','Admin\linkController');
 	//友情链接路由结束
+	
+	// 修改 前台用户状态
+	Route::get('userinfo/setStatus/{id}','UserinfoController@setStatus');
+
 });
 
 
-
-
+// 前台手机用户验证码
+Route::get('home/docode','UsersController@docode');
 
 
 

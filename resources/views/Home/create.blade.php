@@ -1,31 +1,32 @@
 @include('Home/layout/header')
 <link rel="stylesheet" type="text/css" href="/bootstrap-3.3.7-dist/css/bootstrap.min.css">
 <script type="text/javascript" src="/bootstrap-3.3.7-dist/js/jquery-3.3.1.min.js"></script>
-  <script type="text/javascript" src="/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-<!-- 显示错误 信息 开始 -->
-@if (count($errors) > 0)
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-<!-- 显示错误 信息 结束 -->
-@if (session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
-@endif
+<script type="text/javascript" src="/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 
 <div class="layui-container fly-marginTop">
+
   <div class="fly-panel fly-panel-user" pad20>
     <div class="layui-tab layui-tab-brief" lay-filter="user">
       <ul class="layui-tab-title">
         <li><a href="/home/login/">登入</a></li>
         <li class="layui-this">注册</li>
       </ul>
+      <!-- 显示错误 信息 开始 -->
+      @if (count($errors) > 0)
+          <div class="alert alert-danger">
+              <ul>
+                  @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                  @endforeach
+              </ul>
+          </div>
+      @endif
+      <!-- 显示错误 信息 结束 -->
+      @if (session('error'))
+          <div class="alert alert-danger">
+              {{ session('error') }}
+          </div>
+      @endif      
       <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
         <div class="layui-tab-item layui-show">
           <div class="layui-form layui-form-pane">
@@ -37,13 +38,34 @@
                   <input type="text" id="L_name" name="u_name" required lay-verify="u_name" autocomplete="off" class="layui-input" value="{{ old('u_name') }}">
                 </div>
               </div>
+
               <div class="layui-form-item">
-                <label for="L_username" class="layui-form-label">手机号</label>
+                <label for="L_username" class="layui-form-label">手机号</label><font id="myfont" style="color:red;"></font>
                 <div class="layui-input-inline">
-                  <input type="text" id="L_phone" name="phone" required lay-verify="required" autocomplete="off" class="layui-input" value="{{ old('phone') }}">
+                  <input type="text" id="phone" name="phone" required lay-verify="required" autocomplete="off" class="layui-input" value="{{ old('phone') }}">
                 </div>
-                <div class="layui-form-mid layui-word-aux">用于登录</div>
               </div>
+
+              <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">验证码</label>
+                <div class="layui-input-inline">
+                  <input type="text" id="L_phone" name="phone_code" required lay-verify="required" autocomplete="off" class="layui-input" value="">
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                  <button id="btn"class="btn layui-btn layui-btn-normal" onclick="code();">获取验证码</button><font id="p_font" style="color:red;"></font>
+                </div>
+              </div>
+
+              <!-- <div class="layui-form-item">
+                <label for="L_vercode" class="layui-form-label">图形验证</label>
+                <div class="layui-input-inline">
+                  <input type="text" id="L_vercode" name="vercode" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid">
+                  <span style="color: #c00;"></span>
+                </div>
+              </div> -->
+
               <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label">密码</label>
                 <div class="layui-input-inline">
@@ -91,6 +113,51 @@
     <a href="http://fly.layui.com/jie/2461/" target="_blank">微信公众号</a>
   </p>
 </div> -->
+  <script>
+      var btn = document.getElementById('btn');
+
+      function code(){
+        num = 30;
+        timmer = setInterval(function(){
+          num--;
+          //button文本发生改变
+          btn.innerHTML ='重新发送('+num+')';
+          //button点击效果禁止
+          btn.disabled = true;
+          if(num<=0){
+            //清除定时器
+            clearInterval(timmer);
+            btn.innerHTML = '重新发送';
+            btn.disabled = false;
+          }
+        },1000)
+        
+        // alert($);
+        var phone = $('#phone').val();
+        // console.log(phone);
+        var preg_phone = /^1{1}[3-9]{1}[\d]{9}$/;
+          if(!preg_phone.test(phone)){
+            $('#myfont').html('请输入正确的手机号');
+            return;
+          }else{
+            $('#myfont').html('');
+          }
+
+        $.get('/home/docode',{phone:phone},function(data){
+          // alert(data);
+          if(data.error_code == '0'){
+                
+          }else{
+            $('#p_font').html('发送失败,请重新发送');
+          }
+        },'json');
+      }
+
+    
+
+  </script>
+
+
 
 <script src="/home/res/layui/layui.js"></script>
 <script>
