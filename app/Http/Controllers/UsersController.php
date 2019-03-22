@@ -60,7 +60,7 @@ class UsersController extends Controller
         // dump(session('rand_code'));
 
         if(session('rand_code') != $request->phone_code){
-            return back()->with('error','验证码输入错误');
+            return back()->with('error','验证码输入错误!');
         }
 
         // 开启事务
