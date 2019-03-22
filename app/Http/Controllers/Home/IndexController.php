@@ -35,12 +35,10 @@ class IndexController extends Controller
         // 栏目
         $post_column = post_column::all();
 
+
         // 获取贴子
         $postlist = Postlist::paginate(1);
 
-        // 获取用户
-        // $user = User::select('uname','phone')->find($postlist->uid);
-        // $user = array_push($user, $user->userinfo->head_img);
         return view('Home/index',['slide_list'=>$slide_list,'slide_num'=>$slide_num,'sponsor'=>$sponsor,'link'=>$link,'post_column'=>$post_column,'postlist'=>$postlist]);
 
     }
