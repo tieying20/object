@@ -14,12 +14,12 @@ class SigninController extends Controller
     	return 1;
     	
     }
-    public function  hassign()
+    public function hassign()
     {
     	//处理用户是否签到
     	
     }
-    
+
     public function has()
 	{
 		//获取用户签到日期

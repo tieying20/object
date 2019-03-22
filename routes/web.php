@@ -106,9 +106,11 @@ Route::group(['middleware'=>'admin_login'],function(){
 
 //签到路由开始
 
-//查询我的签到
-Route::get('home/signin/has','Home\SigninController@sign');
+//处理用户是否签到
+Route::get('home/signin/hassign','Home\SigninController@hassign');
 //点击签到
 Route::post('home/signin','Home\SigninController@sign');
+//获取用户签到日期s
+Route::get('home/signin/has','Home\SigninController@has');
 
 //签到路由结束
