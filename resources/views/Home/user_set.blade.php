@@ -194,18 +194,18 @@
 
         // 发送邮箱的操作
         $('#yzm').html('正在发送'); // 修改按钮文字
+        $('#yzm').attr('onclick',''); // 设置发送按钮不可点击
+        $('#yzm').css('cursor','not-allowed'); // 设置按钮的鼠标禁止点击样式
         $.get('/userinfo/email',{email:email},function(res){
             if(res == '1'){
                 hint.css('display','none'); // 隐藏邮箱错误提示信息
-                $('#yzm').attr('disabled','false'); // 设置发送按钮不可点击
-                $('#yzm').css('cursor','not-allowed'); // 设置按钮的鼠标禁止点击样式
                 $('#show_yzm').css('display',''); // 显示验证码输入框
-                i = 60; // 倒计时
+                i = 5; // 倒计时
                 timer = setInterval(function(){
                     i--;
                     $('#yzm').html('发送成功('+i+'秒后重新发送)');
                     if(i <= 0){
-                        $('#yzm').attr('disabled','true'); // 设置按钮可点击
+                        $('#yzm').attr('onclick','send()'); // 设置按钮可点击
                         $('#yzm').css('cursor','pointer'); // 设置按钮的鼠标样式(小手)
                         $('#yzm').html('验证邮箱'); // 修改按钮文字
                         clearInterval(timer); // 清除定时器

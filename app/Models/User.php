@@ -20,4 +20,10 @@ class User extends Model
  	{
  		return $this->hasOne('App\Models\sign_infos','uid');
  	}
+
+ 	// 配置 一对多 贴子模型
+    public function postlist(){
+    	return $this->hasMany('App\Models\postlist','uid');
+    }
+
 }

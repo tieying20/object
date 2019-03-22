@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <link rel="stylesheet" href="/home/res/layui/css/layui.css">
   <link rel="stylesheet" href="/home/res/css/global.css">
-  <script src="/home/res/layui/layui.all.js"></script>
+  <!-- <script src="/home/res/layui/layui.all.js"></script> -->
   <script src="/home/res/layui/layui.js"></script>
   <script type="text/javascript" src="/bootstrap-3.3.7-dist/js/jquery-3.3.1.min.js"></script>
   <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -28,84 +28,6 @@ layui.config({
   fly: 'index'
 }).use('fly');
 </script>
-
-<style>
-  .middle_right{
-    padding: 15px 15px;
-  background-color: #fff;
-  margin-bottom: 15px;
-  }
-  #lunbobox {
-  width:745px;
-  height:173;
-  position:relative;
-  }
-  .lunbo {
-    width:775px;
-    height:172.5px;
-  }
-  .lunbo img {
-    width:745px;
-    height:172.5px;
-    position:absolute;
-    top:0px;
-    left:0px;
-  }
-  #lunbobox ul {
-    width: 108px;
-    position: absolute;
-    bottom: 10px;
-    right: 262px;
-    z-index: 5;
-  }
-  #lunbobox ul li {
-    cursor:pointer;
-    width:10px;
-    height:4px;
-    border:1px solid #cccccc;
-    float:left;
-    list-style:none;
-    background:#cccccc;
-    text-align:center;
-    margin:0px 5px 0px 0px;
-  }
-  #toleft {
-    display:none;
-    width:30px;
-    height:100px;
-    font-size:40px;
-    line-height:100px;
-    text-align:center;
-    color:#f4f4f4;
-    /*background:#cccccc;
-    */
-      /*background:url("../images/toleft.jpg")no-repeat center;
-    */
-      position:absolute;
-    top:40px;
-    left:12px;
-    cursor:pointer;
-    z-index:99;
-    opacity:0.4;
-  }
-  #toright {
-    display:none;
-    width:30px;
-    height:100px;
-    font-size:40px;
-    line-height:100px;
-    text-align:center;
-    color:#f4f4f4;
-    /*background:#cccccc;
-    */
-      position:absolute;
-    top:40px;
-    right:0px;
-    cursor:pointer;
-    z-index:99;
-    opacity:0.4;
-  }
-</style>
 </head>
 <body>
 
@@ -117,9 +39,7 @@ layui.config({
     <ul class="layui-nav fly-nav layui-hide-xs">
       <li class="layui-nav-item layui-this">
         <a href="/"><i class="iconfont icon-jiaoliu"></i>交流</a>
-
       </li>
-
     </ul>
 <script>
     // var user_show = document.
