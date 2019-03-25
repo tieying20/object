@@ -37,7 +37,7 @@ Route::resource('user','UsersController');
 Route::get('home/loginout','UsersController@loginout');
 
 // 贴子详情
-Route::get('postlist/show/{cid}','PostlistController@show');
+Route::get('postlist/detail/{cid}','PostlistController@detail');
 
 // 判断用户登录中间件组
 Route::group(['middleware'=>['login']],function(){
@@ -67,7 +67,8 @@ Route::group(['middleware'=>['login']],function(){
 	// 处理添加贴子
 	Route::post('postlist/doadd','PostlistController@doadd');
 
-
+	// 回复贴子
+	Route::post('postlsit/reply','PostlistController@reply');
 });
 
 
@@ -106,6 +107,9 @@ Route::group(['middleware'=>'admin_login'],function(){
 
 	// 修改 前台用户状态
 	Route::get('userinfo/setStatus/{id}','UserinfoController@setStatus');
+
+	// 贴子列表
+	Route::get('postlist/showlist','PostlistController@showList');
 
 });
 

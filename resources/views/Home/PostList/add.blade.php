@@ -41,32 +41,37 @@
               <div class="layui-form-item layui-form-text">
                 <div class="layui-input-block">
                     <!-- 加载编辑器的容器 -->
-                    <script id="container" name="post_content" type="text/plain" style="height:250px">hello</script>
+                    <script id="container" name="post_content" type="text/plain" style="height:250px"></script>
                     <!-- 配置文件 -->
                     <script type="text/javascript" src="/utf8-php/ueditor.config.js"></script>
                     <!-- 编辑器源码文件 -->
                     <script type="text/javascript" src="/utf8-php/ueditor.all.js"></script>
                     <!-- 实例化编辑器 -->
                     <script type="text/javascript">
-                        var ue = UE.getEditor('container');
+                        var ue = UE.getEditor('container',{
+                            toolbars: [
+                            ['source', 'undo', 'redo', 'bold' ,'simpleupload' ,'fontfamily']
+                        ],
+                        });
                     </script>
                   <!-- <textarea id="L_content" name="post_content" required lay-verify="required" placeholder="详细描述" class="layui-textarea fly-editor" style="height: 260px;"></textarea> -->
                 </div>
               </div>
               <div class="layui-form-item">
-                <div class="layui-inline">
+
                   <label class="layui-form-label">悬赏飞吻</label>
                   <div class="layui-input-inline" style="width: 190px;">
-                    <select name="experience">
+                    <input type="text" class="layui-input" name="integral">
+                    <!-- <select name="experience">
                       <option value="20">20</option>
                       <option value="30">30</option>
                       <option value="50">50</option>
                       <option value="60">60</option>
                       <option value="80">80</option>
-                    </select>
+                    </select> -->
                   </div>
                   <div class="layui-form-mid layui-word-aux">发表后无法更改飞吻</div>
-                </div>
+
               </div>
               <!-- <div class="layui-form-item">
                 <label for="L_vercode" class="layui-form-label">人类验证</label>

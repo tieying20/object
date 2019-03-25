@@ -2,8 +2,8 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
-<!-- 轮播图开始 -->
-@section('slideshow')
+<!-- 左侧主体开始 -->
+@section('left')
     <link rel="stylesheet" href="/css/Mycss.css">
     <div class="middle_right">
       <div id="lunbobox">
@@ -22,7 +22,94 @@
       <span></span>
       </div>
     </div>
-<!-- 轮播图js -->
+
+    <!-- 贴子部分 -->
+    <div class="fly-panel">
+        <div class="fly-panel-title fly-filter">
+          <a>置顶</a>
+        </div>
+        <ul class="fly-list">
+            <li>
+                <a href="user/home.html" class="fly-avatar">
+                    <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="贤心"></a>
+                <h2>
+                    <a class="layui-badge">动态</a>
+                    <a href="jie/detail.html">基于 layui 的极简社区页面模版</a></h2>
+                <div class="fly-list-info">
+                    <a href="user/home.html" link>
+                        <cite>贤心</cite>
+                        <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
+                        <i class="layui-badge fly-badge-vip">VIP3</i></a>
+                    <span>刚刚</span>
+                    <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻">
+                        <i class="iconfont icon-kiss"></i>60</span>
+                    <span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>
+                    <span class="fly-list-nums">
+                        <i class="iconfont icon-pinglun1" title="回答"></i>66</span>
+                </div>
+                <div class="fly-list-badge">
+                    <!-- <span class="layui-badge layui-bg-black">置顶</span>
+                    <span class="layui-badge layui-bg-red">精帖</span>
+                    -->
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="fly-panel" style="margin-bottom: 0;">
+        <div class="fly-panel-title fly-filter">
+          <a href="" class="layui-this">综合</a>
+          <span class="fly-mid"></span>
+          <!-- <a href="">未结</a>
+          <span class="fly-mid"></span>
+          <a href="">已结</a>
+          <span class="fly-mid"></span> -->
+          <a href="">精华</a>
+          <span class="fly-filter-right layui-hide-xs">
+            <a href="" class="layui-this">按最新</a>
+            <span class="fly-mid"></span>
+            <a href="">按热议</a>
+          </span>
+        </div>
+
+        <ul class="fly-list">
+        @foreach($postlist as $k=>$v)
+            <li>
+                <a href="/postlist/detail/{{ $v['id'] }}" class="fly-avatar">
+                    <img src="{{ $v->user->userinfo->head_img }}" alt="{{ $v->user->name }}">
+                </a>
+                <h2>
+                    <a class="layui-badge">{{ $v->postColumn->post_name }}</a>
+                    <a href="/postlist/detail/{{ $v['id'] }}">{{ $v->post_title }}</a>
+                </h2>
+                <div class="fly-list-info">
+                    <a href="/postlist/detail/{{ $v['id'] }}" link>
+                        <cite>{{ $v->user->u_name }}</cite>
+                        <!--<i class="iconfont icon-renzheng" title="认证信息：XXX"></i>-->
+                        <i class="layui-badge fly-badge-vip">VIP3</i>
+                    </a>
+                    <span>刚刚</span>
+                    <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻">
+                        <i class="iconfont icon-kiss"></i>60</span>
+                    <span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>
+                    <span class="fly-list-nums"><i class="iconfont icon-pinglun1" title="回答"></i>66</span>
+                </div>
+                <div class="fly-list-badge">
+                    <span class="layui-badge layui-bg-red">精帖</span>
+                </div>
+            </li>
+        @endforeach
+        </ul>
+        <div class="page">
+            {{ $postlist->links() }}
+        </div>
+        <div style="text-align: center">
+
+            <div class="laypage-main">
+            </div>
+        </div>
+    </div>
+
+    <!-- 轮播图js -->
     <script>
         ///轮播
         $(function() {
@@ -157,7 +244,7 @@
           })
     </script>
 @endsection
-<!-- 轮播图结束 -->
+<!-- 左侧主体结束 -->
 
 <!-- 签到模块开始 -->
 @section('signin')
@@ -301,92 +388,6 @@ $('#signin').click(function(){
 @endsection
 <!-- 签到模块结束 -->
 
-<!-- 贴子部分开始 -->
-@section('postlist')
-<div class="fly-panel">
-            <div class="fly-panel-title fly-filter">
-              <a>置顶</a>
-            </div>
-            <ul class="fly-list">
-                <li>
-                    <a href="user/home.html" class="fly-avatar">
-                        <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="贤心"></a>
-                    <h2>
-                        <a class="layui-badge">动态</a>
-                        <a href="jie/detail.html">基于 layui 的极简社区页面模版</a></h2>
-                    <div class="fly-list-info">
-                        <a href="user/home.html" link>
-                            <cite>贤心</cite>
-                            <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
-                            <i class="layui-badge fly-badge-vip">VIP3</i></a>
-                        <span>刚刚</span>
-                        <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻">
-                            <i class="iconfont icon-kiss"></i>60</span>
-                        <span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>
-                        <span class="fly-list-nums">
-                            <i class="iconfont icon-pinglun1" title="回答"></i>66</span>
-                    </div>
-                    <div class="fly-list-badge">
-                        <!-- <span class="layui-badge layui-bg-black">置顶</span>
-                        <span class="layui-badge layui-bg-red">精帖</span>
-                        -->
-                    </div>
-                </li>
-            </ul>
-      </div>
-      <div class="fly-panel" style="margin-bottom: 0;">
-            <div class="fly-panel-title fly-filter">
-              <a href="" class="layui-this">综合</a>
-              <span class="fly-mid"></span>
-              <!-- <a href="">未结</a>
-              <span class="fly-mid"></span>
-              <a href="">已结</a>
-              <span class="fly-mid"></span> -->
-              <a href="">精华</a>
-              <span class="fly-filter-right layui-hide-xs">
-                <a href="" class="layui-this">按最新</a>
-                <span class="fly-mid"></span>
-                <a href="">按热议</a>
-              </span>
-            </div>
-
-            <ul class="fly-list">
-            @foreach($postlist as $k=>$v)
-                <li>
-                    <a href="user/home.html" class="fly-avatar">
-                        <img src="{{ $v->user->userinfo->head_img }}" alt="{{ $v->user->name }}"></a>
-                    <h2>
-                        <a class="layui-badge">{{ $v->postColumn->post_name }}</a>
-                        <a href="jie/detail.html">{{ $v->post_title }}</a></h2>
-                    <div class="fly-list-info">
-                        <a href="user/home.html" link>
-                            <cite>{{ $v->user->u_name }}</cite>
-                            <!--<i class="iconfont icon-renzheng" title="认证信息：XXX"></i>-->
-                            <i class="layui-badge fly-badge-vip">VIP3</i></a>
-                        <span>刚刚</span>
-                        <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻">
-                            <i class="iconfont icon-kiss"></i>60</span>
-                        <span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>
-                        <span class="fly-list-nums">
-                            <i class="iconfont icon-pinglun1" title="回答"></i>66</span>
-                    </div>
-                    <div class="fly-list-badge">
-                        <span class="layui-badge layui-bg-red">精帖</span>
-                    </div>
-                </li>
-            @endforeach
-            </ul>
-            <div class="page">
-                {{ $postlist->links() }}
-            </div>
-            <div style="text-align: center">
-
-                <div class="laypage-main">
-                </div>
-            </div>
-      </div>
-@endsection
-<!-- 贴子部分开始 -->
 
 
 

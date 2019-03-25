@@ -18,4 +18,8 @@ class Postlist extends Model
     public function postColumn(){
     	return $this->belongsTo('App\Models\Post_column','column_id');
     }
+    // 配置一对多关系 贴子与回复
+    public function reply(){
+        return $this->hasMany('App\Models\reply','post_list_id');
+    }
 }
