@@ -130,7 +130,7 @@ Route::get('home/imgcode','UsersController@imgcode');
 Route::get('home/signin/hassign','Home\SigninController@hassign');
 //点击签到
 Route::post('home/signin','Home\SigninController@sign');
-//获取用户签到日期s
+//获取用户签到日期
 Route::get('home/signin/has','Home\SigninController@has');
 
 //签到路由结束

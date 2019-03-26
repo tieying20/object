@@ -114,7 +114,7 @@ class SponsorController extends Controller
         //接收修改的值
         $sponsor['s_company'] = $request->input('s_company');
         $sponsor['start_at'] = $request->input('start_at');
-        $sponsor['stop_at']= $request->input('stop_at');
+        $sponsor['stop_at'] = $request->input('stop_at');
         
         //判断有无新图片上传
         if($request->input('img_path')){

@@ -53,8 +53,21 @@ class IndexController extends Controller
         $sponsor = sponsors::all();
         //友情链接模块
         $link = blogrolls::all();
+<<<<<<< HEAD
+
+        // 栏目
+        $post_column = post_column::all();
+        // //判断用户是否登录
+        // dump($session = session());
+        // //判断用户是否签到
+        // dump($signin = session()->has('signin'));
+
+        return view('Home/index',['slide_list'=>$slide_list,'slide_num'=>$slide_num,'sponsor'=>$sponsor,'link'=>$link,'post_column'=>$post_column]);
+
+=======
         $view->with('post_column',$post_column)
             ->with('sponsor',$sponsor)
             ->with('link',$link);
+>>>>>>> fb35e20a45cb894ff4d30b2ac70eda6bc9ed0826
     }
 }

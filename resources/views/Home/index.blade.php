@@ -309,9 +309,9 @@
 function getdate(cdate=''){
   $.get({
       url :'/home/signin/has',
-      cdate : cdate,
+      data : cdate,
       success : function(result){
-        console.log(result);
+        // console.log(result);
         if(result.rescode < 0){
           return ;
         }
@@ -338,7 +338,6 @@ function getdate(cdate=''){
 // 处理是否签到过
 
 function  getSign(){
-  $('#signin').removeClass('signbtn');
   $('#singin').class('layui-btn layui-btn-disabled');
 }
 
@@ -352,17 +351,17 @@ $('#signin').click(function(){
     @if(session()->has('user'))
       var curdate = new Date();
       var date ={ 'year':curdate.getFullYear(), 'month':curdate.getMonth()+1,'day':curdate.getDate()}
-      console.log(date);
+      // console.log(date);
       $.post({
         url :'/home/signin',
         data :date,
         success:function(data){
           console.log(data);
-          // if(result) {
-          //   //签到成功
-          //   getSing();
-          //   getsmiledate(date);
-          // }
+          if(data==0) {
+            //签到成功
+            getSing();
+            getsmiledate(date);
+          }
         }
       })
     @else
