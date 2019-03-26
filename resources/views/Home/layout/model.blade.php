@@ -4,7 +4,7 @@
       <div class="layui-container">
         <ul class="layui-clear">
         <!-- 栏目部分 -->
-          <li class="layui-hide-xs layui-this"><a href="#">首页</a></li>
+          <li class="layui-hide-xs layui-this"><a href="/">首页</a></li>
           @foreach($post_column as $key => $val)
           <li><a href="jie/index.html">{{ $val->post_name }}</a></li>
           <!-- <li><a href="jie/index.html">分享<span class="layui-badge-dot"></span></a></li>

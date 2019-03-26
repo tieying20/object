@@ -42,7 +42,7 @@ Route::get('postlist/detail/{cid}','PostlistController@detail');
 // 判断用户登录中间件组
 Route::group(['middleware'=>['login']],function(){
 	// 我的主页
-	Route::get('userinfo/index','UserinfoController@index');
+	Route::get('userinfo/index/{id}','UserinfoController@index');
 
 	// 用户中心
 	Route::get('userinfo/center','UserinfoController@center');

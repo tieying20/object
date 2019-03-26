@@ -14,5 +14,8 @@ class reply extends Model
         return $this->belongsTo('App\Models\Postlist','post_list_id');
     }
 
-
+    // 配置属于关系  回复属于用户
+    public function user(){
+        return $this->belongsTo('App\Models\User','uid');
+    }
 }

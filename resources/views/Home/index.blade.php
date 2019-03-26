@@ -1,6 +1,4 @@
 @extends('Home/layout/model')
-<meta name="csrf-token" content="{{ csrf_token() }}">
-
 
 <!-- 左侧主体开始 -->
 @section('left')
@@ -39,7 +37,8 @@
                     <a href="user/home.html" link>
                         <cite>贤心</cite>
                         <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
-                        <i class="layui-badge fly-badge-vip">VIP3</i></a>
+                        <!-- <i class="layui-badge fly-badge-vip">VIP3</i> -->
+                    </a>
                     <span>刚刚</span>
                     <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻">
                         <i class="iconfont icon-kiss"></i>60</span>
@@ -85,13 +84,13 @@
                     <a href="/postlist/detail/{{ $v['id'] }}" link>
                         <cite>{{ $v->user->u_name }}</cite>
                         <!--<i class="iconfont icon-renzheng" title="认证信息：XXX"></i>-->
-                        <i class="layui-badge fly-badge-vip">VIP3</i>
+                        <!-- <i class="layui-badge fly-badge-vip">VIP3</i> -->
                     </a>
-                    <span>刚刚</span>
+                    <span>{{ $v['created_at'] }}</span>
                     <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻">
-                        <i class="iconfont icon-kiss"></i>60</span>
-                    <span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>
-                    <span class="fly-list-nums"><i class="iconfont icon-pinglun1" title="回答"></i>66</span>
+                        <i class="iconfont icon-kiss"></i>{{ $v['integral'] }}</span>
+                    <!-- <span class="layui-badge fly-badge-accept layui-hide-xs">已结</span> -->
+                    <span class="fly-list-nums"><i class="iconfont icon-pinglun1" title="回复"></i>{{ $v['reply_num'] }}</span>
                 </div>
                 <div class="fly-list-badge">
                     <span class="layui-badge layui-bg-red">精帖</span>

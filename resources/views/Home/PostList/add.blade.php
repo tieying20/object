@@ -50,7 +50,7 @@
                     <script type="text/javascript">
                         var ue = UE.getEditor('container',{
                             toolbars: [
-                            ['source', 'undo', 'redo', 'bold' ,'simpleupload' ,'fontfamily']
+                            ['source', 'undo', 'redo' ,'emotion' ,'fontfamily']
                         ],
                         });
                     </script>

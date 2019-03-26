@@ -5,21 +5,21 @@
         <h1>{{ $postlist['post_title'] }}</h1>
         <div class="fly-detail-info">
             <!-- <span class="layui-badge">审核中</span> -->
-            <span class="layui-badge layui-bg-green fly-detail-column">动态</span>
-            <span class="layui-badge" style="background-color: #999;">未结</span>
+            <span class="layui-badge layui-bg-green fly-detail-column">{{ $postlist->postColumn['post_name'] }}</span>
+            <!-- <span class="layui-badge" style="background-color: #999;">未结</span> -->
             <!-- <span class="layui-badge" style="background-color: #5FB878;">已结</span> -->
             <span class="layui-badge layui-bg-black">置顶</span>
             <span class="layui-badge layui-bg-red">精帖</span>
             <div class="fly-admin-box" data-id="123">
-                <span class="layui-btn layui-btn-xs jie-admin" type="del">删除</span>
-                <span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="1">置顶</span>
+                <!-- <span class="layui-btn layui-btn-xs jie-admin" type="del">删除</span> -->
+                <!-- <span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="1">置顶</span> -->
                 <!-- <span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="0" style="background-color:#ccc;">取消置顶</span> -->
-                <span class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="1">加精</span>
+                <!-- <span class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="1">加精</span> -->
                 <!-- <span class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="0" style="background-color:#ccc;">取消加精</span> --></div>
             <span class="fly-list-nums">
                 <a href="#comment">
-                    <i class="iconfont" title="回答">&#xe60c;</i>66</a>
-                <i class="iconfont" title="人气">&#xe60b;</i>99999</span>
+                    <i class="iconfont" title="回答">&#xe60c;</i>{{ $postlist['reply_num'] }}</a>
+                <i class="iconfont" title="人气">&#xe60b;</i>{{ $postlist['visits'] }}</span>
         </div>
         <div class="detail-about">
             <a class="fly-avatar" href="javascript:;"><!-- 后期可以做成跳到对方的主页 -->
@@ -32,7 +32,7 @@
                 <span>{{ $postlist['created_at'] }}</span>
             </div>
             <div class="detail-hits" id="LAY_jieAdmin" data-id="123">
-                <span style="padding-right: 10px; color: #FF7200">悬赏：60飞吻</span>
+                <span style="padding-right: 10px; color: #FF7200">悬赏：{{ $postlist['integral'] }}飞吻</span>
                 <!-- <span class="layui-btn layui-btn-xs jie-admin" type="edit">
                     <a href="add.html">编辑此贴</a>
                 </span> -->
@@ -77,7 +77,7 @@
                             <i class="iconfont icon-zan"></i>
                             <em>{{ $v['praise'] }}</em>
                         </span>
-                        <span type="reply">
+                        <span onclick="reply_user('{{ $user['u_name'] }}')">
                             <i class="iconfont icon-svgmoban53"></i>回复
                         </span>
                         <!-- <div class="jieda-admin">
@@ -86,6 +86,7 @@
                             <span class="jieda-accept" type="accept">采纳</span>
                         </div> -->
                     </div>
+
                 </li>
             @endforeach
         @else
@@ -107,7 +108,7 @@
                     <script type="text/javascript">
                         var ue = UE.getEditor('container',{
                             toolbars: [
-                            ['source', 'undo', 'redo' ,'fontfamily']
+                            ['source', 'undo', 'redo' ,'emotion' ,'fontfamily']
                         ],
                         });
                     </script>
@@ -129,8 +130,9 @@
     function reply(e){
         e.preventDefault();   //阻止默认提交
         var post_list_id = {{ $postlist['id'] }}; // 获取贴子id
-        var reply_content = ue.getContentTxt(); // 获取回复内容
+        var reply_content = ue.getContent(); // 获取回复内容
         $.post('/postlsit/reply',{post_list_id:post_list_id,reply_content:reply_content},function(res){
+            console.log(res);
             // 返回1成功
             if(res == '1'){
                 layer.alert("回复成功", {icon: 1},function () {
@@ -144,5 +146,15 @@
         });
     }
 
+    // 回复用户
+    function reply_user(uname){
+        // window.location.hash = "#container";
+
+        // 移动到输入框位置
+        var goedit = $('#container').offset();
+        document.documentElement.scrollTop = goedit.top - 100;
+        // 让输入框做出回复用户的效果
+        ue.setContent('@'+uname+'&nbsp;');
+    }
 </script>
 @endsection
