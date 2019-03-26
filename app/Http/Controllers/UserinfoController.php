@@ -18,10 +18,10 @@ class UserinfoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
         // 用户表
-        $user = User::find(session('user')['id']);
+        $user = User::find($id);
         // 用户详情表
         $userinfo = $user->userinfo;
         // 用户详细主页
@@ -190,6 +190,29 @@ class UserinfoController extends Controller
         return view('/Home/my_message',['user'=>$user,'userinfo'=>$userinfo]);
     }
 
-
-
+    /**
+     *  修改前台用户状态
+     */
+    public function setStatus(Request $request, $id)
+    {
+        // dump($id);
+        // 获取要修改状态的id
+        $user = User::find($id);
+        // 获取该用户状态
+        $status = $user->status;
+        if($status == 0){
+            $user->status = 1;
+            $res = $user->save();
+        }else{
+            $user->status = 0;
+            $res = $user->save();
+        }
+        if($res){
+            // 成功
+            return '1';
+        }else{
+            // 失败
+            return '2';
+        }
+    }
 }

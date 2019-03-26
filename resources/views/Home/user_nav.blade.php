@@ -1,7 +1,7 @@
 <div class="layui-container fly-marginTop fly-user-main">
     <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="user">
       <li class="layui-nav-item">
-        <a href="/userinfo/index">
+        <a href="/userinfo/index/{{ Session::get('user')['id'] }}">
           <i class="layui-icon"></i>
           我的主页
         </a>

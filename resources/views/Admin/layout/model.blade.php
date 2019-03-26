@@ -19,7 +19,7 @@
           @endif
           <li class="layui-nav-item to-index"><a href="/">前台首页</a></li>
         </ul>
-        
+
     </div>
     <!-- 顶部结束 -->
     <!-- 中部开始 -->
@@ -29,7 +29,7 @@
         <ul id="nav">
             <li>
                 <a href="javascript:;">
-                    <i class="iconfont">&#xe6b8;</i>
+                    <i class="iconfont">&#xe726;</i>
                     <cite>管理员管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i>
                 </a>
@@ -52,7 +52,7 @@
                                 <a _href="xxx.html">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>管理员列表</cite>
-                                    
+
                                 </a>
                             </li >
                             <li>
@@ -69,14 +69,14 @@
             <li>
                 <a href="javascript:;">
                     <i class="iconfont">&#xe723;</i>
-                    <cite>订单管理</cite>
+                    <cite>贴子管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i>
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="/postlist/showlist">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>订单列表</cite>
+                            <cite>贴子列表</cite>
                         </a>
                     </li >
                 </ul>
@@ -191,7 +191,7 @@
             </li>
             <li>
                 <a href="javascript:;">
-                    <i class="iconfont">&#xe723;</i>
+                    <i class="iconfont">&#xe6b8;</i>
                     <cite>前台用户管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i>
                 </a>
@@ -242,7 +242,7 @@
     <!-- 中部结束 -->
     <!-- 底部开始 -->
     <div class="footer">
-        <div class="copyright">Copyright ©2019 有个社区 1.0 All Rights Reserved </div>  
+        <div class="copyright">Copyright ©2019 有个社区 1.0 All Rights Reserved </div>
     </div>
     <!-- 底部结束 -->
 

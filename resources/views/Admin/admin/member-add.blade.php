@@ -1,5 +1,4 @@
 @include('Admin/layout/header')
-<meta name="csrf-token" content="{{ csrf_token() }}">
   <body>
     <div class="x-body layui-anim layui-anim-up">
         <form class="layui-form">
@@ -109,8 +108,8 @@
         });
     });
 
-    
-        
+
+
 </script>
 
   </body>

@@ -56,21 +56,25 @@
             <td>{{ $val['u_name'] }}</td>
             <td>{{ $val['phone'] }}</td>
             <td>{{ $val['created_at'] }}</td>
-             <td>
-              @if($val['status'] == '0')
-                正常
-              @else
-                冻结
-              @endif
-            </td>
-            </td>
-            <!-- <td class="td-status">
-              <span class="layui-btn layui-btn-normal layui-btn-mini">正常</span>
-            </td> -->
+            <td class="td-status">
+                    @if($val['status'] == '0')
+                        <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span>
+                    @else
+                        <span class="layui-btn layui-btn-normal layui-btn-mini layui-btn-disabled">已停用</span>
+                    @endif
+
+                </td>
             <td class="td-manage">
-              <a onclick="member_stop(this,'10001')" href="javascript:;"  title="冻结">
-                <i class="layui-icon">&#xe601;</i>
-              </a>
+                    @if($val['status'] == '0')
+                        <a onclick="member_stop(this,'{{ $val['id'] }}')" href="javascript:;"  title="已启用">
+                            <i class="layui-icon"></i>
+                        </a>
+                    @else
+                        <a onclick="member_stop(this,'{{ $val['id'] }}')" href="javascript:;" title="已停用">
+                            <i class="layui-icon"></i>
+                        </a>
+                    @endif
+
               <a title="详情"  onclick="x_admin_show('用户详情','/user/{{ $val['id'] }}/edit',1000,400)" href="javascript:;">
                 <i class="layui-icon">&#xe642;</i>
               </a>
@@ -96,6 +100,12 @@
 
     </div>
     <script>
+      $.ajaxSetup({
+              headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+      });
+
       layui.use('laydate', function(){
         var laydate = layui.laydate;
 
@@ -110,26 +120,40 @@
         });
       });
 
-       /*用户-停用*/
+       /*用户-停用*/ 
       function member_stop(obj,id){
-          layer.confirm('确认要冻结吗？',function(index){
+          layer.confirm('确认吗？',function(index){
 
-              if($(obj).attr('title')=='冻结'){
+              // if($(obj).attr('title')=='已启用'){
 
                 //发异步把用户状态进行更改
-                $(obj).attr('title','启用')
-                $(obj).find('i').html('&#xe62f;');
+                $.ajax({
+                    url : '/userinfo/setStatus/' + id,
+                    type : 'get',
+                    async: true,
+                    success:function(result){
+                        // 1 成功
+                        // 2 失败
+                        if(result == '1'){
+                          if($(obj).attr('title')=='已启用'){
+                              $(obj).attr('title','已停用')
+                              $(obj).find('i').html('&#xe62f;');
+                              $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
+                              layer.msg('已停用!',{icon: 5,time:1000});
+                          }else if($(obj).attr('title')=='已停用'){
+                              $(obj).attr('title','已启用')
+                              $(obj).find('i').html('&#xe601;');
 
-                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已冻结');
-                layer.msg('已冻结!',{icon: 5,time:1000});
+                              $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
+                              layer.msg('已启用!',{icon: 6,time:1000});
+                          }
+                        }else{
+                            layer.msg('修改失败!',{icon: 5,time:1000});
+                        }
 
-              }else{
-                $(obj).attr('title','冻结')
-                $(obj).find('i').html('&#xe601;');
-
-                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-                layer.msg('已启用!',{icon: 5,time:1000});
-              }
+                    }
+                });
+              // }
 
           });
       }

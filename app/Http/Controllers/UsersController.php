@@ -56,7 +56,12 @@ class UsersController extends Controller
     public function store(UserStoreRequest $request)
     {
 
-        // dd($request->all());
+        // dump($request->all());
+        // dump(session('rand_code'));
+
+        if(session('rand_code') != $request->phone_code){
+            return back()->with('error','验证码输入错误!');
+        }
 
         // 开启事务
         DB::beginTransaction();
@@ -174,4 +179,75 @@ class UsersController extends Controller
             dump('退出失败');
         }
     }
+
+    // 手机验证码
+    public function docode(Request $request)
+    {
+        // echo 'ok';
+        $phone = $request->phone;
+        // dump($phone);
+        // 设置验证码随机数
+        $rand_code = rand(1000,9999);
+
+        // 把接受到的验证码存到session
+        session(['rand_code'=>$rand_code]);
+
+        $url = "http://v.juhe.cn/sms/send"; // 接口
+        $params = array(
+            'key'   => '49a706db90e4117101e2431a0570673c', //您申请的APPKEY
+            'mobile'    => $phone, //接受短信的用户手机号码
+            'tpl_id'    => '144899', //您申请的短信模板ID，根据实际情况修改
+            'tpl_value' =>'#code#='.$rand_code //您设置的模板变量，根据实际情况修改
+        );
+
+        $paramstring = http_build_query($params); // php系统函数
+        $content = self::juheCurl($url, $paramstring); // 自定义函数
+        // $result = json_decode($content, true); // php系统函数
+        if ($content) {
+            return $content;
+        } else {
+            return $content;
+        }
+    }
+
+    /**
+     * 请求接口返回内容
+     * @param  string $url [请求的URL地址]
+     * @param  string $params [请求的参数]
+     * @param  int $ipost [是否采用POST形式]
+     * @return  string
+     */
+    public static function juheCurl($url, $params = false, $ispost = 0)
+    {
+        $httpInfo = array();
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+        curl_setopt($ch, CURLOPT_USERAGENT, 'JuheData');
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        if ($ispost) {
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+            curl_setopt($ch, CURLOPT_URL, $url);
+        } else {
+            if ($params) {
+                curl_setopt($ch, CURLOPT_URL, $url.'?'.$params);
+            } else {
+                curl_setopt($ch, CURLOPT_URL, $url);
+            }
+        }
+        $response = curl_exec($ch);
+        if ($response === FALSE) {
+            //echo "cURL Error: " . curl_error($ch);
+            return false;
+        }
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $httpInfo = array_merge($httpInfo, curl_getinfo($ch));
+        curl_close($ch);
+        return $response;
+    } 
 }
+

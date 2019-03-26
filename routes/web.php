@@ -20,6 +20,9 @@ Route::post('admin/dologin','Admin\IndexController@dologin');
 Route::get('home/index','Home\IndexController@index');
 Route::get('/','Home\IndexController@index');
 
+// 其余栏目页面
+Route::get('home/columnpost','Home\IndexController@columnPost');
+
 // 前台登录页面
 Route::get('home/login','UsersController@login');
 
@@ -33,10 +36,13 @@ Route::resource('user','UsersController');
 // 前台退出登录
 Route::get('home/loginout','UsersController@loginout');
 
+// 贴子详情
+Route::get('postlist/detail/{cid}','PostlistController@detail');
+
 // 判断用户登录中间件组
 Route::group(['middleware'=>['login']],function(){
 	// 我的主页
-	Route::get('userinfo/index','UserinfoController@index');
+	Route::get('userinfo/index/{id}','UserinfoController@index');
 
 	// 用户中心
 	Route::get('userinfo/center','UserinfoController@center');
@@ -56,6 +62,13 @@ Route::group(['middleware'=>['login']],function(){
 	// 邮箱验证
 	Route::get('userinfo/email','UserinfoController@email');
 
+	// 发帖页面
+	Route::get('postlist/add','PostlistController@add');
+	// 处理添加贴子
+	Route::post('postlist/doadd','PostlistController@doadd');
+
+	// 回复贴子
+	Route::post('postlsit/reply','PostlistController@reply');
 });
 
 
@@ -91,11 +104,18 @@ Route::group(['middleware'=>'admin_login'],function(){
 	Route::get('admin/link/status/{id}/{status}','Admin\linkController@Status');
 	Route::resource('admin/link','Admin\linkController');
 	//友情链接路由结束
+
+	// 修改 前台用户状态
+	Route::get('userinfo/setStatus/{id}','UserinfoController@setStatus');
+
+	// 贴子列表
+	Route::get('postlist/showlist','PostlistController@showList');
+
 });
 
 
-
-
+// 前台手机用户验证码
+Route::get('home/docode','UsersController@docode');
 
 
 
