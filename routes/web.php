@@ -117,7 +117,7 @@ Route::group(['middleware'=>'admin_login'],function(){
 // 前台手机用户验证码
 Route::get('home/docode','UsersController@docode');
 
-
+Route::get('home/imgcode','UsersController@imgcode');
 
 
 

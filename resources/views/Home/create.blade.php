@@ -49,22 +49,22 @@
               <div class="layui-form-item">
                 <label for="L_username" class="layui-form-label">验证码</label>
                 <div class="layui-input-inline">
-                  <input type="text" id="L_phone" name="phone_code" required lay-verify="required" autocomplete="off" class="layui-input" value="">
+                  <input type="text" id="L_phone" name="phone_code" required lay-verify="required" autocomplete="off" class="layui-input" value="{{ old('phone_code') }}">
                 </div>
-                <div class="layui-form-mid layui-word-aux">
+                <div >
                   <button id="btn"class="btn layui-btn layui-btn-normal" onclick="code();">获取验证码</button><font id="p_font" style="color:red;"></font>
                 </div>
               </div>
 
-              <!-- <div class="layui-form-item">
+              <div class="layui-form-item">
                 <label for="L_vercode" class="layui-form-label">图形验证</label>
                 <div class="layui-input-inline">
-                  <input type="text" id="L_vercode" name="vercode" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                  <input type="text" id="L_vercode" name="vercode" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input" value="{{ old('vercode') }}">
                 </div>
-                <div class="layui-form-mid">
-                  <span style="color: #c00;"></span>
+                <div >
+                  <img class="thumbnail captcha" src="{{ url('home/imgcode' )}}" onclick="this.src='/home/imgcode?'+Math.random()" title="点击图片重新获取验证码">
                 </div>
-              </div> -->
+              </div>
 
               <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label">密码</label>

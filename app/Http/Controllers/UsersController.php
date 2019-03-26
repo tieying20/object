@@ -58,13 +58,21 @@ class UsersController extends Controller
 
         // dump($request->all());
         // dump(session('rand_code'));
-
-        if(session('rand_code') != $request->phone_code){
-            return back()->with('error','验证码输入错误!');
-        }
-
+        // dd(session('imgcode'));
+        
         // 开启事务
         DB::beginTransaction();
+
+        // 手机验证码
+        if(session('rand_code') != $request->phone_code){
+            return back()->with('error','手机验证码输入错误!');
+        }
+        
+        // 图片验证码
+        if(session('imgcode') != $request->input('vercode','')){
+            return back()->with('error','图形验证输入错误!');
+        }
+        
 
         // 将数据压入到数据库
         $user = new User;
@@ -248,6 +256,17 @@ class UsersController extends Controller
         $httpInfo = array_merge($httpInfo, curl_getinfo($ch));
         curl_close($ch);
         return $response;
+    }
+
+    // 图片验证码
+    public function imgcode()
+    {
+        $imgcode = new \Code;
+        $i = $imgcode->getCode();
+        session(['imgcode'=>$i]);
+        // dump($imgcode->createCode());
     } 
+
+
 }
 
