@@ -73,7 +73,7 @@
         <ul class="fly-list">
         @foreach($postlist as $k=>$v)
             <li>
-                <a href="/postlist/detail/{{ $v['id'] }}" class="fly-avatar">
+                <a href="/userinfo/index/{{ $v->user['id'] }}" class="fly-avatar"  target="_blank">
                     <img src="{{ $v->user->userinfo->head_img }}" alt="{{ $v->user->name }}">
                 </a>
                 <h2>
@@ -81,7 +81,7 @@
                     <a href="/postlist/detail/{{ $v['id'] }}">{{ $v->post_title }}</a>
                 </h2>
                 <div class="fly-list-info">
-                    <a href="/postlist/detail/{{ $v['id'] }}" link>
+                    <a href="/userinfo/index/{{ $v->user['id'] }}" link target="_blank">
                         <cite>{{ $v->user->u_name }}</cite>
                         <!--<i class="iconfont icon-renzheng" title="认证信息：XXX"></i>-->
                         <!-- <i class="layui-badge fly-badge-vip">VIP3</i> -->
