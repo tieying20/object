@@ -57,7 +57,7 @@ Route::group(['middleware'=>['login']],function(){
 	Route::post('userinfo/resetpwd','UserinfoController@resetPwd');
 
 	// 我的信息
-	Route::get('userinfo/message','UserinfoController@message');
+	Route::get('userinfo/message/{id}','UserinfoController@message');
 
 	// 邮箱验证
 	Route::get('userinfo/email','UserinfoController@email');
@@ -69,6 +69,15 @@ Route::group(['middleware'=>['login']],function(){
 
 	// 回复贴子
 	Route::post('postlsit/reply','PostlistController@reply');
+
+	// 获取消息通知
+	Route::post('postlist/getnotice','PostlistController@getNotice');
+
+	// 设置消息为已读
+	Route::get('postlist/setread/{id}','PostlistController@setRead');
+
+	// 点赞
+	Route::get('postlist/zan/{rid}','PostlistController@zan');
 });
 
 
@@ -110,6 +119,7 @@ Route::group(['middleware'=>'admin_login'],function(){
 
 	// 贴子列表
 	Route::get('postlist/showlist','PostlistController@showList');
+
 
 });
 

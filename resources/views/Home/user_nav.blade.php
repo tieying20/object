@@ -19,7 +19,7 @@
         </a>
       </li>
       <li class="layui-nav-item">
-        <a href="/userinfo/message">
+        <a href="/userinfo/message/{{ Session::get('user')['id'] }}">
           <i class="layui-icon"></i>
           我的消息
         </a>

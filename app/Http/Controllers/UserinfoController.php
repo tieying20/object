@@ -9,6 +9,7 @@ use DB;
 use Hash;
 use Mail;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Notice;
 
 
 class UserinfoController extends Controller
@@ -181,13 +182,10 @@ class UserinfoController extends Controller
     /**
      *  我的消息
      */
-    public function message()
+    public function message($id)
     {
-        // 用户表
-        $user = User::find(session('user')['id']);
-        // 用户详情表
-        $userinfo = $user->userinfo;
-        return view('/Home/my_message',['user'=>$user,'userinfo'=>$userinfo]);
+        $notice = Notice::where('notice_id', '=', $id)->orderBy('id','desc')->get();
+        return view('/Home/message',['notice'=>$notice]);
     }
 
     /**

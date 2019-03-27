@@ -59,7 +59,7 @@ class UsersController extends Controller
         // dump($request->all());
         // dump(session('rand_code'));
         // dd(session('imgcode'));
-        
+
         // 开启事务
         DB::beginTransaction();
 
@@ -67,12 +67,12 @@ class UsersController extends Controller
         if(session('rand_code') != $request->phone_code){
             return back()->with('error','手机验证码输入错误!');
         }
-        
+
         // 图片验证码
         if(session('imgcode') != $request->input('vercode','')){
             return back()->with('error','图形验证输入错误!');
         }
-        
+
 
         // 将数据压入到数据库
         $user = new User;
@@ -180,7 +180,8 @@ class UsersController extends Controller
     }
 
     // 退出登录
-    public function loginout(Request $request){
+    public function loginout(Request $request)
+    {
         if(!$request->session()->forget('user')){
             return redirect('/');
         }else{
@@ -265,7 +266,7 @@ class UsersController extends Controller
         $i = $imgcode->getCode();
         session(['imgcode'=>$i]);
         // dump($imgcode->createCode());
-    } 
+    }
 
 
 }

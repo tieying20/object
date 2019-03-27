@@ -10,7 +10,8 @@ class Post_column extends Model
     public $table = 'post_column';
 
     // 配置一对多关系  栏目对贴子
-    public function postList(){
+    public function postList()
+    {
     	return $this->hasMany('App\Models\Postlist','column_id');
     }
 }

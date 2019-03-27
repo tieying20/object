@@ -280,7 +280,7 @@
       ,max: '{:date("Y-m-d")}'
       ,ready: function(date){
         //控件在打开时触发
-        console.log('date', date);;
+        // console.log('date', date);
         distd();
         getdate(date);
       }

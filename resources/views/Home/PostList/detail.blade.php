@@ -52,11 +52,11 @@
                 <li data-id="111" class="jieda-daan">
                     <a name="item-1111111111"></a>
                     <div class="detail-about detail-about-reply">
-                        <a class="fly-avatar" href="">
-                            <img src="{{ $userinfo['head_img'] }}" alt=" "></a>
+                        <a class="fly-avatar" href="/userinfo/index/{{ $v->user['id'] }}" target="_blank">
+                            <img src="{{ $v->user->userinfo['head_img'] }}" alt=" "></a>
                         <div class="fly-detail-user">
-                            <a href="" class="fly-link">
-                                <cite>{{ $user->u_name }}</cite>
+                            <a href="/userinfo/index/{{ $v->user['id'] }}" target="_blank" class="fly-link">
+                                <cite>{{ $v->user->u_name }}</cite>
                                 <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
                                 <i class="layui-badge fly-badge-vip">VIP3</i></a>
                             <!-- <span>(楼主)</span> -->
@@ -73,18 +73,19 @@
                     </div>
                     <div class="jieda-reply">
                         <!--  已赞样式：zanok -->
-                        <span class="jieda-zan" type="zan">
+                        <span class="jieda-zan {{ $v['zan'] == '1' ? 'zanok' : '' }}" type="zan" onclick="zan(this,{{ $v['id'] }},{{ $v->user['id'] }})">
                             <i class="iconfont icon-zan"></i>
                             <em>{{ $v['praise'] }}</em>
                         </span>
-                        <span onclick="reply_user('{{ $user['u_name'] }}')">
+
+                        <span onclick="reply_user('{{ $v->user['u_name'] }}')">
                             <i class="iconfont icon-svgmoban53"></i>回复
                         </span>
-                        <!-- <div class="jieda-admin">
-                            <span type="edit">编辑</span>
-                            <span type="del">删除</span>
-                            <span class="jieda-accept" type="accept">采纳</span>
-                        </div> -->
+                        <div class="jieda-admin">
+                            <!-- <span type="edit">编辑</span> -->
+                            <span type="del" onclick="">举报</span>
+                            <!-- <span class="jieda-accept" type="accept">采纳</span> -->
+                        </div>
                     </div>
 
                 </li>
@@ -129,21 +130,28 @@
     // 贴子回复ajax
     function reply(e){
         e.preventDefault();   //阻止默认提交
-        var post_list_id = {{ $postlist['id'] }}; // 获取贴子id
-        var reply_content = ue.getContent(); // 获取回复内容
-        $.post('/postlsit/reply',{post_list_id:post_list_id,reply_content:reply_content},function(res){
-            console.log(res);
-            // 返回1成功
-            if(res == '1'){
-                layer.alert("回复成功", {icon: 1},function () {
-                    window.location.reload();
-                });
-            }else{
-                layer.alert("添加失败", {icon: 4},function () {
-                    history.go(0);
-                });
-            }
-        });
+        // 判断用户是否登录
+        if(id){
+            var post_list_id = {{ $postlist['id'] }}; // 获取贴子id
+            var reply_content = ue.getContent(); // 获取回复内容
+            $.post('/postlsit/reply',{post_list_id:post_list_id,reply_content:reply_content},function(res){
+                console.log(res);
+                // 返回1成功
+                if(res == '1'){
+                    layer.alert("回复成功", {icon: 1},function () {
+                        window.location.reload();
+                    });
+                }else{
+                    layer.alert("添加失败", {icon: 5},function () {
+                        history.go(0);
+                    });
+                }
+            });
+        }else{
+            layer.alert("回复需要登录哦！", {icon: 5},function () {
+                window.location.href = '/home/login';
+            });
+        }
     }
 
     // 回复用户
@@ -154,7 +162,29 @@
         var goedit = $('#container').offset();
         document.documentElement.scrollTop = goedit.top - 100;
         // 让输入框做出回复用户的效果
-        ue.setContent('@'+uname+'&nbsp;');
+        var content = ue.getContentTxt();
+        console.log(content);
+        ue.setContent(content+'@'+uname+'&nbsp;');
+    }
+
+    // 点赞
+    function zan(obj,rid,notice_id){
+        if(id){
+            // 发送ajax点赞
+            $.get('/postlist/zan/'+rid,{uid:id,notice_id:notice_id},function(res){
+                if(res == 'a'){
+                    // error1是已点赞
+                    $(obj).addClass('zanok').find('em').html('已经点过赞了!');
+                }else if(res){
+                    // 变成已点赞样式并且修改点赞数量
+                    $(obj).addClass('zanok').find('em').html(res);
+                }
+            });
+        }else{
+            layer.alert("点赞需要登录哦！", {icon: 5},function () {
+                window.location.href = '/home/login';
+            });
+        }
     }
 </script>
 @endsection

@@ -12,6 +12,7 @@ use App\Models\User; // 用户模型
 use App\Models\Userinfo; // 用户详情模型
 use App\Models\Postlist; // 贴子模型
 use Illuminate\View\View; // View类，向公共模板model传值使用到的
+use App\Notifications\InvoicePaid; // 消息
 
 class IndexController extends Controller
 {

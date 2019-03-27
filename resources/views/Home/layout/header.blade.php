@@ -29,7 +29,7 @@ layui.config({
 }).use('fly');
 </script>
 </head>
-<body>
+<body onload="getNotice()">
 
 <div class="fly-header layui-bg-black">
   <div class="layui-container">
@@ -41,12 +41,15 @@ layui.config({
         <a href="/"><i class="iconfont icon-jiaoliu"></i>交流</a>
       </li>
     </ul>
-<script>
-    // var user_show = document.
-</script>
+
     <ul class="layui-nav fly-nav-user">
       <!-- 登入后的状态 -->
       @if(Session::get('user'))
+        <li class="layui-nav-item" style="margin-right: 23px; margin-bottom: 4px">
+            <a href="/postlist/setread/{{ Session::get('user')['id'] }}" class="fly-nav-avatar">
+                <span id="show_notice" class="layui-badge layui-bg-gray" style="padding: 0 0px;width: 21px;    border-radius: 10px;">0</span>
+            </a>
+        </li>
         <li class="layui-nav-item">
             <a id="user_show" class="fly-nav-avatar" href="/userinfo/center">
                 <cite class="layui-hide-xs">{{ Session::get('user')['u_name'] }}</cite>
@@ -54,8 +57,8 @@ layui.config({
             </a>
             <dl id="list_show" class="layui-nav-child">
                 <dd><a href="/userinfo/set"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
-                <dd><a href="/userinfo/message"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a></dd>
-                <dd><a href="/userinfo/index"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>
+                <dd><a href="/postlist/setread/{{ Session::get('user')['id'] }}"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a></dd>
+                <dd><a href="/userinfo/index/{{ Session::get('user')['id'] }}"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>
                 <hr style="margin: 5px 0;">
                 <dd><a href="/home/loginout/" style="text-align: center;">退出</a></dd>
             </dl>
@@ -75,3 +78,36 @@ layui.config({
     </ul>
   </div>
 </div>
+<script>
+    // 获取用户id
+    var id = "{{ Session::get('user')['id'] }}" || false;
+    // 每5秒请求获取一次消息
+    function getNotice(){
+        // 判断用户是否登录
+        if(id){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.post('/postlist/getnotice',{id:id},function(data){
+                if(data == 0){
+                    // 修改通知数
+                    $('#show_notice').html(data);
+                    // 移出变量
+                    $('#show_notice').addClass('layui-bg-gray');
+                }else{
+                    // 修改通知数量
+                    $('#show_notice').html(data);
+                    // 移出变量
+                    $('#show_notice').removeClass('layui-bg-gray');
+                }
+            });
+            // 递归调用
+            setTimeout(function(){
+                getNotice();
+            },5000);
+        }
+    }
+
+</script>
