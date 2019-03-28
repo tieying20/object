@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Userinfo;
 use App\Models\User;
+use App\Models\sign_infos;
 use DB;
 use Hash;
 use Mail;
@@ -27,7 +28,6 @@ class UserinfoController extends Controller
         // 用户详细主页
         return view('/Home/userinfo',['user'=>$user,'userinfo'=>$userinfo]);
     }
-
     /**
      * 用户中心
      *
@@ -37,9 +37,23 @@ class UserinfoController extends Controller
     {
         // 用户表
         $user = User::find(session('user')['id']);
+        //签到
+        $sign = sign_infos::where('uid','=',session('user')['id'])->where('month','=',date('m'))->first();
+        return view('/Home/user_center',['user'=>$user,'sign'=>$sign]);
+    }
+
+    /**
+     * 我的帖子
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function posts()
+    {
+        // 用户表
+        $user = User::find(session('user')['id']);
         // 用户详情表
         $userinfo = $user->userinfo;
-        return view('/Home/user_center',['user'=>$user,'userinfo'=>$userinfo]);
+        return view('/Home/user_posts',['user'=>$user,'userinfo'=>$userinfo]);
     }
 
     /**

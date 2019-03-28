@@ -11,6 +11,7 @@ use App\Models\Post_column; // 贴子栏目模型
 use App\Models\User; // 用户模型
 use App\Models\Userinfo; // 用户详情模型
 use App\Models\Postlist; // 贴子模型
+use App\Models\sign_infos;//签到模型 
 use Illuminate\View\View; // View类，向公共模板model传值使用到的
 
 class IndexController extends Controller
@@ -30,8 +31,11 @@ class IndexController extends Controller
 
         // 获取贴子
         $postlist = Postlist::paginate(15);
+        //签到
+        $uid = session('user')['id'];//获取用户id
+        $sign = sign_infos::where('uid','=',$uid)->where('month','=',date('m'))->first();
 
-        return view('Home/index',['slide_list'=>$slide_list,'slide_num'=>$slide_num,'postlist'=>$postlist]);
+        return view('Home/index',['slide_list'=>$slide_list,'slide_num'=>$slide_num,'postlist'=>$postlist,'sign'=>$sign]);
     }
 
     /**
@@ -53,8 +57,6 @@ class IndexController extends Controller
         $sponsor = sponsors::all();
         //友情链接模块
         $link = blogrolls::all();
-<<<<<<< HEAD
-
         // 栏目
         $post_column = post_column::all();
         // //判断用户是否登录
@@ -62,12 +64,10 @@ class IndexController extends Controller
         // //判断用户是否签到
         // dump($signin = session()->has('signin'));
 
-        return view('Home/index',['slide_list'=>$slide_list,'slide_num'=>$slide_num,'sponsor'=>$sponsor,'link'=>$link,'post_column'=>$post_column]);
-
-=======
         $view->with('post_column',$post_column)
             ->with('sponsor',$sponsor)
             ->with('link',$link);
->>>>>>> fb35e20a45cb894ff4d30b2ac70eda6bc9ed0826
+
     }
 }
+        
