@@ -78,6 +78,12 @@ Route::group(['middleware'=>['login']],function(){
 
 	// 点赞
 	Route::get('postlist/zan/{rid}','PostlistController@zan');
+
+	// 举报页面
+	Route::get('postlist/showjb/{rid}/{pid}','PostlistController@showJb');
+
+	// 举报处理
+	Route::post('postlist/inform','PostlistController@inform');
 });
 
 

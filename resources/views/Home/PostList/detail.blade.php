@@ -83,13 +83,13 @@
                         </span>
                         <div class="jieda-admin">
                             <!-- <span type="edit">编辑</span> -->
-                            <span type="del" onclick="">举报</span>
+                            <span type="del" onclick="inform({{ $v['id'] }},{{ $v['post_list_id'] }})">举报</span>
                             <!-- <span class="jieda-accept" type="accept">采纳</span> -->
                         </div>
                     </div>
-
                 </li>
             @endforeach
+            <button data-method="notice" class="layui-btn">示范一个公告层</button>
         @else
             <!-- 无数据时 -->
             <li class="fly-none">消灭零回复</li>
@@ -186,5 +186,17 @@
             });
         }
     }
+
+    // 显示举报框举报
+    function inform(rid,pid){
+        layer.open({
+            type: 2,
+            area: ['30%','400px'],
+            shadeClose: true,
+            title: '违规内容举报',
+            content: '/postlist/showjb/'+rid+'/'+pid,
+        });
+    }
 </script>
+
 @endsection

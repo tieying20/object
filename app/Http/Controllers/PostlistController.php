@@ -9,6 +9,7 @@ use App\Models\reply; // 回复模型
 use App\Models\User; // 用户模型
 use App\Models\Notice; // 通知表
 use App\Models\zan; // 点赞表
+use App\Models\inform; // 举报表
 use DB;
 
 class PostlistController extends Controller
@@ -234,6 +235,30 @@ class PostlistController extends Controller
             }
         }else{
             return 'a';
+        }
+    }
+
+    /**
+     * 举报页面
+     */
+    public function showJb($rid, $pid){
+        return view('Home/PostList/inform',['rid'=>$rid,'pid'=>$pid]);
+    }
+
+    /**
+     * 举报处理
+     */
+    public function inform(Request $request){
+        $data = $request->input('data'); // 接收数据
+        array_shift($data); // 去掉排第一的 _token
+        $data['uid'] = session('user')['id']; // 添加uid
+        $data['post_url'] = '/postlist/detail/'.$data['post_url']; // 拼接成贴子地址
+        $inform = new inform;
+        $res = $inform->insert($data);
+        if($res){
+            return 1;
+        }else{
+            return 2;
         }
 
     }
