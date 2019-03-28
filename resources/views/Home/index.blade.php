@@ -259,17 +259,29 @@
         <i class="fly-mid"></i>
         <a href="javascript:;" class="fly-link" id="LAY_signinHelp">说明</a>
         <i class="fly-mid"></i>
-        <a href="javascript:;" class="fly-link" id="LAY_signinTop">活跃榜<span class="layui-badge-dot"></span></a>
-        <span class="fly-signin-days">已连续签到<cite> </cite>天</span>
+        <!-- <a href="javascript:;" class="fly-link" id="LAY_signinTop">活跃榜<span class="layui-badge-dot"></span></a> -->
+
+        @if(session()->has('user'))
+        <span class="fly-signin-days">已连续签到<cite>{{ $sign['xunum'] }}</cite>天</span>
+        @endif
+
       </div>
       <div class="fly-panel-main fly-signin-main" style="height:370px;">
-        @if(!session()->has('signin'))
-        <button class="layui-btn layui-btn-danger" id="signin">今日签到</button>
+
+        @if(session()->has('user'))
+          @if(strtotime($sign['updated_at']) < strtotime(date('Y-m-d')) )
+            <button class="layui-btn layui-btn-danger" id="signin">今日签到</button>
+            <span>获得了<cite>5</cite>积分</span>
+          @else
+            <button class="layui-btn layui-btn-disabled">今日已签到</button>
+          <span>获得了<cite>5</cite>积分</span>
+
+          @endif
         @else
-        <button class="layui-btn layui-btn-disabled">今日已签到</button>
-        <span>获得了<cite>5</cite>飞吻</span>
+          <button class="layui-btn layui-btn-danger" id="signin">今日签到</button>
         @endif
         <div id="date" style="margin-top:10px;"></div>
+
       </div>
     </div>
 @endsection
@@ -292,7 +304,7 @@
       }
       ,change: function(value, date, endDate){
         //时间被切换时触发
-        console.log('date', date);
+        // console.log('date', date);
         distd();
         getdate(date);
       }
@@ -301,7 +313,7 @@
 
   // 1、获取签到日期。 初始化当前年月，获取签到列表
   // 2、根据日期添加标签。
-  var smiles  =  '<i class="fa fa-smile-o faicon" aria-hidden="true"></i>';
+  var smiles  =  '<i class="layui-icon">&#xe6af;</i>';
   //禁止点击日历
   function distd(){
     $('.layui-laydate-content tbody td').each(function(){
@@ -312,7 +324,8 @@
   }
 
   // 获取签到日期，循环添加签到
-function getdate(cdate=''){
+function getdate(cdate='')
+{
   $.get({
       url :'/home/signin/has',
       data : cdate,
@@ -331,9 +344,8 @@ function getdate(cdate=''){
     for (var i = signindata.length - 1; i >= 0; i--) {
       $('td').each(function(){
         var ymd = $(this).attr('lay-ymd');
-        // console.log(ymd);
         if ( ymd == signindata[i] ) {
-          $(this).append(smiles);
+          $arr = $(this).append(smiles);
           return true;
         }
       });
@@ -341,53 +353,50 @@ function getdate(cdate=''){
   }
 }
 
-// 处理是否签到过
-
-function  getSign(){
-  $('#singin').class('layui-btn layui-btn-disabled');
-}
-
-
-$('#signin').click(function(){
-  var curdate = new Date();
-  var date ={ 'year':curdate.getFullYear(), 'month':curdate.getMonth()+1 }
-
 //签到
-  $('#signin').click(function(){
-    @if(session()->has('user'))
-      var curdate = new Date();
-      var date ={ 'year':curdate.getFullYear(), 'month':curdate.getMonth()+1,'day':curdate.getDate()}
-      // console.log(date);
-      $.post({
-        url :'/home/signin',
-        data :date,
-        success:function(data){
-          console.log(data);
-          if(data==0) {
-            //签到成功
-            getSing();
-            getsmiledate(date);
-          }
+$('#signin').click(function()
+{
+  @if(session()->has('user'))
+    var curdate = new Date();
+    var date ={ 'year':curdate.getFullYear(), 'month':curdate.getMonth()+1,'day':curdate.getDate()}
+    // console.log(date);
+    $.post({
+      url :'/home/signin',
+      data :date,
+      success:function(data){
+        console.log(data);
+        if(data==0) {
+          //签到成功
+          $('#signin').removeClass('layui-btn layui-btn-danger').addClass('layui-btn layui-btn-disabled').html('今日已签到');
+          layer.msg('签到成功');
+
+          // getsmiledate(date);
+        }else if(data==3){
+          layer.msg('今日已签到,记得明日再来签到哦');
+
+        }else{
+          layer.msg('网络异常 请稍后再试',function(){
+
+          });
         }
-      })
-    @else
-    layer.msg('请先登入',function(){
-
+      }
     })
-    @endif
+  @else
+  layer.msg('请先登入',function(){
+
   })
-
-
-
-
-
-
-
-
-
-
-
+  @endif
 })
+
+
+
+
+
+
+
+
+
+
 
 @endsection
 <!-- 签到模块结束 -->

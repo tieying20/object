@@ -11,6 +11,7 @@ use App\Models\Post_column; // 贴子栏目模型
 use App\Models\User; // 用户模型
 use App\Models\Userinfo; // 用户详情模型
 use App\Models\Postlist; // 贴子模型
+use App\Models\sign_infos;//签到模型
 use Illuminate\View\View; // View类，向公共模板model传值使用到的
 use App\Notifications\InvoicePaid; // 消息
 
@@ -27,6 +28,7 @@ class IndexController extends Controller
     	$now = time();
     	$slide_list = Slideshow::where('start_at','<',$now)->where('stop_at','>',$now)->get();
     	$slide_num = count($slide_list);
+
 
         // 获取所有的贴子
         $postlist = Postlist::orderBy('id','desc')->paginate(15);
@@ -48,7 +50,11 @@ class IndexController extends Controller
             }
         }
 
-        return view('Home/index',['slide_list'=>$slide_list,'slide_num'=>$slide_num,'postlist'=>$postlist,'stick'=>$stick,'status'=>$status]);
+        //签到
+        $uid = session('user')['id'];//获取用户id
+        $sign = sign_infos::where('uid','=',$uid)->where('month','=',date('m'))->first();
+
+        return view('Home/index',['slide_list'=>$slide_list,'slide_num'=>$slide_num,'postlist'=>$postlist,'stick'=>$stick,'status'=>$status,'sign'=>$sign]);
     }
 
     /**
@@ -79,8 +85,10 @@ class IndexController extends Controller
         $sponsor = sponsors::all();
         //友情链接模块
         $link = blogrolls::all();
+
         $view->with('post_column',$post_column)
             ->with('sponsor',$sponsor)
             ->with('link',$link);
     }
 }
+

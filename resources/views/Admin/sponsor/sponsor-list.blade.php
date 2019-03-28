@@ -107,7 +107,8 @@
 
     </div>
     <script>
-      layui.use('laydate', function(){
+      layui.use('laydate', function()
+      {
         var laydate = layui.laydate;
         
         //执行一个laydate实例
@@ -122,7 +123,8 @@
       });
 
        /*用户-停用*/
-      function member_stop(obj,id){
+      function member_stop(obj,id)
+      {
 	      if($(obj).attr('title')=='已启用'){
 	      		layer.confirm('确认要停用吗？',function(index){
 		            //发异步把用户状态进行更改

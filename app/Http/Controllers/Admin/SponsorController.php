@@ -10,13 +10,13 @@ use Illuminate\Support\Facades\Storage;
 class SponsorController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * // 赞助商列表页
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Request
      */
     public function index(Request $request)
     {
-        // 赞助商列表页
+        
     
         // 搜索的内容
         $search = $request->input('search','');
@@ -30,13 +30,12 @@ class SponsorController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * //显示添加页面
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //显示添加页面
         
         return view('Admin/sponsor/sponsor-add');
     }

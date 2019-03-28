@@ -89,7 +89,6 @@
                     </div>
                 </li>
             @endforeach
-            <button data-method="notice" class="layui-btn">示范一个公告层</button>
         @else
             <!-- 无数据时 -->
             <li class="fly-none">消灭零回复</li>

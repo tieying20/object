@@ -46,9 +46,10 @@ Route::get('postlist/detail/{cid}','PostlistController@detail');
 Route::group(['middleware'=>['login']],function(){
 	// 我的主页
 	Route::get('userinfo/index/{id}','UserinfoController@index');
-
 	// 用户中心
 	Route::get('userinfo/center','UserinfoController@center');
+	// 我的帖子
+	Route::get('userinfo/posts','UserinfoController@posts');
 
 	// 基本设置
 	Route::get('userinfo/set','UserinfoController@set');
