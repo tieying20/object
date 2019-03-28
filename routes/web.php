@@ -17,11 +17,14 @@ Route::get('admin/login','Admin\IndexController@login');
 Route::post('admin/dologin','Admin\IndexController@dologin');
 
 // 前台首页
-Route::get('home/index','Home\IndexController@index');
 Route::get('/','Home\IndexController@index');
+// 首页根据需求获取贴子
+Route::get('home/index/{status}/{order}','Home\IndexController@index');
 
 // 其余栏目页面
-Route::get('home/columnpost','Home\IndexController@columnPost');
+Route::get('home/columnpost/{cid}','Home\IndexController@columnPost');
+// 其余的栏目根据需求获取贴子
+Route::get('home/columnpost/{cid}/{status}/{order}','Home\IndexController@columnPost');
 
 // 前台登录页面
 Route::get('home/login','UsersController@login');

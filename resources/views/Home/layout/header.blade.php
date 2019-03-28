@@ -33,7 +33,7 @@ layui.config({
 
 <div class="fly-header layui-bg-black">
   <div class="layui-container">
-    <a class="fly-logo" href="/home/index/">
+    <a class="fly-logo" href="/">
       <img src="/home/res/images/logo.png" alt="layui">
     </a>
     <ul class="layui-nav fly-nav layui-hide-xs">

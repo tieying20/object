@@ -189,13 +189,20 @@
 
     // 显示举报框举报
     function inform(rid,pid){
-        layer.open({
+        if(id){
+            layer.open({
             type: 2,
             area: ['30%','400px'],
             shadeClose: true,
             title: '违规内容举报',
             content: '/postlist/showjb/'+rid+'/'+pid,
         });
+        }else{
+            layer.alert("点赞需要登录哦！", {icon: 5},function () {
+                window.location.href = '/home/login';
+            });
+        }
+
     }
 </script>
 

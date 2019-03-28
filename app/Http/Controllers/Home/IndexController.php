@@ -20,27 +20,52 @@ class IndexController extends Controller
      * 首页
      * @return 引入模板
      */
-    public function index()
+    public function index($status='', $order='')
     {
     	// 轮播图模块
     	// 当前时间戳
     	$now = time();
     	$slide_list = Slideshow::where('start_at','<',$now)->where('stop_at','>',$now)->get();
     	$slide_num = count($slide_list);
-    	// dump($slide_list);
 
-        // 获取贴子
-        $postlist = Postlist::paginate(15);
+        // 获取所有的贴子
+        $postlist = Postlist::orderBy('id','desc')->paginate(15);
+        // 把指定贴子分离出来
+        $stick = [];
+        foreach ($postlist as $key => $value) {
+            if($value['status'] == 2){
+                $stick[$key] = $value; // 置顶的贴子存入新数组
+                unset($postlist[$key]); // 删除原数组的这一条数据
+            }
+        }
 
-        return view('Home/index',['slide_list'=>$slide_list,'slide_num'=>$slide_num,'postlist'=>$postlist]);
+        // 根据要求获取贴子
+        if(!empty($status)){
+            if($status == 'status'){
+                $postlist = Postlist::orderBy($order,'desc')->paginate(15);
+            }else{
+                $postlist = Postlist::where('status','=',$status)->orderBy($order,'desc')->paginate(15);
+            }
+        }
+
+        return view('Home/index',['slide_list'=>$slide_list,'slide_num'=>$slide_num,'postlist'=>$postlist,'stick'=>$stick,'status'=>$status]);
+    }
+
+    /**
+     * 根据要求获取贴子
+     */
+    public function require(){
+
     }
 
     /**
      * 各个栏目的页面
      * @return 引入模板
      */
-    public function columnPost(){
-        return view('Home/Postlist/column');
+    public function columnPost($cid){
+        // 获取贴子
+        $postlist = Postlist::where('column_id','=',$cid)->paginate(15);
+        return view('Home/Postlist/column',['postlist'=>$postlist,'cid'=>$cid]);
     }
 
     /**
