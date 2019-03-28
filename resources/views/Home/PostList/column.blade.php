@@ -5,18 +5,37 @@
     <!-- 贴子部分 -->
     <div class="fly-panel" style="margin-bottom: 0;">
         <div class="fly-panel-title fly-filter">
-          <a href="" class="layui-this">综合</a>
+          <a href="/home/columnpost/{{ $cid }}/status/id" class="layui-this post_status">综合</a>
           <span class="fly-mid"></span>
           <!-- <a href="">未结</a>
           <span class="fly-mid"></span>
           <a href="">已结</a>
           <span class="fly-mid"></span> -->
-          <a href="">精华</a>
+          <a href="/home/columnpost/{{ $cid }}/1/id" class="post_status" id="post_status">精华</a>
+
           <span class="fly-filter-right layui-hide-xs">
-            <a href="" class="layui-this">按最新</a>
+            <a href="{{ $status!=1 ? '/home/columnpost/'.$cid.'/status/id' : '/home/columnpost/'.$cid.'/1/id' }}" class="layui-this tiaojian">按最新</a>
             <span class="fly-mid"></span>
-            <a href="">按热议</a>
+            <a href="{{ $status!=1 ? '/home/columnpost/'.$cid.'/status/reply_num' : '/home/columnpost/'.$cid.'/1/reply_num' }}" class="tiaojian">按热议</a>
           </span>
+            <!-- 给上面的标签加样式的 -->
+            <script type="text/javascript">
+                status = {{ empty($status) ? 'false' : $status }};
+                order = '{{ $order }}';
+                // 在综合还是精华
+                if(status == 1){
+                    $('.post_status').removeClass('layui-this');
+                    $('#post_status').addClass('layui-this');
+                    // console.log($('.post_status'));
+                }
+
+                // 以最新还是评论最多展示，添加样式
+                if(order == 'reply_num'){
+                    $('.tiaojian').removeClass('layui-this');
+                    $('.tiaojian').eq('1').addClass('layui-this');
+                    // console.log($('.tiaojian').eq('1'));
+                }
+            </script>
         </div>
 
         <ul class="fly-list">

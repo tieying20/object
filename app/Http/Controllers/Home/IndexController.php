@@ -54,24 +54,26 @@ class IndexController extends Controller
         $uid = session('user')['id'];//获取用户id
         $sign = sign_infos::where('uid','=',$uid)->where('month','=',date('m'))->first();
 
-        return view('Home/index',['slide_list'=>$slide_list,'slide_num'=>$slide_num,'postlist'=>$postlist,'stick'=>$stick,'status'=>$status,'sign'=>$sign]);
+        return view('Home/index',['slide_list'=>$slide_list,'slide_num'=>$slide_num,'postlist'=>$postlist,'stick'=>$stick,'status'=>$status,'order'=>$order,'sign'=>$sign]);
     }
 
-    /**
-     * 根据要求获取贴子
-     */
-    public function require(){
-
-    }
 
     /**
      * 各个栏目的页面
      * @return 引入模板
      */
-    public function columnPost($cid){
+    public function columnPost($cid, $status='', $order=''){
         // 获取贴子
         $postlist = Postlist::where('column_id','=',$cid)->paginate(15);
-        return view('Home/Postlist/column',['postlist'=>$postlist,'cid'=>$cid]);
+        // 根据要求获取贴子
+        if(!empty($status)){
+            if($status == 'status'){
+                $postlist = Postlist::where('column_id','=',$cid)->orderBy($order,'desc')->paginate(15);
+            }else{
+                $postlist = Postlist::where('column_id','=',$cid)->where('status','=',$status)->orderBy($order,'desc')->paginate(15);
+            }
+        }
+        return view('Home/Postlist/column',['postlist'=>$postlist,'cid'=>$cid,'status'=>$status,'order'=>$order]);
     }
 
     /**
