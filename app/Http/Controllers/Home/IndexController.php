@@ -53,8 +53,15 @@ class IndexController extends Controller
         //签到
         $uid = session('user')['id'];//获取用户id
         $sign = sign_infos::where('uid','=',$uid)->where('month','=',date('m'))->first();
-
-        return view('Home/index',['slide_list'=>$slide_list,'slide_num'=>$slide_num,'postlist'=>$postlist,'stick'=>$stick,'status'=>$status,'sign'=>$sign]);
+        //积分规则
+        if($sign['xunum'] <5){
+            $integral = 5;
+        }else if($sign['xunum'] <15 ){
+            $integral = 10;
+        }else if($sign['xunum'] >=15 ){
+            $integral = 15;
+        }
+        return view('Home/index',['slide_list'=>$slide_list,'slide_num'=>$slide_num,'postlist'=>$postlist,'stick'=>$stick,'status'=>$status,'sign'=>$sign,'integral'=>$integral]);
     }
 
     /**

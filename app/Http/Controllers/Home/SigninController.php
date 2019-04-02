@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Home;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\sign_infos;
+use App\Models\Userinfo;
 use DB;
 class SigninController extends Controller
 {
@@ -24,12 +25,15 @@ class SigninController extends Controller
         $day = $request->input('day');
         //获取用户uid
         $uid = session('user')['id'];
-        ///查询用户的签到
+        //查询用户的签到
         $signinfo = DB::table('sign_info')
         ->where('year',$year)
         ->where('month',$month)
         ->where('uid',$uid)
         ->get();
+        //用户详情 关联积分
+        $userinfo = Userinfo::where('uid','=',$uid)->first();
+        // return $userinfo['integral'];
         // $res = null;
         //判断用户有无签到过	        
         if (!$signinfo->first()) {
@@ -38,8 +42,11 @@ class SigninController extends Controller
             $signin->year = $year;
             $signin->month = $month;
             $signin->signlist = $day;
-            $signin->point += $this->point();
             $signin->save();
+
+            $userinfo['integral'] += $this->point();//积分
+            $userinfo->save();
+
             if($signin){
             	return 0;// 首次/月 签到
             }
@@ -48,9 +55,7 @@ class SigninController extends Controller
         	//是否连续签到       	
         	foreach($signinfo as $k => $v){        		
 				$res = $v->signlist;//签到日期列表
-				$point = $v->point;//积分
 				$xunnum = $v->xunum;//连续签到天数
-
 				$updated = $v->updated_at;//签到的时间
 				$updated = strtotime($updated);
 				$int = date('Y-m-d');//当前日
@@ -65,12 +70,14 @@ class SigninController extends Controller
 					// return 5;
 					//昨日未签到 连续签到恢复1天
 					$signlist = $res.','.$day;
-		            $point += $this->point();
+		            $userinfo['integral'] += $this->point();
 		            $xunnum = 1;
 		            $updated = date('Y-m-d H:i:s');
 
-		            $data = DB::table('sign_info')->where('month',$month)->where('uid',$uid)->update(['point'=>$point,'signlist'=>$signlist,'xunum'=>$xunnum,'updated_at'=>$updated]);
-		            if($data){
+		            $data = DB::table('sign_info')->where('month',$month)->where('uid',$uid)->update(['signlist'=>$signlist,'xunum'=>$xunnum,'updated_at'=>$updated]);
+                    $data2 = $userinfo->save();
+                    
+		            if($data && $data2){
 		            	return 0;
 		            }
 	            }else{
@@ -78,20 +85,22 @@ class SigninController extends Controller
 		            $signlist = $res.','.$day;
                     //根据连续签到天数判断获得积分
                     if($xunnum <5){
-		                $point += $this->point();
-                    }else if($xunnum >=5){
-                        $point += 5 + $this->point();
-                    }else if($xunnum >=5){
-                        $point += 10 + $this->point();
+		                $userinfo['integral'] += $this->point();
+                    }else if($xunnum <15){
+                        $userinfo['integral'] += 5 + $this->point();
+                    }else if($xunnum >=15){
+                        $userinfo['integral'] += 10 + $this->point();
                     }
 		            $xunnum += 1;
                     
 		            $updated = date('Y-m-d H:i:s');
 		            
-		            $data = DB::table('sign_info')->where('month',$month)->where('uid',$uid)->update(['point'=>$point,'signlist'=>$signlist,'xunum'=>$xunnum,'updated_at'=>$updated]);
-		            if($data){
-		            	return 0;
-		            }
+		            $data = DB::table('sign_info')->where('month',$month)->where('uid',$uid)->update(['signlist'=>$signlist,'xunum'=>$xunnum,'updated_at'=>$updated]);
+		            $data2 = $userinfo->save();
+
+                    if($data && $data2){
+                        return 0;
+                    }
 	            }
 
             };

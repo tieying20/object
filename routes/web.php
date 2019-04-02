@@ -50,7 +50,8 @@ Route::group(['middleware'=>['login']],function(){
 	Route::get('userinfo/center','UserinfoController@center');
 	// 我的帖子
 	Route::get('userinfo/posts','UserinfoController@posts');
-
+	//我的帖子-删除
+	Route::get('userinfo/pdel/{id}','UserinfoController@pdel');
 	// 基本设置
 	Route::get('userinfo/set','UserinfoController@set');
 	// 基本设置->我的资料

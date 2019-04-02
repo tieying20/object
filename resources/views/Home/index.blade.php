@@ -44,7 +44,7 @@
                         <!-- <i class="layui-badge fly-badge-vip">VIP3</i> -->
                     </a>
                     <span>{{ $v['created_at'] }}</span>
-                    <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻">
+                    <span class="fly-list-kiss layui-hide-xs" title="悬赏积分">
                         <i class="iconfont icon-kiss"></i>{{ $v['integral'] }}</span>
                     <!-- <span class="layui-badge fly-badge-accept layui-hide-xs">已结</span> -->
                     <span class="fly-list-nums"><i class="iconfont icon-pinglun1" title="回复"></i>{{ $v['reply_num'] }}</span>
@@ -91,7 +91,7 @@
                         <!-- <i class="layui-badge fly-badge-vip">VIP3</i> -->
                     </a>
                     <span>{{ $v['created_at'] }}</span>
-                    <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻">
+                    <span class="fly-list-kiss layui-hide-xs" title="悬赏积分">
                         <i class="iconfont icon-kiss"></i>{{ $v['integral'] }}</span>
                     <!-- <span class="layui-badge fly-badge-accept layui-hide-xs">已结</span> -->
                     <span class="fly-list-nums"><i class="iconfont icon-pinglun1" title="回复"></i>{{ $v['reply_num'] }}</span>
@@ -271,10 +271,10 @@
         @if(session()->has('user'))
           @if(strtotime($sign['updated_at']) < strtotime(date('Y-m-d')) )
             <button class="layui-btn layui-btn-danger" id="signin">今日签到</button>
-            <span>获得了<cite>5</cite>积分</span>
+            <span>可获得<cite>{{ $integral }}</cite>积分</span>
           @else
             <button class="layui-btn layui-btn-disabled">今日已签到</button>
-          <span>获得了<cite>5</cite>积分</span>
+            <span>获得了<cite>{{ $integral }}</cite>积分</span>
 
           @endif
         @else

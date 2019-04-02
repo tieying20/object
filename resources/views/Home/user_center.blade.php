@@ -14,9 +14,10 @@
 				<div class="fly-panel-main fly-signin-main">
 					@if(strtotime($sign['updated_at']) < strtotime(date('Y-m-d')) )
 		            	<button class="layui-btn layui-btn-danger" id="signin">今日签到</button>
+		            	<span>可获得<cite>{{ $integral }}</cite>积分</span>
 		            @else
 		            	<button class="layui-btn layui-btn-disabled">今日已签到</button>
-	          			<span>获得了<cite style="color:red;">&nbsp5&nbsp</cite>积分</span>
+	          			<span>获得了<cite>{{ $integral }}</cite>积分</span>
 		            @endif
 				</div> 
 			</div>
@@ -25,7 +26,7 @@
 			<div class="fly-panel fly-panel-border" >
 		 		<div class="fly-panel-title"> 我的会员信息 </div> 
 		 		<div class="fly-panel-main layui-text" style="padding: 18px 15px; height: 50px; line-height: 26px;"> 
-		 			<p>您的财富积分：{{ $sign['point'] }}</p> 
+		 			<p>您的财富积分：{{ $userinfo['integral'] }}</p> 
 		 			<p>您当前为：非 VIP</p> 
 		 		</div> 
 		 	</div>
@@ -48,7 +49,7 @@
 							<a href="/postlist/add" class="layui-btn layui-btn-lg"><i class="layui-icon"></i><cite>发表新帖</cite></a> 
 						</li> 
 						<li class="layui-col-sm3 layui-col-xs4"> 
-							<a href="/userinfo/message" class="layui-btn layui-btn-lg"><i class="layui-icon"></i><cite>我的消息</cite></a> 
+							<a href="/userinfo/message/{{ Session::get('user')['id'] }}" class="layui-btn layui-btn-lg"><i class="layui-icon"></i><cite>我的消息</cite></a> 
 						</li> 
 						<li class="layui-col-sm3 layui-col-xs4 "> 
 							<a href="javascript:;" class="layui-btn layui-btn-lg" id="fly-search"><i class="layui-icon"></i><cite>搜索资源</cite></a> 

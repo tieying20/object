@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Userinfo;
 use App\Models\User;
 use App\Models\sign_infos;
+use App\Models\post_column;
+use App\Models\Postlist;
 use DB;
 use Hash;
 use Mail;
@@ -26,8 +28,16 @@ class UserinfoController extends Controller
         $user = User::find($id);
         // 用户详情表
         $userinfo = $user->userinfo;
-        // 用户详细主页
-        return view('/Home/userinfo',['user'=>$user,'userinfo'=>$userinfo]);
+        //帖子列表
+        $postlist = $user->postlist;
+        // 栏目
+        $post_column = post_column::all();
+        //帖子回复
+        $reply = $user->reply;
+        //拿取回复帖子的标题
+        $plist = Postlist::all();
+        
+        return view('/Home/userinfo',['user'=>$user,'userinfo'=>$userinfo,'$user','postlist'=>$postlist,'post_column'=>$post_column,'reply'=>$reply,'plist'=>$plist]);
     }
     /**
      * 用户中心
@@ -40,7 +50,17 @@ class UserinfoController extends Controller
         $user = User::find(session('user')['id']);
         //签到
         $sign = sign_infos::where('uid','=',session('user')['id'])->where('month','=',date('m'))->first();
-        return view('/Home/user_center',['user'=>$user,'sign'=>$sign]);
+        //用户积分
+        $userinfo = Userinfo::where('uid','=',session('user')['id'])->first();
+        //当日可获取积分
+        if($sign['xunum'] <5){
+            $integral = 5;
+        }else if($sign['xunum'] <15 ){
+            $integral = 10;
+        }else if($sign['xunum'] >=15 ){
+            $integral = 15;
+        }
+        return view('/Home/user_center',['user'=>$user,'sign'=>$sign,'userinfo'=>$userinfo,'integral'=>$integral]);
     }
 
     /**
@@ -52,11 +72,34 @@ class UserinfoController extends Controller
     {
         // 用户表
         $user = User::find(session('user')['id']);
+        //帖子列表
+        $postlist = $user->postlist;
+        // 栏目
+        $post_column = post_column::all();
         // 用户详情表
         $userinfo = $user->userinfo;
-        return view('/Home/user_posts',['user'=>$user,'userinfo'=>$userinfo]);
+        return view('/Home/user_posts',['user'=>$user,'userinfo'=>$userinfo,'postlist'=>$postlist,'post_column'=>$post_column]);
     }
-
+    
+    /**
+     * 我的帖子删除功能
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function pdel($id)
+    {   
+        //删除帖子
+        $res = Postlist::destroy($id);
+ 
+        // dump($id);
+        if($res){
+            //删除成功
+            return 1;
+        }else{
+            //删除失败
+            return 0;
+        }
+    }
     /**
      * 基本设置
      *

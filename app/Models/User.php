@@ -15,10 +15,10 @@ class User extends Model
         return $this->hasOne('App\Models\Userinfo', 'uid');
     }
 
-     // 配置 一对一 签到模型
+     // 配置 一对多 签到模型
  	public function sign_info()
  	{
- 		return $this->hasOne('App\Models\sign_infos','uid');
+ 		return $this->hasMany('App\Models\sign_infos','uid');
  	}
 
  	// 配置 一对多 贴子模型
@@ -26,4 +26,8 @@ class User extends Model
     	return $this->hasMany('App\Models\postlist','uid');
     }
 
+    // 配置 一对多 回复帖子模型
+    public function reply(){
+        return $this->hasMany('App\Models\reply','uid');
+    }
 }
