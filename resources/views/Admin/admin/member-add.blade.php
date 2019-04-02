@@ -31,6 +31,17 @@
                   autocomplete="off" class="layui-input" placeholder="重复输入密码">
               </div>
           </div>
+          <div class="layui-form-item" pane="">
+            <label class="layui-form-label">所属角色</label>
+            @if($role)
+            @foreach($role as $key => $val)
+              <div class="layui-input-block">
+                <input type="checkbox" name="role_ids" lay-skin="primary" title="{{ $val['name'] }}" value="{{ $val['id'] }}">
+              </div>
+            @endforeach
+            @endif
+          </div>
+
           <div class="layui-form-item">
               <label for="role" class="layui-form-label">
                   <span class="x-red">*</span>管理员角色
@@ -74,22 +85,30 @@
                 }
             }
         });
+             
+
         //监听提交
         form.on('submit(add)', function(data){
-            // console.log(data);
+              var role_ids = [];
+
+            $('input[name="role_ids"]:checked').each(function () {
+                role_ids.push($(this).val());
+            }); 
+            // console.log(role_ids);
             //发异步，把数据提交给php
             $.ajaxSetup({
                 headers: {
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+            
             // 获取表单信息
             admin_name = $('#L_username').val();
             admin_pwd = $('#L_repass').val();
             a_repwd = $('#L_pass').val();
             role = $('#role').val();
             // ajax传值
-            $.post('/admin/admin',{'admin_name':admin_name,'admin_pwd':admin_pwd,'a_repwd':a_repwd,'role':role},function(data){
+            $.post('/admin/admin',{'admin_name':admin_name,'admin_pwd':admin_pwd,'a_repwd':a_repwd,'role':role,role_ids:role_ids},function(data){
                 // console.log(data);
                 if(data ==  1){
                     layer.alert("添加失败", {icon: 4},function () {

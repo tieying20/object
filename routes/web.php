@@ -104,6 +104,9 @@ Route::group(['middleware'=>'admin_login'],function(){
 	// 修改 前台用户状态
 	Route::get('userinfo/setStatus/{id}','UserinfoController@setStatus');
 
+	// 角色管理
+	Route::resource('admin/role','Admin\roleController');
+	Route::get('admin/role/setStatus/{id}','Admin\roleController@setStatus');
 });
 
 

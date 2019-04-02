@@ -68,11 +68,6 @@ class UsersController extends Controller
             return back()->with('error','手机验证码输入错误!');
         }
         
-        // 图片验证码
-        if(session('imgcode') != $request->input('vercode','')){
-            return back()->with('error','图形验证输入错误!');
-        }
-        
 
         // 将数据压入到数据库
         $user = new User;
@@ -171,6 +166,11 @@ class UsersController extends Controller
             return back()->with('error','密码不正确');
         }
 
+        // 图片验证码
+        if(session('imgcode') != $request->input('vercode','')){
+            return back()->with('error','图形验证输入错误!');
+        }
+        
         // 登录信息压入session
         session([
             'user' => ['phone'=>$user->phone,'id'=>$user->id,'u_name'=>$user->u_name],
