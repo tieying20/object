@@ -104,7 +104,7 @@
                   <dd><a href="{{ $v['b_url'] }}" target="_blank">{{ $v['b_company'] }}</a><dd>
                 @endif
               @endforeach
-              <dd><a href="javascript:;" onclick="layer.alert('发送邮件至：www@163.com<br> 邮件标题为：申请有个社区友链', {title:'申请友链'});" class="fly-link">申请友链</a></dd>
+              <dd><a href="javascript:;" onclick="layer.alert('发送邮件至：zuozhan@163.com<br> 邮件标题为：申请有个社区友链', {title:'申请友链'});" class="fly-link">申请友链</a></dd>
                   </dl>
           </div>
         </div>
@@ -112,7 +112,7 @@
     </div>
 
 <div class="fly-footer">
-  <p><a href="http://fly.layui.com/" target="_blank">有个社区</a> 2019 &copy; <a href="http://www.layui.com/" target="_blank">作战小组 出品</a></p>
+  <p><a>有个社区</a> 2019 &copy; <a>作战小组 出品</a></p>
   <p>
     <a href="http://fly.layui.com/jie/3147/" target="_blank">付费计划</a>
     <a href="http://www.layui.com/template/fly/" target="_blank">获取有个社区模版</a>

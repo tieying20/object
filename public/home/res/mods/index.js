@@ -382,7 +382,6 @@ layui.define(['layer', 'laytpl', 'form', 'element', 'upload', 'util'], function(
         ,'<ul>'
           ,'<li>中间若有间隔，则连续天数重新计算</li>'
           ,'<li>每个月1号连续天数重新计算</li>'
-          ,'<li>每个月1号积分重新计算</li>'
           ,'<li style="color: #FF5722;">不可利用程序自动签到，否则积分清零</li>'
         ,'</ul>'
       ,'</div>'].join('')

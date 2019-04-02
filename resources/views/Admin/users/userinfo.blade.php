@@ -12,7 +12,6 @@
             <th>城市</th>
             <th>积分</th>
             <th>等级</th>
-            <th>连续签到天数</th>
           </tr>
         </thead>
         <tbody>
@@ -35,7 +34,6 @@
             <td>{{ $user->userinfo->city }}</td>
             <td>{{ $user->userinfo->integral }}</td>
             <td>{{ $user->userinfo->level }}</td>
-            <td>{{ $user->userinfo->sign_num }}</td>
           </tr>
         <!-- 单条前台用户详情结束 -->
         </tbody>
