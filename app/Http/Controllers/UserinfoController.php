@@ -29,14 +29,14 @@ class UserinfoController extends Controller
         // 用户详情表
         $userinfo = $user->userinfo;
         //帖子列表
-        $postlist = $user->postlist;
+        $postlist = $user->postlist->take(13);
         // 栏目
         $post_column = post_column::all();
         //帖子回复
-        $reply = $user->reply;
+        $reply = $user->reply->take(5);
         //拿取回复帖子的标题
         $plist = Postlist::all();
-        
+
         return view('/Home/userinfo',['user'=>$user,'userinfo'=>$userinfo,'$user','postlist'=>$postlist,'post_column'=>$post_column,'reply'=>$reply,'plist'=>$plist]);
     }
     /**
@@ -80,17 +80,17 @@ class UserinfoController extends Controller
         $userinfo = $user->userinfo;
         return view('/Home/user_posts',['user'=>$user,'userinfo'=>$userinfo,'postlist'=>$postlist,'post_column'=>$post_column]);
     }
-    
+
     /**
      * 我的帖子删除功能
      *
      * @return \Illuminate\Http\Response
      */
     public function pdel($id)
-    {   
+    {
         //删除帖子
         $res = Postlist::destroy($id);
- 
+
         // dump($id);
         if($res){
             //删除成功

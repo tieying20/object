@@ -200,7 +200,7 @@
             if(res == '1'){
                 hint.css('display','none'); // 隐藏邮箱错误提示信息
                 $('#show_yzm').css('display',''); // 显示验证码输入框
-                i = 5; // 倒计时
+                i = 60; // 倒计时
                 timer = setInterval(function(){
                     i--;
                     $('#yzm').html('发送成功('+i+'秒后重新发送)');

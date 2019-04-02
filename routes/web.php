@@ -158,8 +158,6 @@ Route::get('home/imgcode','UsersController@imgcode');
 
 
 
-
-
 //签到路由开始
 
 //处理用户是否签到

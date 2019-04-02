@@ -38,7 +38,7 @@
     <div class="layui-col-md6 fly-home-jie">
       <div class="fly-panel">
         <h3 class="fly-panel-title">{{ $user->u_name }} 最近的发帖</h3>
-        <ul class="jie-row">
+        <ul class="jie-row" style="padding-bottom:14px">
         @if($postlist->first())
           @foreach($postlist as $k => $v)
             <li>
