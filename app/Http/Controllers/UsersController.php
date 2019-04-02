@@ -207,9 +207,9 @@ class UsersController extends Controller
 
         $url = "http://v.juhe.cn/sms/send"; // 接口
         $params = array(
-            'key'   => '49a706db90e4117101e2431a0570673c', //您申请的APPKEY
+            'key'   => 'ebde0a22534552ffcba30ad14e9450f3', //您申请的APPKEY
             'mobile'    => $phone, //接受短信的用户手机号码
-            'tpl_id'    => '144899', //您申请的短信模板ID，根据实际情况修改
+            'tpl_id'    => '144332', //您申请的短信模板ID，根据实际情况修改
             'tpl_value' =>'#code#='.$rand_code //您设置的模板变量，根据实际情况修改
         );
 

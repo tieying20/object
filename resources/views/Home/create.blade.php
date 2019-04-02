@@ -110,19 +110,19 @@
 
       function code(){
         num = 30;
-        timmer = setInterval(function(){
-          num--;
-          //button文本发生改变
-          btn.innerHTML ='重新发送('+num+')';
-          //button点击效果禁止
-          btn.disabled = true;
-          if(num<=0){
-            //清除定时器
-            clearInterval(timmer);
-            btn.innerHTML = '重新发送';
-            btn.disabled = false;
-          }
-        },1000)
+        // timmer = setInterval(function(){
+        //   num--;
+        //   //button文本发生改变
+        //   btn.innerHTML ='重新发送('+num+')';
+        //   //button点击效果禁止
+        //   btn.disabled = true;
+        //   if(num<=0){
+        //     //清除定时器
+        //     clearInterval(timmer);
+        //     btn.innerHTML = '重新发送';
+        //     btn.disabled = false;
+        //   }
+        // },1000)
         
         // alert($);
         var phone = $('#phone').val();
@@ -133,6 +133,19 @@
             return;
           }else{
             $('#myfont').html('');
+            timmer = setInterval(function(){
+              num--;
+              //button文本发生改变
+              btn.innerHTML ='重新发送('+num+')';
+              //button点击效果禁止
+              btn.disabled = true;
+              if(num<=0){
+                //清除定时器
+                clearInterval(timmer);
+                btn.innerHTML = '重新发送';
+                btn.disabled = false;
+              }
+            },1000)
           }
 
         $.get('/home/docode',{phone:phone},function(data){
