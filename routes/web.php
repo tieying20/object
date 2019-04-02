@@ -129,6 +129,7 @@ Route::group(['middleware'=>'admin_login'],function(){
 	// 修改 前台用户状态
 	Route::get('userinfo/setStatus/{id}','UserinfoController@setStatus');
 
+
 	// 贴子列表
 	Route::get('postlist/showlist','PostlistController@showList');
 	// 修改贴子的状态
@@ -140,6 +141,10 @@ Route::group(['middleware'=>'admin_login'],function(){
 	Route::get('postlist/report','PostlistController@report');
 	// 无违规，删除举报消息
 	Route::post('postlist/delReport','PostlistController@delReport');
+
+	// 角色管理
+	// Route::resource('admin/role','Admin\roleController');
+	// Route::get('admin/role/setStatus/{id}','Admin\roleController@setStatus');
 
 });
 

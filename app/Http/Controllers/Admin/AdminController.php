@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\Role;
+use App\Models\Admin_role;
 use Hash;
 class AdminController extends Controller
 {
@@ -31,14 +33,16 @@ class AdminController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * 显示添加页面
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
         // 显示添加页面
-        return view('/Admin/admin/member-add');
+        $role = Role::all();
+
+        return view('/Admin/admin/member-add',['role'=>$role]);
     }
 
     /**
@@ -54,9 +58,19 @@ class AdminController extends Controller
         $admin->admin_name = $request->input('admin_name');
         $admin->admin_pwd = Hash::make($request->input('admin_pwd'));
         $admin->role = $request->input('role');
+        // $role_ids = $request->input('role_ids',[]);
+        // dd($role_ids);
         $res = $admin->save();
         if($res){
             // 成功
+            // if($role_ids){
+            //     foreach($role_ids as $key => $val){
+            //         $admin_role = new Admin_role;
+            //         $admin_role->admin_id = $admin->id;
+            //         $admin_role->role_id = $val;
+            //         $admin_role->save();
+            //     }
+            // }
             return 0;
         }else{
             // 失败
@@ -86,6 +100,11 @@ class AdminController extends Controller
     {
         // 修改页面
         $edit_data = Admin::find($id);
+        $id = $edit_data->id;
+
+        // $admin_role = Admin_role::where('admin_id',$id)->get();
+        // dd($admin_role);
+
         return view('/Admin/admin/member-edit',['edit_data'=>$edit_data]);
 
     }
@@ -101,6 +120,7 @@ class AdminController extends Controller
     {
         // 执行修改
         $admin = Admin::find($id);
+
         // 输入的旧密码
         $old_pwd = $request->input('admin_pwd');
         if(isset($old_pwd)){

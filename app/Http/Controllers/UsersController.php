@@ -69,10 +69,9 @@ class UsersController extends Controller
         }
 
         // 图片验证码
-        if(session('imgcode') != $request->input('vercode','')){
-            return back()->with('error','图形验证输入错误!');
-        }
-
+        // if(session('imgcode') != $request->input('vercode','')){
+        //     return back()->with('error','图形验证输入错误!');
+        // }
 
         // 将数据压入到数据库
         $user = new User;
@@ -169,6 +168,11 @@ class UsersController extends Controller
         if(!Hash::check($home_pwd,$sql_pwd)){
             $request->flash();
             return back()->with('error','密码不正确');
+        }
+
+        // 图片验证码
+        if(session('imgcode') != $request->input('vercode','')){
+            return back()->with('error','图形验证输入错误!');
         }
 
         // 登录信息压入session

@@ -48,6 +48,17 @@
                   <input type="text" id="L_phone" name="phone" required lay-verify="required"  class="layui-input" value="{{ old('phone') }}">
                 </div>
               </div>
+
+              <div class="layui-form-item">
+                <label for="L_vercode" class="layui-form-label">图形验证</label>
+                <div class="layui-input-inline">
+                  <input type="text" id="L_vercode" name="vercode" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input" value="{{ old('vercode') }}">
+                </div>
+                <div >
+                  <img class="thumbnail captcha" src="{{ url('home/imgcode' )}}" onclick="this.src='/home/imgcode?'+Math.random()" title="点击图片重新获取验证码">
+                </div>
+              </div>
+              
               <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label">密码</label>
                 <div class="layui-input-inline">
