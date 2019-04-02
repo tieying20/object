@@ -42,10 +42,12 @@ Route::get('home/loginout','UsersController@loginout');
 // 贴子详情
 Route::get('postlist/detail/{cid}','PostlistController@detail');
 
+// 我的主页
+Route::get('userinfo/index/{id}','UserinfoController@index');
+
 // 判断用户登录中间件组
 Route::group(['middleware'=>['login']],function(){
-	// 我的主页
-	Route::get('userinfo/index/{id}','UserinfoController@index');
+
 	// 用户中心
 	Route::get('userinfo/center','UserinfoController@center');
 	// 我的帖子
@@ -129,7 +131,15 @@ Route::group(['middleware'=>'admin_login'],function(){
 
 	// 贴子列表
 	Route::get('postlist/showlist','PostlistController@showList');
+	// 修改贴子的状态
+	Route::post('postlist/setstatus','PostlistController@setStatus');
+	// 修改贴子的状态
+	Route::post('postlist/delete','PostlistController@delete');
 
+	// 回复举报页面
+	Route::get('postlist/report','PostlistController@report');
+	// 无违规，删除举报消息
+	Route::post('postlist/delReport','PostlistController@delReport');
 
 });
 

@@ -7,14 +7,19 @@
 	    <div  id="LAY_minemsg" style="margin-top: 10px;">
         <!--<div class="fly-none">您暂时没有最新消息</div>-->
         <ul class="mine-msg">
+        @if($notice->first())
         @foreach($notice as $k=>$v)
           <li data-id="123">
             <blockquote class="layui-elem-quote">
-              <a href="/jump?username=Absolutely" target="_blank"><cite>{{ $v->user['u_name'] }}</cite></a>在贴子<a target="_blank" href="/postlist/detail/{{ $v->postlist['id'] }}"><cite>{{ $v->postlist['post_title'] }}</cite></a>{!! $v['notice_type'].$v['data'] !!}
+              <a href="/jump?username=Absolutely" target="_blank"><cite>{{ $v->user['u_name'] }}</cite></a>{{ empty($v['uid']) ? '系统通知：' : '在贴子' }}<a target="_blank" href="/postlist/detail/{{ $v->postlist['id'] }}">@if(!empty($v->postlist['post_title']))<cite>{{ $v->postlist['post_title'] }}</cite>@endif</a>{{ $v['notice_type'] }}
+              <div style="padding-left: 15px">{!! $v['data'] !!}</div>
             </blockquote>
             <p><span>{{ $v['created_at'] }}</span><a href="javascript:;" class="layui-btn layui-btn-small layui-btn-danger fly-delete">删除</a></p>
           </li>
         @endforeach
+        @else
+            <div class="fly-none">您暂时没有最新消息</div>
+        @endif
         </ul>
       </div>
 	  </div>

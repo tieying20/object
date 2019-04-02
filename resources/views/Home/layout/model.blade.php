@@ -1,5 +1,4 @@
 @include('Home/layout/header')
-
     <div class="fly-panel fly-column">
       <div class="layui-container">
         <ul class="layui-clear">
@@ -72,21 +71,25 @@
           <div class="fly-panel fly-rank fly-rank-reply" id="LAY_replyRank">
             <h3 class="fly-panel-title">回贴周榜</h3>
             <dl>
-              <!--<i class="layui-icon fly-loading">&#xe63d;</i>-->
+              <!-- <i class="layui-icon fly-loading">&#xe63d;</i> -->
+              @foreach($r_user as $key=>$value)
               <dd>
-                <a href="user/home.html">
-                  <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"><cite>贤心</cite><i>106次回答</i>
+                <a href="/userinfo/index/{{ $value['id'] }}">
+                  <img src="{{ $value->userinfo->head_img }}"><cite>{{ $value['u_name'] }}</cite><i>{{ $r_count[$value['id']] }}次回答</i>
                 </a>
               </dd>
+              @endforeach
             </dl>
           </div>
 
           <dl class="fly-panel fly-list-one">
             <dt class="fly-panel-title">本周热议</dt>
+            @foreach($reyi as $key=>$value)
             <dd>
-              <a href="jie/detail.html">基于 layui 的极简社区页面模版</a>
-              <span><i class="iconfont icon-pinglun1"></i> 16</span>
+              <a href="/postlist/detail/{{ $value['id'] }}">{{ $value['post_title'] }}</a>
+              <span><i class="iconfont icon-pinglun1"></i> {{ $value['reply_num'] }}</span>
             </dd>
+            @endforeach
             <!-- 无数据时 -->
             <!--
             <div class="fly-none">没有相关数据</div>

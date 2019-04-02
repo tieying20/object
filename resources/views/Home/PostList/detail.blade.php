@@ -8,8 +8,13 @@
             <span class="layui-badge layui-bg-green fly-detail-column">{{ $postlist->postColumn['post_name'] }}</span>
             <!-- <span class="layui-badge" style="background-color: #999;">未结</span> -->
             <!-- <span class="layui-badge" style="background-color: #5FB878;">已结</span> -->
-            <span class="layui-badge layui-bg-black">置顶</span>
+            @if($postlist['status'] == 1)
             <span class="layui-badge layui-bg-red">精帖</span>
+            @elseif($postlist['status'] == 2)
+            <span class="layui-badge layui-bg-black">置顶</span>
+            @endif
+            <!-- <span class="layui-badge layui-bg-black">置顶</span>
+            <span class="layui-badge layui-bg-red">精帖</span> -->
             <div class="fly-admin-box" data-id="123">
                 <!-- <span class="layui-btn layui-btn-xs jie-admin" type="del">删除</span> -->
                 <!-- <span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="1">置顶</span> -->

@@ -50,8 +50,8 @@
                     <span class="fly-list-nums"><i class="iconfont icon-pinglun1" title="回复"></i>{{ $v['reply_num'] }}</span>
                 </div>
                 <div class="fly-list-badge">
-                    @if($v['status'] == 1)
-                    <span class="layui-badge layui-bg-red">精帖</span>
+                    @if($v['status'] == 2)
+                    <span class="layui-badge layui-bg-black">置顶</span>
                     @endif
                 </div>
             </li>

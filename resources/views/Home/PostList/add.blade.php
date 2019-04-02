@@ -59,18 +59,11 @@
               </div>
               <div class="layui-form-item">
 
-                  <label class="layui-form-label">悬赏飞吻</label>
+                  <label class="layui-form-label">悬赏积分</label>
                   <div class="layui-input-inline" style="width: 190px;">
-                    <input type="text" class="layui-input" name="integral">
-                    <!-- <select name="experience">
-                      <option value="20">20</option>
-                      <option value="30">30</option>
-                      <option value="50">50</option>
-                      <option value="60">60</option>
-                      <option value="80">80</option>
-                    </select> -->
+                    <input type="text" class="layui-input" name="integral" value="0" id="integral">
                   </div>
-                  <div class="layui-form-mid layui-word-aux">发表后无法更改飞吻</div>
+                  <div class="layui-form-mid layui-word-aux" id="hint">剩余{{ $integral }}积分哦</div>
 
               </div>
               <!-- <div class="layui-form-item">
@@ -83,7 +76,7 @@
                 </div>
               </div> -->
               <div class="layui-form-item">
-                <button class="layui-btn" lay-submit>立即发布</button>
+                <button class="layui-btn" onclick="return verify()">立即发布</button>
               </div>
             </form>
           </div>
@@ -101,6 +94,33 @@
     <a href="http://fly.layui.com/jie/2461/" target="_blank">微信公众号</a>
   </p>
 </div>
+<script>
+    // 积分框
+    $('#integral').focus(function(){
+        // 获取到焦点，如果值设置为默认值0则设置为空
+        if($(this).val() == '0'){
+            $(this).val('');
+        }
+    }).blur(function(){
+        // 失去焦点的时候如果值为空则设置为0
+        if($(this).val() == ''){
+            $(this).val('0');
+        }
+    });
 
+    // 提交验证
+    function verify(){
+        integral = $('#integral').val(); // 获取输入框积分
+        have = {{ $integral }}; // 获取剩余积分
+
+        if((have-integral) < 0){
+            $('div#hint').html('<span style="color:red;">你的积分剩余' + have + '，请不要超额使用！</span>');
+            $('#integral').focus();
+            return false; // 阻止表单标砖
+        }else{
+            return true; // 让表单跳转
+        }
+    }
+</script>
 </body>
 </html>

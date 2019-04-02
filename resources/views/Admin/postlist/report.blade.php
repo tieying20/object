@@ -42,13 +42,12 @@
               <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
             </th>
             <th>序号</th>
-            <th>栏目</th>
-            <th>贴子标题</th>
-            <th>发帖用户</th>
-            <th>访问次数</th>
-            <th>回复次数</th>
-            <th>贴子状态</th>
-            <th>发帖时间</th>
+            <th>回贴用户</th>
+            <th>回贴内容</th>
+            <th>举报类型</th>
+            <th>描述举报内容</th>
+            <th>贴子的链接</th>
+            <th>回贴时间</th>
             <th>操作</th></tr>
         </thead>
         <tbody>
@@ -61,39 +60,25 @@
                   <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='{{ $value['id'] }}'><i class="layui-icon">&#xe605;</i></div>
                 </td>
                 <td>{{ $firstItem++ }}</td>
-                <td>{{ $value->postColumn['post_name'] }}</td>
-                <td><a href="/postlist/detail/{{ $value['id'] }}" target="_blank">{{ $value['post_title'] }}</a></td>
-                <td><a href="/userinfo/index/{{ $value->user['id'] }}" target="_blank">{{ $value->user->u_name }}</a></td>
-                <td>{{ $value['visits'] }}</td>
-                <td>{{ $value['reply_num'] }}</td>
-                <td onclick="setStatus(this,{{ $value['id'] }},{{ $value['status'] }})">
-                    @switch($value['status'])
-                        @case(0)
-                            普通贴
-                            @break
-                        @case(1)
-                            精华帖
-                            @break
-                        @case(2)
-                            置顶帖
-                            @break
-                        @case(9)
-                            已删除
-                            @break
-                    @endswitch
-
-                </td>
+                <td>{{ $value->reply->user['u_name'] }}</td>
+                <td>{!! $value->reply['reply_content'] !!}</td>
+                <td>{{ $value['type'] }}</td>
+                <td>{{ $value['content'] or '未填写'}}</td>
+                <td><a href="{{ $value['post_url'] }}" target="_blank">{{ $value['post_url'] }}</a></td>
                 <td>{{ $value['created_at'] }}</td>
                 <td class="td-manage">
-                    <a title="删除" onclick="member_del(this,'{{ $value{'id'} }}')" href="javascript:;">
-                        <i class="layui-icon">&#xe640;</i>
+                    <a title="未违规，删除举报并通知用户" onclick="member_del(this,'{{ $value{'id'} }}')" href="javascript:;">
+                        <i class="icon iconfont"></i>
                     </a>
+                    <!-- <a title="存在违规，删除并通知用户" onclick="member_del(this,'{{ $value{'id'} }}')" href="javascript:;">
+                        <i class="layui-icon">&#xe640;</i>
+                    </a> -->
                 </td>
               </tr>
         @endforeach
         @else
             <tr>
-                <td colspan="10">暂无数据</td>
+                <td colspan="9">暂无数据</td>
             </tr>
         @endif
         <!-- 单条会员列表结束 -->
@@ -179,27 +164,27 @@
     }
 
 
-      /*贴子-删除*/
-      function member_del(obj,id){
-        layer.confirm('确认要删除吗？',function(index){
+      /*未违规，删除并通知举报用户*/
+    function member_del(obj,id){
+        layer.confirm('未违规，删除举报并通知举报用户',function(index){
             //发异步删除数据
             // ajax传值
-            $.post('/postlist/delete',{id:id},function(result){
+            $.post('/postlist/delReport',{id:id},function(result){
                 // 1 删除成功
                 // 2 删除失败
                 if(result == 1){
                     $(obj).parents("tr").remove();
-                    layer.msg('删除成功',{icon:1,time:1000});
+                    layer.msg('操作成功',{icon:1,time:1000});
                 }else{
-                    layer.alert("删除失败", {icon: 4});
+                    layer.alert("操作失败", {icon: 4});
                 }
             });
         });
-      }
+    }
 
       function delAll (argument) {
         var data = tableCheck.getData();
-        layer.confirm('确认要删除'+ data.length+'个贴子吗？',function(index){
+        layer.confirm('未违规，删除举报并通知'+ data.length+'位用户吗？',function(index){
             //捉到所有被选中的，发异步进行删除
             // ajax传值
             $.ajaxSetup({
@@ -207,7 +192,7 @@
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            $.post('/postlist/delete',{id:data},function(result){
+            $.post('/postlist/delReport',{id:data},function(result){
                 // 1 删除成功
                 // 2 删除失败
                 if(result == 1){

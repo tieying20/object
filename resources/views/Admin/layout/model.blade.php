@@ -79,12 +79,18 @@
                             <cite>贴子列表</cite>
                         </a>
                     </li >
+                    <li>
+                        <a _href="/postlist/report">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>回复举报</cite>
+                        </a>
+                    </li >
                 </ul>
             </li>
             <li>
                 <a href="javascript:;">
                     <i class="iconfont">&#xe723;</i>
-                    <cite>分类管理</cite>
+                    <cite>-----</cite>
                     <i class="iconfont nav_right">&#xe697;</i>
                 </a>
                 <ul class="sub-menu">
